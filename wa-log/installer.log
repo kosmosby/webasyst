@@ -7,3 +7,12 @@ Curl error: 28# Operation timed out after 10000 milliseconds with 36654 bytes re
 
 2018-02-10 20:15:36 127.0.0.1
 Curl error: 28# Operation timed out after 10001 milliseconds with 33414 bytes received at [http://www.webasyst.com/download/2.0/apps/?server_data=1&hash=85d84168315ca2933d274240aa8860cd&domain=d2ViYXNzaXN0LnRzdA%3D%3D&signature=eyJwaHAiOiI1LjYuMTAiLCJjIjo4LCJhcGkiOiJhcGFjaGUyaGFuZGxlciIsIm9zIjoiRGFyd2luIiwiciI6IjE3LjIuMCJ9&locale=ru_RU]
+
+2018-02-27 15:05:23 127.0.0.1
+Curl error: 6# name lookup timed out at [http://www.webasyst.com/download/2.0/plugins/?app_id=blog&server_data=1&hash=85d84168315ca2933d274240aa8860cd&domain=d2ViYXNzaXN0LnRzdA%3D%3D&signature=eyJwaHAiOiI1LjYuMTAiLCJjIjo4LCJhcGkiOiJhcGFjaGUyaGFuZGxlciIsIm9zIjoiRGFyd2luIiwiciI6IjE3LjIuMCJ9&locale=ru_RU]
+
+2018-02-27 15:05:33 127.0.0.1
+Curl error: 6# name lookup timed out at [http://www.webasyst.com/download/2.0/plugins/?app_id=blog&server_data=1&hash=85d84168315ca2933d274240aa8860cd&domain=d2ViYXNzaXN0LnRzdA%3D%3D&signature=eyJwaHAiOiI1LjYuMTAiLCJjIjo4LCJhcGkiOiJhcGFjaGUyaGFuZGxlciIsIm9zIjoiRGFyd2luIiwiciI6IjE3LjIuMCJ9&locale=ru_RU]
+
+2018-02-27 15:05:44 127.0.0.1
+Curl error: 6# name lookup timed out at [http://www.webasyst.com/download/2.0/plugins/?app_id=blog&server_data=1&hash=85d84168315ca2933d274240aa8860cd&domain=d2ViYXNzaXN0LnRzdA%3D%3D&signature=eyJwaHAiOiI1LjYuMTAiLCJjIjo4LCJhcGkiOiJhcGFjaGUyaGFuZGxlciIsIm9zIjoiRGFyd2luIiwiciI6IjE3LjIuMCJ9&locale=ru_RU]

@@ -147,12 +147,12 @@ return array (
     'build' => 86,
     'img' => 'wa-apps/team/img/team48.png',
   ),
-  'magasins' =>
+  'magasins' => 
   array (
     'id' => 'magasins',
-    'name' => 'Magasin',
+    'name' => 'Magasins',
     'img' => 'wa-apps/magasins/img/magasins.png',
-    'build' => 1519121221,
+    'build' => 1519809249,
     'icon' => 
     array (
       48 => 'wa-apps/magasins/img/magasins.png',
