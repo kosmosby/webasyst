@@ -1,0 +1,32 @@
+<form id="post-form" action="magasins/?module=provider&action=save"  method="post">
+    {$wa->csrf()}
+
+    <div class="content right200px">
+
+        <div class="b-stream b-single-post">
+            <div class="b-stream-title" style="padding-left: 20px;">
+                {$title}
+            </div>
+
+            <div class="block double-padded b-post b-bottom-extra-padded " style="position: static;">
+
+                <input name="name" type="text" value="{$provider.name|escape}" class="b-post-title" maxlength="255" placeholder="Название провайдера">
+
+                <input name="url" type="text" value="{$provider.url|escape}" class="b-post-title" maxlength="255" placeholder="Cсылка на магазин">
+
+                <input name="xml_url" type="text" value="{$provider.xml_url|escape}" class="b-post-title" maxlength="255" placeholder="xml провайдера">
+
+                <input type="hidden" id="d" name="id" value="{$provider.id}">
+
+            </div>
+            <div class="block double-padded b-post" id="buttons-bar">
+                <div id="b-post-public-settings">
+                    <input id="b-post-save-button" type="submit" class="button green" name="" value="[`Save`]" >
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</form>

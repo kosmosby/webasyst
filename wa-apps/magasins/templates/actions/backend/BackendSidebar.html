@@ -3,15 +3,32 @@
         <!-- core navigation -->
         <div class="block">
             <ul class="menu-v with-icons category-menu">
+
+                {if isset($view_all_magasins) && $view_all_magasins == true}
                 <li class="bottom-padded {if isset($new_magasin)&&$new_magasin==true}selected{/if}">
                     <a href="?module=magasin&amp;action=edit&amp;id="><i class="icon16 add"></i><strong>Новый магазин</strong>
                     </a>
                 </li>
+                {/if}
+
+                {if isset($view_all_providers) && $view_all_providers == true}
+                <li class="bottom-padded {if isset($new_provider)&&$new_provider==true}selected{/if}">
+                    <a href="?module=provider&amp;action=edit&amp;id="><i class="icon16 add"></i><strong>Новый поставщик</strong>
+                    </a>
+                </li>
+                {/if}
 
                 <li {if isset($view_all_magasins) && $view_all_magasins == true}class="selected"{/if}>
                 <a href="{$wa_app_url}">
                     <span class="count ">{$magasins_count}</span>
                     <i class="icon16 blogs"></i>Магазины
+                </a>
+                </li>
+
+                <li {if isset($view_all_providers) && $view_all_providers == true}class="selected"{/if}>
+                <a href="?module=provider">
+                    <span class="count ">{$providers_count}</span>
+                    <i class="icon16 blogs"></i>Поставщики
                 </a>
                 </li>
 

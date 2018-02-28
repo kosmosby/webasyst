@@ -1,0 +1,34 @@
+<div class="b-stream">
+
+    <div class="b-stream-title">
+
+        <div class="float-right ie-menu-h-fix">
+            <ul class="menu-h" id="blog-stream-primary-menu">
+
+                <li class="b-search-form">
+                    <input type="search" name="text" class="search" placeholder="Искать" value="">
+                </li>
+
+            </ul>
+
+        </div>
+        <h1>
+            Все записи
+        </h1>
+    </div>
+
+    <div class="block b-post b-number-of-posts pageless-wrapper">
+        <div class="block">
+            <ul class="zebra">
+                {foreach from=$records item=r}
+                <li>
+                    <a class="count" href="?module=provider&action=delete&id={$r.id}">
+                        удалить</a>
+                    <div><a href="?module=provider&action=edit&id={$r.id}">{$r.id} {$r.name} ({$r.url})</a></div>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
