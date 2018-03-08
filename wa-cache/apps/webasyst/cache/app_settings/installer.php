@@ -4,13 +4,13 @@ return array (
   array (
     'app_id' => 'installer',
     'name' => 'update_counter',
-    'value' => '',
+    'value' => '1',
   ),
   1 => 
   array (
     'app_id' => 'installer',
     'name' => 'update_counter_timestamp',
-    'value' => '1519809005',
+    'value' => '1520536943',
   ),
   2 => 
   array (

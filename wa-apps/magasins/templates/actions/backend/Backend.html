@@ -1,34 +1,63 @@
-<div class="b-stream">
 
-    <div class="b-stream-title">
+<form action="index.php" method="post" id="adminForm" name="adminForm">
 
-        <div class="float-right ie-menu-h-fix">
-            <ul class="menu-h" id="blog-stream-primary-menu">
-
-                <li class="b-search-form">
-                    <input type="search" name="text" class="search" placeholder="Искать" value="">
-                </li>
-
-            </ul>
-
-        </div>
-        <h1>
-            Все записи
-        </h1>
-  </div>
-
-    <div class="block b-post b-number-of-posts pageless-wrapper">
-        <div class="block">
-            <ul class="zebra">
-                {foreach from=$records item=r}
-                <li>
-                    <a class="count" href="?module=magasin&action=delete&id={$r.id}">
-                    удалить</a>
-                        <div><a href="?module=magasin&action=edit&id={$r.id}">{$r.id} {$r.name} ({$r.url})</a></div>
-                </li>
-                {/foreach}
-            </ul>
-        </div>
+    <div style="margin-top: 10px;"></div>
+    <div style="float: left;">
+        <button type="button" class="btn btn-outline-success btn-sm" onclick="return submitbutton('magasin','edit');" >Добавить</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" onclick="return deletebutton('magasin','delete');">Удалить</button>
     </div>
+
+    <div style="float: right;" class="mr-3 mb-3">
+        <input class="form-control form-control-sm" type="text" placeholder="поиск" name="search" value="{$search}">
     </div>
-</div>
+
+    <div style="margin-top: 10px;"></div>
+
+    <div>
+            <table class="table table-striped table-bordered table-hover">
+                <caption>Список магазинов</caption>
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col"><input type="checkbox" onclick="return checkAll();"> </th>
+                        <th scope="col">#</th>
+                        <th scope="col">название</th>
+                        <th scope="col">url</th>
+                        <th scope="col">кол-во поставщиков</th>
+                        <th scope="col">включить/отключить</th>
+                        <th scope="col">панель управления</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {foreach from=$records item=r}
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="magasin_checkbox" value="{$r.id}" name="cid[]">
+                            </td>
+                            <th scope="row">{$r.id}</td>
+                            <td><a href="?module=magasin&action=edit&id={$r.id}">{$r.name}</a></td>
+                            <td><a href="{$r.url}" target="_blank">{$r.url}</a></td>
+                            <td>0</td>
+                            <td>
+                                <div class="btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-sm btn-outline-warning {if $r.published}active{/if}">
+                                        <!--<input type="checkbox" autocomplete="off" onclick="return listItemTask('cb{$r.id}','banners.sticky_publish')">Включить-->
+                                        <input type="checkbox"  autocomplete="off" data-toggle="toggle" class="publish_toogle" magasin_id="{$r.id}">{if $r.published}Отключить{else}Включить{/if}
+                                    </label>
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <!--<a class="count" href="?module=magasin&action=delete&id={$r.id}">-->
+                        <!--удалить</a>-->
+                            <!--<div><a href="?module=magasin&action=edit&id={$r.id}">{$r.id} {$r.name} ({$r.url})</a></div>-->
+                    {/foreach}
+                </tbody>
+            </table>
+   </div>
+
+
+    <input type="hidden" name="module" value="magasin"/>
+
+
+</form>

@@ -6,11 +6,11 @@ class magasinsMagasinDeleteController extends waController
     public function execute()
     {
         $model = new magasinsMagasinModel();
-        $id = waRequest::get('id');
+        $ids = waRequest::post('ids');
 
-        if (isset($id) && $id) {
-                $model->deleteById($id);
+        if (isset($ids) && $ids) {
+                $model->deleteById(explode(',',$ids));
         }
-        $this->redirect(waSystem::getInstance()->getUrl());
+        //$this->redirect(waSystem::getInstance()->getUrl());
     }
 }

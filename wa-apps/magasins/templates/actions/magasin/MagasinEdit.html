@@ -1,30 +1,30 @@
-<form id="post-form" action="magasins/?module=magasin&action=save"  method="post">
+<form id="post-form" action="magasins/?module=magasin&action=save"  method="post" data-toggle="validator">
     {$wa->csrf()}
 
-    <div class="content right200px">
-
-        <div class="b-stream b-single-post">
-            <div class="b-stream-title" style="padding-left: 20px;">
-                {$title}
+    <div class="container">
+        <div class="row col-6">
+            <div class="mt-3 mb-3">
+                <h3>{$title}</h3>
             </div>
 
-            <div class="block double-padded b-post b-bottom-extra-padded " style="position: static;">
-
-                <input name="name" type="text" value="{$magasin.name|escape}" class="b-post-title" maxlength="255" placeholder="Название магазина">
-
-                <input name="url" type="text" value="{$magasin.url|escape}" class="b-post-title" maxlength="255" placeholder="Cсылка на магазин">
-
-                <input type="hidden" id="d" name="id" value="{$magasin.id}">
-
-            </div>
-            <div class="block double-padded b-post" id="buttons-bar">
-                <div id="b-post-public-settings">
-                    <input id="b-post-save-button" type="submit" class="button green" name="" value="[`Save`]" >
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-name">Название магазина</span>
                 </div>
+                <input type="text" name="name" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-name" value="{$magasin.name|escape}" required>
             </div>
 
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-url">url магазина</span>
+                </div>
+                <input type="url" name="url" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-url" value="{$magasin.url|escape}" required>
+            </div>
+
+            <div id="b-post-public-settings">
+                <input  type="submit" class="btn btn-success" name="" value="[`Save`]" >
+            </div>
         </div>
-
     </div>
-
+    <input type="hidden" id="d" name="id" value="{$magasin.id}">
 </form>

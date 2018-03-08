@@ -152,7 +152,7 @@ return array (
     'id' => 'magasins',
     'name' => 'Magasins',
     'img' => 'wa-apps/magasins/img/magasins.png',
-    'build' => 1519809249,
+    'build' => 1520501056,
     'icon' => 
     array (
       48 => 'wa-apps/magasins/img/magasins.png',

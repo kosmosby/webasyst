@@ -4,6 +4,7 @@ return array(
         'id' => array('int', 11, 'null' => 0, 'autoincrement' => 1),
         'name' => array('varchar', 255, 'null' => 0),
         'url' => array('varchar', 255 => 0),
+        'published' => array('tinyint', 1, 'null' => 0, 'default' => '0'),
         ':keys' => array(
             'PRIMARY' => 'id'
         ),
@@ -13,6 +14,7 @@ return array(
         'name' => array('varchar', 255, 'null' => 0),
         'url' => array('varchar', 255 => 0),
         'xml_url' => array('varchar', 255 => 0),
+        'published' => array('tinyint', 1, 'null' => 0, 'default' => '0'),
         ':keys' => array(
             'PRIMARY' => 'id'
         ),
