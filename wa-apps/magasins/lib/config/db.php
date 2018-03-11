@@ -19,4 +19,13 @@ return array(
             'PRIMARY' => 'id'
         ),
     ),
+    'magasins_setupmagasin' => array(
+        'id' => array('int', 11, 'null' => 0, 'autoincrement' => 1),
+        'magasin_id' => array('int', 11, 'null' => 0),
+        'provider_id' => array('int', 11 => 0),
+        'only_refresh' => array('tinyint', 1, 'null' => 0, 'default' => '0'),
+        ':keys' => array(
+            'PRIMARY' => 'id'
+        ),
+    ),
 );

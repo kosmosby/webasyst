@@ -1,0 +1,72 @@
+<form action="index.php?module=setupmagasin" method="post" id="adminForm" name="adminForm">
+
+    <div><h1 class="display-4">{$magasin.name}</h1></div>
+    <div><p class="h5"><a href="{$magasin.url}" target="_blank">{$magasin.url}</a></p></div>
+
+
+    <div class="mt-5"></div>
+    <div style="float: left;">
+        <button type="button" class="btn btn-outline-success btn-sm" onclick="return submitbuttonsetup('setupmagasin','edit', {$magasin_id});" >Добавить</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" onclick="return deletebutton('setupmagasin','delete');">Удалить</button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="return window.location.href = '{$wa_app_url}';">Вернуться</button>
+    </div>
+
+    <div style="float: right;" class="mr-3 mb-3">
+        <input class="form-control form-control-sm" type="text" placeholder="поиск" name="search" value="{$search}">
+    </div>
+
+    <div style="margin-top: 10px;"></div>
+
+    <div>
+        <table class="table table-striped table-bordered table-hover">
+            <caption>Список поставщиков</caption>
+            <thead class="thead-light">
+            <tr>
+                <th scope="col"><input type="checkbox" onclick="return checkAll();"> </th>
+                <th scope="col">#</th>
+                <th scope="col"># поставищка</th>
+                <th scope="col">название</th>
+                <th scope="col">url</th>
+                <th scope="col">только обновлять</th>
+                <th scope="col">периодичность обновления</th>
+                <th scope="col">настройка xml</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            {foreach from=$records item=r}
+            <tr>
+                <td>
+                    <input type="checkbox" class="setupmagasin_checkbox" value="{$r.id}" name="cid[]">
+                </td>
+                <td>{$r.id}</td>
+                <td>{$r.provider_id}</td>
+                <td><a href="?module=provider&action=edit&id={$r.provider_id}">{$r.provider_name}</a></td>
+                <td><a href="{$r.provider_url}">{$r.provider_url}</a></td>
+
+                <td>
+                    <div class="btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-sm btn-outline-warning {if $r.only_refresh}active{/if}">
+                            <input type="checkbox"  autocomplete="off" data-toggle="toggle" module="setupmagasin" class="publish_toogle" value_id="{$r.id}">{if $r.only_refresh}Только обновлять{else}Включить{/if}
+                        </label>
+                    </div>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-outline-info btn-sm" onclick="return window.location.href = '?module=setupmagasin&id={$r.id}';">настройка</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-outline-dark btn-sm" onclick="return window.location.href = '?module=setupmagasin&id={$r.id}';">настройка</button>
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+
+
+    <input type="hidden" name="module" value="setupmagasin"/>
+    <input type="hidden" name="magasin_id" value="{$magasin_id}"/>
+
+
+</form>
