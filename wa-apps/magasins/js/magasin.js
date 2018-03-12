@@ -44,3 +44,7 @@ function checkAll() {
 function submitbuttonsetup(module, action, id) {
     window.location.href = '/webasyst/magasins/?module='+module+'&action='+action+'&magasin_id='+id+'&id=';
 }
+
+function submitbuttonfields(module, action, magasin_id, provider_id) {
+    window.location.href = '/webasyst/magasins/?module='+module+'&action='+action+'&magasin_id='+magasin_id+'&provider_id='+provider_id+'&id=';
+}

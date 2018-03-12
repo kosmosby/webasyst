@@ -8,6 +8,9 @@ class magasinsSetupmagasinEditAction extends waViewAction
         $id = waRequest::get('id', null, waRequest::TYPE_INT);
         $magasin_id = waRequest::get('magasin_id', null, waRequest::TYPE_INT);
 
+        $model_magasin = new magasinsMagasinModel();
+        $magasin_info = $model_magasin->getById($magasin_id);
+
         $provider_model = new magasinsProviderModel();
 
         $providers = $provider_model->select('*')
@@ -34,7 +37,7 @@ class magasinsSetupmagasinEditAction extends waViewAction
         $this->view->assign('title', $title);
         $this->view->assign('setupmagasin', $setupmagasin);
 
-        $this->view->assign('magasin_id', $magasin_id);
+        $this->view->assign('magasin_info', $magasin_info);
         $this->view->assign('providers', $providers);
 
 

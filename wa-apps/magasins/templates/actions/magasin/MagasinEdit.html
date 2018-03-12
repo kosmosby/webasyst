@@ -1,12 +1,15 @@
 <form id="post-form" action="magasins/?module=magasin&action=save"  method="post" data-toggle="validator">
     {$wa->csrf()}
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{$wa_app_url}">Магазины</a></li>
+            <li class="breadcrumb-item">{$title}</li>
+        </ol>
+    </nav>
+
     <div class="container">
         <div class="row col-6">
-            <div class="mt-3 mb-3">
-                <h3>{$title}</h3>
-            </div>
-
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-name">Название магазина</span>

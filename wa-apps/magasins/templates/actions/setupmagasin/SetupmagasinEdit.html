@@ -1,12 +1,16 @@
 <form id="post-form" action="magasins/?module=setupmagasin&action=save"  method="post" data-toggle="validator">
     {$wa->csrf()}
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{$wa_app_url}">Магазины</a></li>
+            <li class="breadcrumb-item"><a href="?module=setupmagasin&magasin_id={$magasin_info.id}">{$magasin_info.name}</a></li>
+            <li class="breadcrumb-item">{$title}</li>
+        </ol>
+    </nav>
+
     <div class="container">
         <div class="col-6">
-            <div class="mt-3 mb-3">
-                <h3>{$title}</h3>
-            </div>
-
             <div class="mb-3 ">
                 <select class="custom-select selectpicker" name="provider_id" required>
                         <option valaue=""></option>
@@ -17,11 +21,12 @@
             </div>
 
             <div id="b-post-public-settings mt-3">
-                <input  type="submit" class="btn btn-success" name="" value="[`Save`]" > <button type="button" class="btn btn-warning" onclick="return window.location.href = '?module=setupmagasin&magasin_id={$magasin_id}';">Вернуться</button>
+                <input  type="submit" class="btn btn-success" name="" value="[`Save`]" >
+                <button type="button" class="btn btn-warning" onclick="return window.location.href = '?module=setupmagasin&magasin_id={$magasin_info.id}';">Вернуться</button>
             </div>
         </div>
     </div>
     <input type="hidden" name="id" value="{$setupmagasin.id}">
-    <input type="hidden" id="magasin_id" name="magasin_id" value="{$magasin_id}">
+    <input type="hidden" id="magasin_id" name="magasin_id" value="{$magasin_info.id}">
 </form>
 
