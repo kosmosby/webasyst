@@ -1237,7 +1237,7 @@ class waSystem
     }
 
     /**
-     * Returns a setting value for specified app.
+     * Returns a settings value for specified app.
      *
      * @param  string       $name     Settings field string id.
      * @param  mixed        $default  Default value, which is returned if requested settings field contains no value.

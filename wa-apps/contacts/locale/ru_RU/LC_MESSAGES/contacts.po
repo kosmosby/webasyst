@@ -710,7 +710,7 @@ msgstr[2] "%d ссылок"
 msgid "Categories are for classifying contacts, e.g. customers, providers, partners, etc."
 msgstr "Категории служат для классификации контактов, например: клиенты, поставщики, партнеры и т.д."
 
-msgid "User groups are for organizing Webasyst users and setting common access rights for groups."
+msgid "User groups are for organizing Webasyst users and settings common access rights for groups."
 msgstr "Группы служат для объединения пользователей Вебасиста и предоставления им общих прав доступа."
 
 msgid "This login is already set for user %NAME_LINK%"

@@ -29,7 +29,7 @@
                         }
                     });
 
-            $('.b-setting-icon').click(
+            $('.b-settings-icon').click(
                     function() {
                         $(this).parent().find('li.selected').removeClass('selected');
                         $(this).addClass('selected');

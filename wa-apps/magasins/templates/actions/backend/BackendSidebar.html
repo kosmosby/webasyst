@@ -21,14 +21,21 @@
                 <li {if isset($view_all_magasins) && $view_all_magasins == true}class="selected"{/if}>
                 <a href="{$wa_app_url}">
                     <span class="count ">{$magasins_count}</span>
-                    <i class="icon16 blogs"></i>Магазины
+                    <i class="icon16 widgets"></i>Магазины
                 </a>
                 </li>
 
                 <li {if isset($view_all_providers) && $view_all_providers == true}class="selected"{/if}>
                 <a href="?module=provider">
                     <span class="count ">{$providers_count}</span>
-                    <i class="icon16 blogs"></i>Поставщики
+                    <i class="icon16 plugins"></i>Поставщики
+                </a>
+                </li>
+
+
+                <li {if isset($view_settings) && $view_settings == true}class="selected"{/if}>
+                <a href="?module=settings">
+                    <i class="icon16 settings"></i>Настройки
                 </a>
                 </li>
 

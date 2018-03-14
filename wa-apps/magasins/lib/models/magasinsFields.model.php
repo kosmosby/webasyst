@@ -1,5 +1,5 @@
 <?php
 class magasinsFieldsModel extends waModel
 {
-    protected $table = 'magasins_fields';
+    protected $table = 'magasins_fields_provider';
 }

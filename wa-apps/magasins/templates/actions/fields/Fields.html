@@ -40,7 +40,16 @@
                     <input type="checkbox" class="provider_checkbox" value="{$r.id}" name="cid[]">
                 </td>
                 <th scope="row">{$r.id}</td>
-                <td><a href="?module=fields&action=edit&id={$r.id}&magasin_id={$magasin_info.id}&provider_id={$provider_info.id}">{$r.name}</a></td>
+                <td>
+                    {if !$search}
+                    {for $foo=0 to $r.level-1}
+                    &#8211;
+                    {/for}
+                    {/if}
+
+                    <a href="?module=fields&action=edit&id={$r.id}&magasin_id={$magasin_info.id}&provider_id={$provider_info.id}">{$r.name}</a>
+
+                </td>
             </tr>
             {/foreach}
             </tbody>

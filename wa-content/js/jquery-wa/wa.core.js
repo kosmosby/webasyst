@@ -355,7 +355,7 @@ $.wa = $.extend(true, $.wa, {
     },
 
     /**
-     * Automatically set server-side timezone if "Auto" timezone setting
+     * Automatically set server-side timezone if "Auto" timezone settings
      * is saved in user profile.
      */
     determineTimezone: function(wa_url, callback) {

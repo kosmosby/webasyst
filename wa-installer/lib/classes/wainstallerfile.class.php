@@ -148,7 +148,7 @@ class waInstallerFile
             $content = @file_get_contents($path);
         } else {
             $path = preg_replace('@\?.+$@', '', $path);
-            throw new Exception("Couldn't read {$path} Please check allow_url_fopen setting or PHP extension Curl are enabled");
+            throw new Exception("Couldn't read {$path} Please check allow_url_fopen settings or PHP extension Curl are enabled");
         }
         return $content;
     }

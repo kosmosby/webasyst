@@ -29,7 +29,7 @@ var newsWidget = ( function($) {
                     }
                 }, 60*2*1000);
             } catch (e) {
-                console && console.log('Error setting up News widget updater', e);
+                console && console.log('Error settings up News widget updater', e);
             }
         }, 0);
     };

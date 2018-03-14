@@ -95,8 +95,8 @@ msgid "Groups"
 msgstr ""
 
 #: /wa-apps/contacts/templates/actions/backend/BackendSidebar.html:181
-msgid "User groups are for organizing Webasyst users and setting common access rights for groups."
-msgstr "User groups are for organizing Webasyst users and setting up common access rights for groups."
+msgid "User groups are for organizing Webasyst users and settings common access rights for groups."
+msgstr "User groups are for organizing Webasyst users and settings up common access rights for groups."
 
 #: /wa-apps/contacts/js/wa.grid.js:10
 msgid "Photo"

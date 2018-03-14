@@ -4438,7 +4438,7 @@ msgstr "Интервалы доставки"
 msgid "Add interval"
 msgstr "Добавить интервал"
 
-msgid "This setting must be supported by the app; e.g., Shop-Script ver. 7.2.4.114 or higher."
+msgid "This settings must be supported by the app; e.g., Shop-Script ver. 7.2.4.114 or higher."
 msgstr "Эта настройка должна поддерживаться приложением, например, Shop-Script версии 7.2.4.114 или выше."
 
 msgid "Google app ID"

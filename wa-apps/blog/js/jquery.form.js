@@ -265,7 +265,7 @@ $.fn.ajaxSubmit = function(options) {
 				form.setAttribute('action', s.url);
 			}
 
-			// ie borks in some cases when setting encoding
+			// ie borks in some cases when settings encoding
 			if (! s.skipEncodingOverride) {
 				$form.attr({
 					encoding: 'multipart/form-data',

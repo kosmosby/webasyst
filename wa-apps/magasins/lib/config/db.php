@@ -28,11 +28,19 @@ return array(
             'PRIMARY' => 'id'
         ),
     ),
-    'magasins_fields' => array(
+    'magasins_fields_provider' => array(
         'id' => array('int', 11, 'null' => 0, 'autoincrement' => 1),
         'name' => array('varchar', 255, 'null' => 0),
         'magasin_id' => array('int', 11, 'null' => 0),
         'provider_id' => array('int', 11 => 0),
+        'parent_id' => array('int', 11 => 0),
+        ':keys' => array(
+            'PRIMARY' => 'id'
+        ),
+    ),
+    'magasins_fields_settings' => array(
+        'id' => array('int', 11, 'null' => 0, 'autoincrement' => 1),
+        'name' => array('varchar', 255, 'null' => 0),
         'parent_id' => array('int', 11 => 0),
         ':keys' => array(
             'PRIMARY' => 'id'

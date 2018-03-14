@@ -284,8 +284,8 @@ msgstr "PHP version"
 msgid "PHP extension %s"
 msgstr "PHP extension: %s"
 
-msgid "PHP setting %s"
-msgstr "PHP setting: %s"
+msgid "PHP settings %s"
+msgstr "PHP settings: %s"
 
 msgid "Version of %s"
 msgstr "Version of %s"
@@ -303,11 +303,11 @@ msgid "Server software version"
 msgstr "Web server"
 
 #: /wa-apps/installer/lib/classes/wainstallerrequirements.class.php:141
-msgid "setting has value %s but should be %s"
+msgid "settings has value %s but should be %s"
 msgstr "Required value is %2$s (current value is %1$s)."
 
 #: /wa-apps/installer/lib/classes/wainstallerrequirements.class.php:141
-msgid "setting has value %s but recommended %s"
+msgid "settings has value %s but recommended %s"
 msgstr "Recommended value is %2$s (current value is %1$s)."
 
 #: /wa-apps/installer/templates/actions/settings/Settings.html:93

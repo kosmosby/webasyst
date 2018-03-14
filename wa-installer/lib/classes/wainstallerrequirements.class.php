@@ -131,7 +131,7 @@ class waInstallerRequirements
         $requirement['note'] = false;
         $requirement['warning'] = false;
         if ($subject) {
-            self::setDefaultDescription($requirement, array('PHP setting %s', htmlentities($subject, ENT_QUOTES, 'utf-8')), '');
+            self::setDefaultDescription($requirement, array('PHP settings %s', htmlentities($subject, ENT_QUOTES, 'utf-8')), '');
             $value = ini_get($subject);
             if (isset($requirement['value'])) {
                 if (strtolower($value) == 'on') {
@@ -142,7 +142,7 @@ class waInstallerRequirements
                 $relation = $this->getRelation($requirement['value'], true);
                 if ($relation) {
                     if (!version_compare($value, $requirement['value'], $relation)) {
-                        $format = !empty($requirement['strict']) ? _w('setting has value %s but should be %s') : _w('setting has value %s but recommended %s');
+                        $format = !empty($requirement['strict']) ? _w('settings has value %s but should be %s') : _w('settings has value %s but recommended %s');
                         $requirement['warning'] = sprintf($format, var_export($value, true), $relation.$requirement['value']);
                     } else {
                         $requirement['passed'] = true;
@@ -155,7 +155,7 @@ class waInstallerRequirements
                         }
                     }
                 } elseif ($value != $requirement['value']) {
-                    $format = !empty($requirement['strict']) ? _w('setting has value %s but should be %s') : _w('setting has value %s but recommended %s');
+                    $format = !empty($requirement['strict']) ? _w('settings has value %s but should be %s') : _w('settings has value %s but recommended %s');
                     $requirement['warning'] = sprintf($format, var_export($value, true), $requirement['value']);
                 } else {
                     $requirement['passed'] = true;

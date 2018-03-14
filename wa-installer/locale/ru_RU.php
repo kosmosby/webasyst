@@ -115,11 +115,11 @@ return array(
     'curl'
     => 'cURL',
 
-    'PHP setting %s'
+    'PHP settings %s'
     => 'Настройка PHP: %s',
-    'setting has value %s but should be %s'
+    'settings has value %s but should be %s'
     => 'Требуемое значение %2$s, текущее значение %1$s',
-    'setting has value %s but recommended %s'
+    'settings has value %s but recommended %s'
     => 'Рекомендуемое значение %2$s, текущее значение %1$s',
 
     'Version of %s'

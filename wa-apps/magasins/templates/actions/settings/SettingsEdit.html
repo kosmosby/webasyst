@@ -1,0 +1,42 @@
+<form id="post-form" action="magasins/?module=settings&action=save"  method="post" data-toggle="validator">
+    {$wa->csrf()}
+
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="?module=settings">Настройки</a></li>
+            <li class="breadcrumb-item">{$title}</li>
+         </ol>
+    </nav>
+
+    <div class="container">
+        <div class="row col-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-name">Название поля</span>
+                </div>
+                <input type="text" name="name" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-name" value="{$settings.name|escape}" required>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-parent">Родительское поле</span>
+                </div>
+                <select class="custom-select selectpicker" name="parent_id" required>
+                    <option valaue="0">Родительский элемент</option>
+                    {foreach from=$fields_select item=r}
+                    <option value="{$r.id}" {if $settings.parent_id == $r.id}selected="selected"{/if}>{$r.name}</option>
+                    {/foreach}
+                </select>
+
+
+            </div>
+            <div id="b-post-public-settings">
+                <input  type="submit" class="btn btn-success" name="" value="[`Save`]" >
+            </div>
+        </div>
+    </div>
+
+
+    <input type="hidden" name="id" value="{$settings.id}">
+</form>

@@ -882,7 +882,7 @@
             var groups_html = '<ul class="menu-v with-icons collapsible" id="list-group">';
             groups_html
                 += '<li class="hint c-shown-on-no-groups" style="padding:0 20px; ' + (!$.isEmptyObject(groups) ? 'display: none;' : '') + '">'
-                    + $_('User groups are for organizing Webasyst users and setting common access rights for groups.')
+                    + $_('User groups are for organizing Webasyst users and settings common access rights for groups.')
                 + '</li>';
 
             if (!$.isEmptyObject(groups)) {

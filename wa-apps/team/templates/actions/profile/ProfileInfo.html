@@ -99,7 +99,7 @@
         $($.wa.contactEditor).on('contact_saved', function(evt, data) {
             window.profileTab.trigger('contact_saved', data);
             if (data && data.timezone === '') {
-                // If user has just changed their timezone setting to 'Auto',
+                // If user has just changed their timezone settings to 'Auto',
                 // determine timezone via JS.
                 $.wa.determineTimezone({$wa_url|json_encode});
             }
@@ -107,7 +107,7 @@
     });
 
     {if !empty($is_my_profile) && !$contact.timezone}
-        // If user timezone setting is 'Auto', use JS to set timezone.
+        // If user timezone settings is 'Auto', use JS to set timezone.
         $.wa.determineTimezone({$wa_url|json_encode});
     {/if}
 
