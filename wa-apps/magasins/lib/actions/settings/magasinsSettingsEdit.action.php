@@ -19,7 +19,9 @@ class magasinsSettingsEditAction extends waViewAction
             $settings = array(
                 'id'              => '',
                 'name'            => '',
-                'parent_id'         => ''
+                'parent_id'         => '',
+                'is_property'       => ''
+
             );
             $title = 'Добавляем настройки полей xml';
         }

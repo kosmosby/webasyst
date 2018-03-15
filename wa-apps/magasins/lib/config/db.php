@@ -34,6 +34,7 @@ return array(
         'magasin_id' => array('int', 11, 'null' => 0),
         'provider_id' => array('int', 11 => 0),
         'parent_id' => array('int', 11 => 0),
+        'is_property' => array('tinyint', 1, 'null' => 0, 'default' => '0'),
         ':keys' => array(
             'PRIMARY' => 'id'
         ),
@@ -42,6 +43,7 @@ return array(
         'id' => array('int', 11, 'null' => 0, 'autoincrement' => 1),
         'name' => array('varchar', 255, 'null' => 0),
         'parent_id' => array('int', 11 => 0),
+        'is_property' => array('tinyint', 1, 'null' => 0, 'default' => '0'),
         ':keys' => array(
             'PRIMARY' => 'id'
         ),

@@ -14,6 +14,9 @@
         <button type="button" class="btn btn-outline-success btn-sm" onclick="return submitbuttonfields('fields','edit',{$magasin_info.id},{$provider_info.id});" >Добавить</button>
         <button type="button" class="btn btn-outline-danger btn-sm" onclick="return deletebutton('fields','delete');">Удалить</button>
         <button type="button" class="btn btn-outline-secondary btn-sm" onclick="return window.location.href = '?module=setupmagasin&magasin_id={$magasin_info.id}';">Вернуться</button>
+
+        <button type="button" class="btn btn-outline-info btn-sm" onclick="return window.location.href = '?module=readxml&provider_id={$provider_info.id}&magasin_id={$magasin_info.id}';">Прочитать</button>
+
     </div>
 
     <div style="float: right;" class="mr-3 mb-3">
@@ -48,6 +51,8 @@
                     {/if}
 
                     <a href="?module=fields&action=edit&id={$r.id}&magasin_id={$magasin_info.id}&provider_id={$provider_info.id}">{$r.name}</a>
+
+                    {if $r.is_property} <i>свойство</i> {/if}
 
                 </td>
             </tr>

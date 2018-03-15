@@ -1,6 +1,6 @@
 <?php
 
-class magasinsFieldsAction extends waViewAction
+class magasinsFieldsproviderAction extends waViewAction
 {
     public $records_array = array();
 
@@ -22,24 +22,18 @@ class magasinsFieldsAction extends waViewAction
         $this->setLayout( new magasinsDefaultLayout());
 
         if($search) {
-            $sql = $model->query("SELECT * FROM magasins_fields_provider WHERE magasin_id = ".$magasin_info['id']." and provider_id = ".$provider_info['id']." AND (name LIKE '%".$search."%' ) ORDER BY id DESC");
+            $sql = $model->query("SELECT id, name, parent_id FROM magasins_fields_provider WHERE magasin_id = ".$magasin_info['id']." and provider_id = ".$provider_info['id']." AND (name LIKE '%".$search."%' ) ORDER BY id DESC");
             $records = $sql->fetchAll();
         }
         else {
-            $sql = $model->query("SELECT * FROM magasins_fields_provider WHERE magasin_id = ".$magasin_info['id']." and provider_id = ".$provider_info['id']." ORDER BY id DESC");
+            $sql = $model->query("SELECT id, name, parent_id FROM magasins_fields_provider WHERE magasin_id = ".$magasin_info['id']." and provider_id = ".$provider_info['id']." ORDER BY id DESC");
             $records = $sql->fetchAll();
         }
-//
-//        echo "<pre>";
-//        print_r($records);
-//        echo "</pre>"; die;
+
         if(!$search) {
             $this->get_array($records, 0, 0);
             $records = $this->records_array;
         }
-//        echo "<pre>";
-//        print_r($records); die;
-//        echo "</pre>";
 
         $this->view->assign('magasin_info', $magasin_info);
         $this->view->assign('provider_info', $provider_info);

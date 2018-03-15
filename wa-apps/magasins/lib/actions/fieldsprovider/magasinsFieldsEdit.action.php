@@ -5,7 +5,6 @@ class magasinsFieldsEditAction extends waViewAction
 
     public function execute()
     {
-
         $id = waRequest::get('id', null, waRequest::TYPE_INT);
 
         $magasin_id = waRequest::request('magasin_id');
@@ -36,7 +35,6 @@ class magasinsFieldsEditAction extends waViewAction
             );
             $title = 'Добавляем поля поставщика';
         }
-
 
         $this->view->assign('title', $title);
         $this->view->assign('fields', $fields);

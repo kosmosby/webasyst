@@ -28,10 +28,22 @@
                     <option value="{$r.id}" {if $settings.parent_id == $r.id}selected="selected"{/if}>{$r.name}</option>
                     {/foreach}
                 </select>
-
-
             </div>
-            <div id="b-post-public-settings">
+
+            <div class="form-check input-group mb-3">
+                <input class="form-check-input" type="radio" name="is_property" id="exampleRadios1" value="0" {if !$settings.is_property}checked{/if}>
+                <label class="form-check-label" for="exampleRadios1">
+                    содержание
+                </label>
+            </div>
+            <div class="form-check input-group mb-3">
+                <input class="form-check-input" type="radio" name="is_property" id="exampleRadios2" value="1" {if $settings.is_property}checked{/if}>
+                <label class="form-check-label" for="exampleRadios2">
+                    свойство
+                </label>
+            </div>
+
+            <div id="b-post-public-settings" class="clearfix">
                 <input  type="submit" class="btn btn-success" name="" value="[`Save`]" >
             </div>
         </div>
