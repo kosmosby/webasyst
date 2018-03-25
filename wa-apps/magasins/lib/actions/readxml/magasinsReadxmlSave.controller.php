@@ -1,6 +1,6 @@
 <?php
 
-class magasinsFieldsSaveController extends waController
+class magasinsReadxmlSaveController extends waController
 {
 
     public function execute()

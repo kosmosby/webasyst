@@ -7,6 +7,10 @@ class magasinsFieldsSaveController extends waController
     {
         $model = new magasinsFieldsModel();
 
+
+
+
+
         if (waRequest::method() == 'post') {
             $id = waRequest::post('id');
             $name = waRequest::post('name');
@@ -14,6 +18,15 @@ class magasinsFieldsSaveController extends waController
             $provider_id = waRequest::post('provider_id');
             $parent_id = waRequest::request('parent_id');
             $is_property = waRequest::request('is_property');
+            $get_values = waRequest::request('get_values');
+
+            if($get_values == 'on') {
+                $get_values = 1;
+            }
+            else {
+                $get_values = 0;
+            }
+
 
             if($id) {
                 $model->updateById($id,array(
@@ -21,7 +34,8 @@ class magasinsFieldsSaveController extends waController
                     'magasin_id' => $magasin_id,
                     'provider_id' => $provider_id,
                     'parent_id' => $parent_id,
-                    'is_property' => $is_property
+                    'is_property' => $is_property,
+                    'get_values' => $get_values
                 ));
             }
             else {
@@ -30,7 +44,8 @@ class magasinsFieldsSaveController extends waController
                     'magasin_id' => $magasin_id,
                     'provider_id' => $provider_id,
                     'parent_id' => $parent_id,
-                    'is_property' => $is_property
+                    'is_property' => $is_property,
+                    'get_values' => $get_values
                 ));
             }
         }

@@ -32,7 +32,8 @@ class magasinsFieldsEditAction extends waViewAction
                 'name'            => '',
                 'magasin_id'             => '',
                 'parent_id'         => '',
-                'is_property'       => ''
+                'is_property'       => '',
+                'get_values'       => ''
             );
             $title = 'Добавляем поля поставщика';
         }

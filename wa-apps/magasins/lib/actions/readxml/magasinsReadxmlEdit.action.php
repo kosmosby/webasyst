@@ -1,6 +1,6 @@
 <?php
 
-class magasinsFieldsEditAction extends waViewAction
+class magasinsReadxmlEditAction extends waViewAction
 {
 
     public function execute()

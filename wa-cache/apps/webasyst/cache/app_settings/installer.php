@@ -10,7 +10,7 @@ return array (
   array (
     'app_id' => 'installer',
     'name' => 'update_counter_timestamp',
-    'value' => '1521110387',
+    'value' => '1521983572',
   ),
   2 => 
   array (

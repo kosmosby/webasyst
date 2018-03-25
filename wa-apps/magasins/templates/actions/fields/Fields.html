@@ -33,6 +33,9 @@
                 <th scope="col" width="5%"><input type="checkbox" onclick="return checkAll();"> </th>
                 <th scope="col" width="5%">#</th>
                 <th scope="col">название поля</th>
+                <th scope="col">свойство</th>
+                <th scope="col">получать значения</th>
+
             </tr>
             </thead>
 
@@ -52,9 +55,13 @@
 
                     <a href="?module=fields&action=edit&id={$r.id}&magasin_id={$magasin_info.id}&provider_id={$provider_info.id}">{$r.name}</a>
 
-                    {if $r.is_property} <i>свойство</i> {/if}
+
 
                 </td>
+
+                <td>{if $r.is_property} <i>свойство</i> {/if}</td>
+
+                <td>{if $r.get_values} 1 {/if}</td>
             </tr>
             {/foreach}
             </tbody>
