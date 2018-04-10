@@ -63,12 +63,7 @@ class magasinsReadxmlAction extends waViewAction
         $this->prepare_before_insert();
 
 
-
-
         $this->insert_into_db();
-
-
-
 
 
         if ($xml_url) {
@@ -252,22 +247,11 @@ class magasinsReadxmlAction extends waViewAction
     public function prepare_before_insert()
     {
 
-//                echo "<pre>";
-//        print_r($this->array);
-//        echo "</pre>";
-        //       die;
 
         foreach ($this->array as $k => $v) {
             if (isset($v['values']) && count($v['values'])) {
                 foreach ($v['values'] as $n => $m) {
                     foreach ($m['value'] as $s => $q) {
-
-
-//                        echo "<pre>";
-//                        print_r($q);
-//                        echo "</pre>";
-//
-//                        die;
 
                         $keys = array_keys(array_column($this->array, 'name'), $q['tag']);
                         if ($keys !== FALSE) {
@@ -284,11 +268,6 @@ class magasinsReadxmlAction extends waViewAction
                         }
                     }
 
-                    echo "<pre>";
-                    print_r($this->array);
-                    echo "</pre>";
-                    die;
-
                     if (isset($m['attributes']) && count($m['attributes'])) {
                         foreach ($m['attributes'] as $w => $y) {
 
@@ -301,15 +280,41 @@ class magasinsReadxmlAction extends waViewAction
 //                                    if(isset($this->array[$z]['id']) && $this->array[$z]['id']) {
 //                                        unset($this->array[$z]['id']);
 //                                    }
-
                                         $this->array[$k]['values'][$n]['value'][] = array("tag" => $w, "value" => $y, "db_field" => $this->array[$b]["db_field"]);
                                     }
                                 }
                             }
+                        }
+                    }
+
+                    if(isset($m['value']) && count($m['value'])) {
+                        foreach($m['value'] as $kk=>$vv) {
+                            if(isset($vv['attributes']) && count($vv['attributes'])) {
+                                foreach ($vv['attributes'] as $xx=>$yy) {
+
+                                    $keys = array_keys(array_column($this->array, 'name'), $xx);
+
+                                    if ($keys !== FALSE) {
+                                        foreach ($keys as $a => $b) {
+                                            if (isset($this->array[$b]) && $this->array[$b]['parent_id'] == $v['id']) {
+
+//                                                echo "<pre>";
+//                                                print_r($this->array[$k]['values'][$n]['value'][$kk]); die;
+
+                                                $this->array[$k]['values'][$n]['value'][$kk]['attributes'][$this->array[$b]["db_field"]] = $yy;
+                                            }
+                                        }
+                                    }
+//
+                                }
+                            }
+
+
 
                         }
 
                     }
+
 
                 }
             }
@@ -319,17 +324,46 @@ class magasinsReadxmlAction extends waViewAction
 
     public function insert_into_db()
     {
+
         $model = new magasinsMagasinModel();
         foreach ($this->array as $k => $v) {
+
             if (isset($v['db_table']) && isset($v['values']) && count($v['values'])) {
 
                 $sql = "INSERT INTO " . $v['db_table'] . " SET \n";
 
                 if (isset($v['values']) && count($v['values'])) {
                     foreach ($v['values'] as $n => $m) {
+
                         $count = 0;
                         foreach ($m['value'] as $s => $q) {
-                            if (isset($q['db_field']) && isset($q['value'])) {
+
+                            if (isset($q['db_field']) && isset($q['value']) && isset($q['attributes'])) {
+                                $count1=0;
+                                if ($count1 > 0) {
+                                    $sql .= ",";
+                                }
+
+                                $sql = "INSERT INTO " . $v['db_table'] . " SET \n";
+                                $sql .= "`" . $q['db_field'] . "` = '" . $model->escape($q['value']) . "' \n";
+                                $count1++;
+
+                                foreach($q['attributes'] as $aa=>$bb) {
+                                     if(strpos($aa,".")) {
+
+                                         if ($count1 > 0) {
+                                             $sql .= ",";
+                                         }
+                                         $sql .= "`" . $aa . "` = '" . $model->escape($bb) . "' \n";
+                                         $count1++;
+                                     }
+                                }
+
+                                $result = $model->exec(str_replace($v['db_table'] . ".", "", $sql));
+                                $sql = '';
+                            }
+
+                            else if (isset($q['db_field']) && isset($q['value']) && !isset($q['attributes'])) {
                                 if ($count > 0) {
                                     $sql .= ",";
                                 }
@@ -337,8 +371,11 @@ class magasinsReadxmlAction extends waViewAction
                                 $count++;
                             }
                         }
-                        $result = $model->exec(str_replace($v['db_table'] . ".", "", $sql));
-                        $sql = "INSERT INTO " . $v['db_table'] . " SET \n";
+
+                        if($sql) {
+                            $result = $model->exec(str_replace($v['db_table'] . ".", "", $sql));
+                            $sql = "INSERT INTO " . $v['db_table'] . " SET \n";
+                        }
                     }
                 }
             }
