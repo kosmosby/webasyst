@@ -32,6 +32,18 @@
                 </select>
             </div>
 
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-database">Поле в базе данных</span>
+                </div>
+                <select class="custom-select selectpicker" name="db_field">
+                    <option valaue=""></option>
+                    {foreach from=$database_select item=r}
+                    <option value="{$r.fields}" {if $fields.db_field == $r.fields}selected="selected"{/if}>{$r.fields}</option>
+                    {/foreach}
+                </select>
+            </div>
+
             <div class="form-check input-group mb-3">
                 <input class="form-check-input" type="radio" name="is_property" id="exampleRadios1" value="0" {if !$fields.is_property}checked{/if}>
                 <label class="form-check-label" for="exampleRadios1">
@@ -51,6 +63,20 @@
                 <label class="form-check-label" for="gridCheck">
                     Получить значения
                 </label>
+            </div>
+
+            <div class="form-check input-group mb-3">
+                <input class="form-check-input" type="checkbox" id="has_a_key" name="has_a_key" {if $fields.has_a_key}checked{/if}>
+                <label class="form-check-label" for="has_a_key">
+                    Ключевой элемент
+                </label>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-db_table">Таблица, куда писать</span>
+                </div>
+                <input type="text" name="db_table" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-name" value="{$fields.db_table|escape}" >
             </div>
 
 

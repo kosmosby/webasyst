@@ -5,7 +5,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{$wa_app_url}">Магазины</a></li>
             <li class="breadcrumb-item"><a href="?module=setupmagasin&magasin_id={$magasin_info.id}">{$magasin_info.name}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">список полей: {$provider_info.name} <a href="{$provider_info.xml_url}" target="_blank">{$provider_info.xml_url}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">чтение полей xml: {$provider_info.name} <a href="{$provider_info.xml_url}" target="_blank">{$provider_info.xml_url}</a></li>
         </ol>
     </nav>
 
@@ -31,7 +31,15 @@
                 {foreach from=$records item=r}
                     <td>
                         {foreach from=$r.values item=q}
-                            {$q}<br />
+
+                            {if $q eq ''}
+                                    ---------
+                            {else}
+                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="{$q}">
+                                        {$q|truncate:20}
+                                    </span>
+                            {/if}
+                            <br />
 
                         {/foreach}
                     </td>

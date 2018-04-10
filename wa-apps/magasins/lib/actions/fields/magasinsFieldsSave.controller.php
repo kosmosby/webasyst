@@ -7,10 +7,6 @@ class magasinsFieldsSaveController extends waController
     {
         $model = new magasinsFieldsModel();
 
-
-
-
-
         if (waRequest::method() == 'post') {
             $id = waRequest::post('id');
             $name = waRequest::post('name');
@@ -19,12 +15,22 @@ class magasinsFieldsSaveController extends waController
             $parent_id = waRequest::request('parent_id');
             $is_property = waRequest::request('is_property');
             $get_values = waRequest::request('get_values');
+            $db_field = waRequest::request('db_field');
+            $has_a_key = waRequest::request('has_a_key');
+            $db_table = waRequest::request('db_table');
 
             if($get_values == 'on') {
                 $get_values = 1;
             }
             else {
                 $get_values = 0;
+            }
+
+            if($has_a_key == 'on') {
+                $has_a_key = 1;
+            }
+            else {
+                $has_a_key = 0;
             }
 
 
@@ -35,7 +41,10 @@ class magasinsFieldsSaveController extends waController
                     'provider_id' => $provider_id,
                     'parent_id' => $parent_id,
                     'is_property' => $is_property,
-                    'get_values' => $get_values
+                    'get_values' => $get_values,
+                    'db_field' => $db_field,
+                    'has_a_key' => $has_a_key,
+                    'db_table' => $db_table
                 ));
             }
             else {
@@ -45,7 +54,10 @@ class magasinsFieldsSaveController extends waController
                     'provider_id' => $provider_id,
                     'parent_id' => $parent_id,
                     'is_property' => $is_property,
-                    'get_values' => $get_values
+                    'get_values' => $get_values,
+                    'db_field'   => $db_field,
+                    'has_a_key'   => $has_a_key,
+                    'db_table'      => $db_table
                 ));
             }
         }

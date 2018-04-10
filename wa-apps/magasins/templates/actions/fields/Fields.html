@@ -35,6 +35,9 @@
                 <th scope="col">название поля</th>
                 <th scope="col">свойство</th>
                 <th scope="col">получать значения</th>
+                <th scope="col">поля в базе</th>
+                <th scope="col">ключевой элемент</th>
+                <th scope="col">таблица в базе</th>
 
             </tr>
             </thead>
@@ -62,6 +65,10 @@
                 <td>{if $r.is_property} <i>свойство</i> {/if}</td>
 
                 <td>{if $r.get_values} 1 {/if}</td>
+
+                <td>{$r.db_field}</td>
+                <td>{if $r.has_a_key} 1 {/if}</td>
+                <td>{$r.db_table}</td>
             </tr>
             {/foreach}
             </tbody>
