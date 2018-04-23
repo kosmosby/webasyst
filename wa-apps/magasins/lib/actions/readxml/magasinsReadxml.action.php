@@ -35,6 +35,7 @@ class magasinsReadxmlAction extends waViewAction
         $this->clean_array();
 
 
+
         //simplexml_reader
 //        if($xml_url) {
 //            $simplexml = simplexml_load_file($xml_url);
@@ -58,6 +59,9 @@ class magasinsReadxmlAction extends waViewAction
         $xml = new XMLReader();
         $xml->open($xml_url);
         $this->xml2assoc($xml);
+
+        echo "<pre>";
+        print_r($this->array); die;
 
 
         $this->prepare_before_insert();
