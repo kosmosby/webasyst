@@ -6,6 +6,9 @@ class testXML
 
     public $array = array();
     public $path = "";
+    public $conn;
+    public $count_sql_strings = 0;
+    public $sql = '';
 
     function __construct() {
 
@@ -26,6 +29,8 @@ class testXML
         $xml = new XMLReader();
         $xml->open($xml_url);
         $this->xml2assoc($xml);
+
+        $this->insert_sql();
 
         echo "<pre>";
         print_r($this->array); die;
@@ -59,7 +64,7 @@ class testXML
                     if ($key !== FALSE) {
                         $searhed_array = $this->array[$key];
 
-                        if ($this->array[$key]['get_values'] && $this->array[$key]['db_table']) {
+                        if ($this->array[$key]['get_values']) {
                                 $linked_data = $this->get_childs_by_parent_id($searhed_array['id']);
 
                                 $linked_data[] = $searhed_array;
@@ -74,32 +79,28 @@ class testXML
                                             }
                                         }
                                         else {
+                                            if(!is_array($node['value'])) {
                                                 $values_for_db[$v['db_field']] = $node['value'];
+                                            }
+                                            else {
+                                                    if(isset($v['values_for_db'][0]) && isset($values_for_db)) {
+                                                        $values_for_db = array_merge($v['values_for_db'][0], $values_for_db);
+                                                    }
+                                            }
                                         }
                                 }
+
+                                if(!$this->array[$key]['db_table']) {
+                                    unset($this->array[$key]['values_for_db']);
+                                }
+
                                 $this->array[$key]['values_for_db'][] = $values_for_db;
                         }
-//                        elseif ($this->array[$key]['get_values']) {
-//                            $linked_data = $this->get_childs_by_parent_id($searhed_array['id']);
-//
-//                            $linked_data[] = $searhed_array;
-//
-//                            $values_for_db = array();
-//                            foreach ($linked_data as $k=>$v) {
-//
-//                                if($v['is_property']) {
-//                                    foreach ($node['attributes'] as $n=>$m) {
-//                                        if($n==$v['name']) {
-//                                            $values_for_db[$v['db_field']] = $m;
-//                                        }
-//                                    }
-//                                }
-//                                else {
-//                                    $values_for_db[$v['db_field']] = $node['value'];
-//                                }
-//                            }
-//                            $this->array[$key]['values_for_db'] = $values_for_db;
-//                        }
+
+                        if(isset($this->array[$key]['db_table']) && $this->array[$key]['db_table'] && count($this->array[$key]['values_for_db'])) {
+                            $this->insert_update_db($this->array[$key], $key);
+                        }
+                        //unset($this->array[$key]['values_for_db']);
 
                         //for adding into database
                         //echo count($array, COUNT_RECURSIVE);
@@ -115,6 +116,55 @@ class testXML
         return $tree;
     }
 
+    public function insert_update_db($array,$key) {
+
+        foreach($array['values_for_db'] as $n=>$m) {
+            $count = 0;
+            $this->sql .= "INSERT INTO `" . $array['db_table'] . "` SET \n";
+            foreach ($array['values_for_db'][$n] as $k => $v) {
+                if ($count > 0) {
+                    $this->sql .= ",";
+                }
+
+                $this->sql .= "`" . str_replace($array['db_table'] . ".", "", $k) . "` = '" . $v . "' \n";
+                $count++;
+            }
+
+            if($array['db_table'] == 'magasins_products') {
+                if ($count > 0) {
+                    $this->sql .= ",";
+                }
+                $this->sql .= "`provider_id` = '1' \n";
+                $count++;
+            }
+
+            $this->sql .= ";";
+            $this->count_sql_strings++;
+
+            unset($this->array[$key]['values_for_db'][$n]);
+        }
+
+        if($this->count_sql_strings > 9) {
+           $this->insert_sql();
+        }
+
+    }
+
+    public function insert_sql() {
+
+        if($this->sql) {
+            if (mysqli_multi_query($this->conn, $this->sql)) {
+                echo "New records created successfully<hr />";
+            } else {
+                echo "<hr>Error: " . $this->sql . "<hr>" . mysqli_error($this->conn);
+            }
+            $this->sql = '';
+            $this->count_sql_strings = 0;
+            while ($this->conn->next_result()) {
+                ;
+            } // flush multi_queries
+        }
+    }
 
     public function get_array($my_array, $parent, $level, $path)
     {
@@ -150,12 +200,14 @@ class testXML
     public function read_array() {
         $rows=array();
         // Create connection
-        $conn=mysql_connect("localhost","root","password");
-        $seldb=mysql_select_db("webasyst",$conn);
+        $this->conn=mysqli_connect("localhost","root","password","webasyst");
 
-        $retrive=mysql_query("SELECT * FROM magasins_fields_provider WHERE magasin_id = 15 and provider_id = 1 ORDER BY id DESC",$conn);
+        $this->conn->set_charset("utf8");
+        //$seldb=mysql_select_db("webasyst",$this->conn);
 
-        while($row = mysql_fetch_assoc($retrive)) {
+        $retrive=mysqli_query($this->conn,"SELECT * FROM magasins_fields_provider WHERE magasin_id = 15 and provider_id = 1 ORDER BY id DESC");
+
+        while($row = mysqli_fetch_assoc($retrive)) {
             $rows[] = $row;
         }
 
@@ -198,6 +250,7 @@ class testXML
     }
 
     public function get_childs_by_parent_id($parent_id) {
+        $rows = array();
         $keys = array_keys(array_column($this->array, 'parent_id'), $parent_id);
         if ($keys !== FALSE) {
             foreach ($keys as $k => $v) {
