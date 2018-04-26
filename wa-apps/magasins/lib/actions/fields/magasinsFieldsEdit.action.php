@@ -41,6 +41,7 @@ class magasinsFieldsEditAction extends waViewAction
                 'get_values'       => '',
                 'db_field'           => '',
                 'has_a_key'           => '',
+                'multiply'           => '',
                 'db_table'           => '',
             );
             $title = 'Добавляем поля поставщика';

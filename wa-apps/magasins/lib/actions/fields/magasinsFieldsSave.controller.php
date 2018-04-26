@@ -17,6 +17,7 @@ class magasinsFieldsSaveController extends waController
             $get_values = waRequest::request('get_values');
             $db_field = waRequest::request('db_field');
             $has_a_key = waRequest::request('has_a_key');
+            $multiply = waRequest::request('multiply');
             $db_table = waRequest::request('db_table');
 
             if($get_values == 'on') {
@@ -33,6 +34,13 @@ class magasinsFieldsSaveController extends waController
                 $has_a_key = 0;
             }
 
+            if($multiply == 'on') {
+                $multiply = 1;
+            }
+            else {
+                $multiply = 0;
+            }
+
 
             if($id) {
                 $model->updateById($id,array(
@@ -44,6 +52,7 @@ class magasinsFieldsSaveController extends waController
                     'get_values' => $get_values,
                     'db_field' => $db_field,
                     'has_a_key' => $has_a_key,
+                    'multiply' => $multiply,
                     'db_table' => $db_table
                 ));
             }
@@ -57,6 +66,7 @@ class magasinsFieldsSaveController extends waController
                     'get_values' => $get_values,
                     'db_field'   => $db_field,
                     'has_a_key'   => $has_a_key,
+                    'multiply'   => $multiply,
                     'db_table'      => $db_table
                 ));
             }

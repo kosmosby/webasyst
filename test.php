@@ -91,6 +91,12 @@ class testXML
                                 }
 
                                 if(!$this->array[$key]['db_table']) {
+
+                                    if($this->array[$key]['multiply']) {
+                                        if(isset($this->array[$key]['values_for_db']) && count($this->array[$key]['values_for_db'])) {
+                                            $values_for_db[$this->array[$key]['db_field']] = $this->array[$key]['values_for_db'][0][$this->array[$key]['db_field']]."|".$values_for_db[$this->array[$key]['db_field']];
+                                        }
+                                    }
                                     unset($this->array[$key]['values_for_db']);
                                 }
 

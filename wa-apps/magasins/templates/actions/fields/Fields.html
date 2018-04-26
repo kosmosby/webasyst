@@ -37,6 +37,7 @@
                 <th scope="col">получать значения</th>
                 <th scope="col">поля в базе</th>
                 <th scope="col">ключевой элемент</th>
+                <th scope="col">multiply</th>
                 <th scope="col">таблица в базе</th>
 
             </tr>
@@ -68,6 +69,7 @@
 
                 <td>{$r.db_field}</td>
                 <td>{if $r.has_a_key} 1 {/if}</td>
+                <td>{if $r.multiply} 1 {/if}</td>
                 <td>{$r.db_table}</td>
             </tr>
             {/foreach}
