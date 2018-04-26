@@ -85,13 +85,19 @@ class testXML
                                             else {
                                                     if(isset($v['values_for_db'][0]) && isset($values_for_db)) {
                                                         $values_for_db = array_merge($v['values_for_db'][0], $values_for_db);
+
+                                                        //need to check it if it's could be used
+                                                        foreach($values_for_db as $n=>$m) {
+                                                            $for_remove = $this->recursive_array_search($m, $this->array);
+                                                            unset($this->array[$for_remove]['values_for_db']);
+                                                        }
+
                                                     }
                                             }
                                         }
                                 }
 
                                 if(!$this->array[$key]['db_table']) {
-
                                     if($this->array[$key]['multiply']) {
                                         if(isset($this->array[$key]['values_for_db']) && count($this->array[$key]['values_for_db'])) {
                                             $values_for_db[$this->array[$key]['db_field']] = $this->array[$key]['values_for_db'][0][$this->array[$key]['db_field']]."|".$values_for_db[$this->array[$key]['db_field']];
@@ -105,6 +111,8 @@ class testXML
 
                         if(isset($this->array[$key]['db_table']) && $this->array[$key]['db_table'] && count($this->array[$key]['values_for_db'])) {
                             $this->insert_update_db($this->array[$key], $key);
+
+
                         }
                         //unset($this->array[$key]['values_for_db']);
 
@@ -132,7 +140,7 @@ class testXML
                     $this->sql .= ",";
                 }
 
-                $this->sql .= "`" . str_replace($array['db_table'] . ".", "", $k) . "` = '" . $v . "' \n";
+                $this->sql .= "`" . str_replace($array['db_table'] . ".", "", $k) . "` = '" . $this->conn->escape_string($v) . "' \n";
                 $count++;
             }
 

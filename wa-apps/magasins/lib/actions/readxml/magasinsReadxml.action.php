@@ -11,6 +11,7 @@ class magasinsReadxmlAction extends waViewAction
 
     public function execute()
     {
+        $search =  waRequest::post('search');
 
         $magasin_id = waRequest::request('magasin_id');
         $provider_id = waRequest::request('provider_id');
@@ -28,6 +29,7 @@ class magasinsReadxmlAction extends waViewAction
         //$xml_url = $provider_info['xml_url'];
         $xml_url = '/Users/kosmos/Documents/sites/webassist.framework/wa-apps/magasins/xml/747b10bb-bd0a-44fc-97a0-fc963af1e527.xml';
 
+
         $rows = $this->read_array($magasin_info,$provider_info);
         $this->get_array($rows,0,0,'');
 
@@ -38,19 +40,30 @@ class magasinsReadxmlAction extends waViewAction
         $this->xml2assoc($xml);
 
         $this->insert_sql();
+        
 
-        echo "<pre>";
-        print_r($this->array); die;
 
+        if($search) {
+            $sql = $this->model->query("SELECT * FROM magasins_products WHERE provider_id = ".$provider_info['id']." AND (name LIKE '%".$search."%' ) ORDER BY id DESC");
+            $records = $sql->fetchAll();
+        }
+        else {
+            $sql = $this->model->query("SELECT * FROM magasins_products WHERE provider_id = ".$provider_info['id']." ORDER BY id DESC LIMIT 0,30");
+            $records = $sql->fetchAll();
+        }
+
+//        echo "<pre>";
+//        print_r($records); die;
 
         $this->view->assign('magasin_info', $magasin_info);
         $this->view->assign('provider_info', $provider_info);
 
-        //$this->view->assign('records', $array);
+        $this->view->assign('records', $records);
+        $this->view->assign('search', $search);
     }
 
 
-    function xml2assoc($xml)
+    public function xml2assoc($xml)
     {
 //        global $path, $array;
         $tree = null;
@@ -98,13 +111,19 @@ class magasinsReadxmlAction extends waViewAction
                                     else {
                                         if(isset($v['values_for_db'][0]) && isset($values_for_db)) {
                                             $values_for_db = array_merge($v['values_for_db'][0], $values_for_db);
+
+                                            //need to check it if it's could be used
+                                            foreach($values_for_db as $n=>$m) {
+                                                $for_remove = $this->recursive_array_search($m, $this->array);
+                                                unset($this->array[$for_remove]['values_for_db']);
+                                            }
+
                                         }
                                     }
                                 }
                             }
 
                             if(!$this->array[$key]['db_table']) {
-
                                 if($this->array[$key]['multiply']) {
                                     if(isset($this->array[$key]['values_for_db']) && count($this->array[$key]['values_for_db'])) {
                                         $values_for_db[$this->array[$key]['db_field']] = $this->array[$key]['values_for_db'][0][$this->array[$key]['db_field']]."|".$values_for_db[$this->array[$key]['db_field']];
@@ -118,6 +137,8 @@ class magasinsReadxmlAction extends waViewAction
 
                         if(isset($this->array[$key]['db_table']) && $this->array[$key]['db_table'] && count($this->array[$key]['values_for_db'])) {
                             $this->insert_update_db($this->array[$key], $key);
+
+
                         }
                         //unset($this->array[$key]['values_for_db']);
 
@@ -146,7 +167,7 @@ class magasinsReadxmlAction extends waViewAction
                     $this->sql .= ",";
                 }
 
-                $this->sql .= "`" . str_replace($array['db_table'] . ".", "", $k) . "` = '" . $v . "' \n";
+                $this->sql .= "`" . str_replace($array['db_table'] . ".", "", $k) . "` = '" . $this->conn->escape_string($v) . "' \n";
                 $count++;
             }
 
@@ -246,9 +267,7 @@ class magasinsReadxmlAction extends waViewAction
     public function insert_sql() {
 
         if($this->sql) {
-            if (mysqli_multi_query($this->conn, $this->sql)) {
-                echo "New records created successfully<hr />";
-            } else {
+            if (!mysqli_multi_query($this->conn, $this->sql)) {
                 echo "<hr>Error: " . $this->sql . "<hr>" . mysqli_error($this->conn);
             }
             $this->sql = '';
