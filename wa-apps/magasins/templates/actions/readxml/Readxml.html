@@ -5,17 +5,20 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{$wa_app_url}">Магазины</a></li>
             <li class="breadcrumb-item"><a href="?module=setupmagasin&magasin_id={$magasin_info.id}">{$magasin_info.name}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">список полей: {$provider_info.name} <a href="{$provider_info.xml_url}" target="_blank">{$provider_info.xml_url}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">список продуктов: {$provider_info.name} <a href="{$provider_info.xml_url}" target="_blank">{$provider_info.xml_url}</a></li>
         </ol>
     </nav>
 
     <div class="mt-3"></div>
     <div style="float: left;">
-        <button type="button" class="btn btn-outline-success btn-sm" onclick="return submitbuttonfields('fields','edit',{$magasin_info.id},{$provider_info.id});" >Добавить</button>
-        <button type="button" class="btn btn-outline-danger btn-sm" onclick="return deletebutton('fields','delete');">Удалить</button>
-        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="return window.location.href = '?module=setupmagasin&magasin_id={$magasin_info.id}';">Вернуться</button>
 
-        <button type="button" class="btn btn-outline-info btn-sm" onclick="return window.location.href = '?module=readxml&provider_id={$provider_info.id}&magasin_id={$magasin_info.id}';">Прочитать</button>
+
+
+
+
+        <!--<button type="button" class="btn btn-outline-secondary btn-sm" onclick="return window.location.href = '?module=setupmagasin&magasin_id={$magasin_info.id}';">Вернуться</button>-->
+
+        <!--<button type="button" class="btn btn-outline-info btn-sm" onclick="return window.location.href = '?module=readxml&provider_id={$provider_info.id}&magasin_id={$magasin_info.id}';">Прочитать</button>-->
 
     </div>
 
@@ -57,7 +60,7 @@
                     {if isset({$r.categoryId})} {$r.categoryId} {/if}
                 </td>
                 <td>{$r.price}</td>
-                <td>{$r.description|substr:0:30}</td>
+                <td>{$r.description|truncate:50}</td>
                 <td>{$r.picture}</td>
                 <td>{$r.url}</td>
             </tr>

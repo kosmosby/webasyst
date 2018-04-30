@@ -26,9 +26,9 @@ class magasinsReadxmlAction extends waViewAction
 
         $this->setLayout(new magasinsDefaultLayout());
 
-        //$xml_url = $provider_info['xml_url'];
-        $xml_url = '/Users/kosmos/Documents/sites/webassist.framework/wa-apps/magasins/xml/747b10bb-bd0a-44fc-97a0-fc963af1e527.xml';
-
+        $xml_url = $provider_info['xml_url'];
+        //$xml_url = '/Users/kosmos/Documents/sites/webassist.framework/wa-apps/magasins/xml/747b10bb-bd0a-44fc-97a0-fc963af1e527.xml';
+/*
 
         $rows = $this->read_array($magasin_info,$provider_info);
         $this->get_array($rows,0,0,'');
@@ -40,7 +40,7 @@ class magasinsReadxmlAction extends waViewAction
         $this->xml2assoc($xml);
 
         $this->insert_sql();
-        
+*/
 
 
         if($search) {
@@ -48,7 +48,7 @@ class magasinsReadxmlAction extends waViewAction
             $records = $sql->fetchAll();
         }
         else {
-            $sql = $this->model->query("SELECT * FROM magasins_products WHERE provider_id = ".$provider_info['id']." ORDER BY id DESC LIMIT 0,30");
+            $sql = $this->model->query("SELECT * FROM magasins_products WHERE provider_id = ".$provider_info['id']." ORDER BY id DESC ");
             $records = $sql->fetchAll();
         }
 
@@ -98,9 +98,11 @@ class magasinsReadxmlAction extends waViewAction
                             $values_for_db = array();
                             foreach ($linked_data as $k=>$v) {
                                 if($v['is_property']) {
-                                    foreach ($node['attributes'] as $n=>$m) {
-                                        if($n==$v['name']) {
-                                            $values_for_db[$v['db_field']] = $m;
+                                    if(isset($node['attributes']) && count($node['attributes'])) {
+                                        foreach ($node['attributes'] as $n => $m) {
+                                            if ($n == $v['name']) {
+                                                $values_for_db[$v['db_field']] = $m;
+                                            }
                                         }
                                     }
                                 }
@@ -272,7 +274,7 @@ class magasinsReadxmlAction extends waViewAction
             }
             $this->sql = '';
             $this->count_sql_strings = 0;
-            while ($this->conn->next_result()) {
+            while (@$this->conn->next_result()) {
                 ;
             } // flush multi_queries
         }

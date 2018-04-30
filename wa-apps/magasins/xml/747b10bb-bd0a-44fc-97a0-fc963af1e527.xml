@@ -14,7 +14,7 @@
       <currency id="EUR" rate="77"/>
     </currencies>
     <categories>
-      <category id="1086">Хиты продаж!</category>
+      <category id="1086">Хиты продажж!</category>
       <category id="611">Автоаксессуары</category>
       <category id="1064" parentId="611">Для удаления вмятин</category>
       <category id="767" parentId="611">Автомобильные салфетки</category>

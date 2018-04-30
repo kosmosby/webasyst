@@ -9,6 +9,8 @@ class testXML
     public $conn;
     public $count_sql_strings = 0;
     public $sql = '';
+    public $sql_body = '';
+    public $count;
 
     function __construct() {
 
@@ -132,28 +134,46 @@ class testXML
 
     public function insert_update_db($array,$key) {
 
+
+        $the_key = $this->what_is_key($array['db_table']);
+
+
         foreach($array['values_for_db'] as $n=>$m) {
-            $count = 0;
-            $this->sql .= "INSERT INTO `" . $array['db_table'] . "` SET \n";
-            foreach ($array['values_for_db'][$n] as $k => $v) {
-                if ($count > 0) {
-                    $this->sql .= ",";
-                }
+            $this->count = 0;
 
-                $this->sql .= "`" . str_replace($array['db_table'] . ".", "", $k) . "` = '" . $this->conn->escape_string($v) . "' \n";
-                $count++;
+            $hash = $this->select_sql($array,$the_key,$n);
+
+
+
+//          echo $hash; die;
+//            if(count($if_record)) {
+//
+//            }
+
+            $md5_hash = $this->generate_sql_body($array,$n);
+
+            if(!$hash) {
+                $sql_header = "INSERT INTO `" . $array['db_table'] . "` SET \n";
+                $this->sql .= $sql_header.$this->sql_body;
+                $this->sql_body = '';
+                $this->sql .= ";";
+
+                $this->count_sql_strings++;
             }
+            else if($hash && $hash != $md5_hash) {
+                $sql_header = "UPDATE `" . $array['db_table'] . "` SET \n";
+                $sql_footer = " WHERE hash = '".$hash."'";
 
-            if($array['db_table'] == 'magasins_products') {
-                if ($count > 0) {
-                    $this->sql .= ",";
-                }
-                $this->sql .= "`provider_id` = '1' \n";
-                $count++;
+                $this->sql .= $sql_header.$this->sql_body.$sql_footer;
+
+                $this->sql_body = '';
+                $this->sql .= ";";
+
+                $this->count_sql_strings++;
             }
+//            echo $sql_header; die;
 
-            $this->sql .= ";";
-            $this->count_sql_strings++;
+
 
             unset($this->array[$key]['values_for_db'][$n]);
         }
@@ -162,6 +182,78 @@ class testXML
            $this->insert_sql();
         }
 
+    }
+
+    public function generate_sql_body($array,$n) {
+
+        $provider_id = $_REQUEST['provider_id'];
+
+        $hash = '';
+        foreach ($array['values_for_db'][$n] as $k => $v) {
+            if ($this->count > 0) {
+                $this->sql_body .= ",";
+            }
+
+            $this->sql_body .= "`" . str_replace($array['db_table'] . ".", "", $k) . "` = '" . $this->conn->escape_string($v) . "' \n";
+            $this->count++;
+
+            $hash .= $v;
+        }
+
+        //if($array['db_table'] == 'magasins_products') {
+            if ($this->count > 0) {
+                $this->sql_body .= ",";
+            }
+            $this->sql_body .= "`provider_id` = '".$provider_id."' \n";
+            $this->count++;
+
+            if ($this->count > 0) {
+                $this->sql_body .= ",";
+            }
+
+            $md5_hash = md5($hash);
+            $this->sql_body .= "`hash` = '".$md5_hash."' \n";
+            $this->count++;
+       // }
+
+        return $md5_hash;
+    }
+
+    public function select_sql($array,$the_key,$n) {
+        $provider_id = $_REQUEST['provider_id'];
+
+        foreach ($array['values_for_db'][$n] as $k => $v) {
+           if($k==$the_key) {
+                $row = $this->select_value($array['db_table'], str_replace($array['db_table'] . ".", "", $the_key),$v,$provider_id);
+               return $row;
+            }
+        }
+        return false;
+
+    }
+
+    public function select_value($table_name,$key_field,$value,$provider_id) {
+        $query = "SELECT hash FROM ".$table_name." WHERE `".$key_field."` = ".$value." AND provider_id = ".$provider_id;
+
+        $retrive=mysqli_query($this->conn,$query);
+
+        while($row = mysqli_fetch_assoc($retrive)) {
+            $rows[] = $row;
+        }
+
+        if(isset($rows[0]) && count($rows[0])) {
+            return $rows[0]['hash'];
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    public function what_is_key($table) {
+        $retrive=mysqli_query($this->conn,"SHOW keys FROM ".$table." WHERE key_name = 'magasins_key'");
+        $row = mysqli_fetch_assoc($retrive);
+        return $table.".".$row['Column_name'];
     }
 
     public function insert_sql() {
