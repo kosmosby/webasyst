@@ -8,6 +8,8 @@ class magasinsReadxmlAction extends waViewAction
     public $conn;
     public $count_sql_strings = 0;
     public $sql = '';
+    public $sql_body = '';
+    public $count;
 
     public function execute()
     {
@@ -28,7 +30,7 @@ class magasinsReadxmlAction extends waViewAction
 
         $xml_url = $provider_info['xml_url'];
         //$xml_url = '/Users/kosmos/Documents/sites/webassist.framework/wa-apps/magasins/xml/747b10bb-bd0a-44fc-97a0-fc963af1e527.xml';
-/*
+
 
         $rows = $this->read_array($magasin_info,$provider_info);
         $this->get_array($rows,0,0,'');
@@ -40,7 +42,7 @@ class magasinsReadxmlAction extends waViewAction
         $this->xml2assoc($xml);
 
         $this->insert_sql();
-*/
+
 
 
         if($search) {
@@ -98,14 +100,12 @@ class magasinsReadxmlAction extends waViewAction
                             $values_for_db = array();
                             foreach ($linked_data as $k=>$v) {
                                 if($v['is_property']) {
-                                    if(isset($node['attributes']) && count($node['attributes'])) {
                                         foreach ($node['attributes'] as $n => $m) {
                                             if ($n == $v['name']) {
                                                 $values_for_db[$v['db_field']] = $m;
                                             }
                                         }
                                     }
-                                }
                                 else {
                                     if(!is_array($node['value'])) {
                                         $values_for_db[$v['db_field']] = $node['value'];
@@ -159,31 +159,47 @@ class magasinsReadxmlAction extends waViewAction
     }
 
     public function insert_update_db($array,$key) {
-        $provider_id = waRequest::request('provider_id');
+
+
+        $the_key = $this->what_is_key($array['db_table']);
+
 
         foreach($array['values_for_db'] as $n=>$m) {
-            $count = 0;
-            $this->sql .= "INSERT INTO `" . $array['db_table'] . "` SET \n";
-            foreach ($array['values_for_db'][$n] as $k => $v) {
-                if ($count > 0) {
-                    $this->sql .= ",";
-                }
+            $this->count = 0;
 
-                $this->sql .= "`" . str_replace($array['db_table'] . ".", "", $k) . "` = '" . $this->conn->escape_string($v) . "' \n";
-                $count++;
+            $hash = $this->select_sql($array,$the_key,$n);
+
+
+
+//          echo $hash; die;
+//            if(count($if_record)) {
+//
+//            }
+
+            $md5_hash = $this->generate_sql_body($array,$n);
+
+            if(!$hash) {
+                $sql_header = "INSERT INTO `" . $array['db_table'] . "` SET \n";
+                $this->sql .= $sql_header.$this->sql_body;
+                $this->sql_body = '';
+                $this->sql .= ";";
+
+                $this->count_sql_strings++;
             }
+            else if($hash && $hash != $md5_hash) {
+                $sql_header = "UPDATE `" . $array['db_table'] . "` SET \n";
+                $sql_footer = " WHERE hash = '".$hash."'";
 
-            if($array['db_table'] == 'magasins_products') {
+                $this->sql .= $sql_header.$this->sql_body.$sql_footer;
 
-                if ($count > 0) {
-                    $this->sql .= ",";
-                }
-                $this->sql .= "`provider_id` = '".$provider_id."' \n";
-                $count++;
-            }
-
+                $this->sql_body = '';
             $this->sql .= ";";
+
             $this->count_sql_strings++;
+            }
+//            echo $sql_header; die;
+
+
 
             unset($this->array[$key]['values_for_db'][$n]);
         }
@@ -194,23 +210,92 @@ class magasinsReadxmlAction extends waViewAction
 
     }
 
+    public function generate_sql_body($array,$n) {
 
-    public function read_array($magasin_info,$provider_info) {
-        $rows=array();
+        $provider_id = waRequest::request('provider_id');
 
-        $config = wa()->getConfig()->getDatabase();
-        // Create connection
-        $this->conn=mysqli_connect($config['default']['host'],$config['default']['user'],$config['default']['password'],$config['default']['database']);
+        $hash = '';
+        foreach ($array['values_for_db'][$n] as $k => $v) {
+            if ($this->count > 0) {
+                $this->sql_body .= ",";
+            }
 
-        $this->conn->set_charset("utf8");
+            $this->sql_body .= "`" . str_replace($array['db_table'] . ".", "", $k) . "` = '" . $this->conn->escape_string($v) . "' \n";
+            $this->count++;
 
-        $retrive=mysqli_query($this->conn,"SELECT * FROM magasins_fields_provider WHERE magasin_id = ".$magasin_info['id']." and provider_id = ".$provider_info['id']." ORDER BY id DESC");
+            $hash .= $v;
+        }
+
+        //if($array['db_table'] == 'magasins_products') {
+            if ($this->count > 0) {
+                $this->sql_body .= ",";
+            }
+            $this->sql_body .= "`provider_id` = '".$provider_id."' \n";
+            $this->count++;
+
+            if ($this->count > 0) {
+                $this->sql_body .= ",";
+            }
+
+            $md5_hash = md5($hash);
+            $this->sql_body .= "`hash` = '".$md5_hash."' \n";
+            $this->count++;
+       // }
+
+        return $md5_hash;
+    }
+
+    public function select_sql($array,$the_key,$n) {
+        $provider_id = waRequest::request('provider_id');
+
+        foreach ($array['values_for_db'][$n] as $k => $v) {
+           if($k==$the_key) {
+                $row = $this->select_value($array['db_table'], str_replace($array['db_table'] . ".", "", $the_key),$v,$provider_id);
+               return $row;
+            }
+        }
+        return false;
+
+    }
+
+    public function select_value($table_name,$key_field,$value,$provider_id) {
+        $query = "SELECT hash FROM ".$table_name." WHERE `".$key_field."` = ".$value." AND provider_id = ".$provider_id;
+
+        $retrive=mysqli_query($this->conn,$query);
 
         while($row = mysqli_fetch_assoc($retrive)) {
             $rows[] = $row;
         }
 
-        return $rows;
+        if(isset($rows[0]) && count($rows[0])) {
+            return $rows[0]['hash'];
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    public function what_is_key($table) {
+        $retrive=mysqli_query($this->conn,"SHOW keys FROM ".$table." WHERE key_name = 'magasins_key'");
+        $row = mysqli_fetch_assoc($retrive);
+        return $table.".".$row['Column_name'];
+    }
+
+    public function insert_sql() {
+
+        if($this->sql) {
+            if (mysqli_multi_query($this->conn, $this->sql)) {
+                echo "New records created successfully<hr />";
+            } else {
+                echo "<hr>Error: " . $this->sql . "<hr>" . mysqli_error($this->conn);
+            }
+            $this->sql = '';
+            $this->count_sql_strings = 0;
+            while ($this->conn->next_result()) {
+                ;
+            } // flush multi_queries
+        }
     }
 
     public function get_array($my_array, $parent, $level, $path)
@@ -233,7 +318,6 @@ class magasinsReadxmlAction extends waViewAction
         }
     }
 
-
     public function clean_array()
     {
         for ($i = 0; $i < count($this->array); $i++) {
@@ -243,6 +327,24 @@ class magasinsReadxmlAction extends waViewAction
             }
         }
         $this->array = array_values($this->array);
+    }
+
+    public function read_array() {
+        $rows=array();
+        // Create connection
+        $config = wa()->getConfig()->getDatabase();
+        $this->conn=mysqli_connect($config['default']['host'],$config['default']['user'],$config['default']['password'],$config['default']['database']);
+
+        $this->conn->set_charset("utf8");
+        //$seldb=mysql_select_db("webasyst",$this->conn);
+
+        $retrive=mysqli_query($this->conn,"SELECT * FROM magasins_fields_provider WHERE magasin_id = 15 and provider_id = 1 ORDER BY id DESC");
+
+        while($row = mysqli_fetch_assoc($retrive)) {
+            $rows[] = $row;
+        }
+
+        return $rows;
     }
 
     public function recursive_array_search($needle,$haystack) {
@@ -266,17 +368,4 @@ class magasinsReadxmlAction extends waViewAction
         return $rows;
     }
 
-    public function insert_sql() {
-
-        if($this->sql) {
-            if (!mysqli_multi_query($this->conn, $this->sql)) {
-                echo "<hr>Error: " . $this->sql . "<hr>" . mysqli_error($this->conn);
-            }
-            $this->sql = '';
-            $this->count_sql_strings = 0;
-            while (@$this->conn->next_result()) {
-                ;
-            } // flush multi_queries
-        }
-    }
 }
