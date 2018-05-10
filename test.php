@@ -143,16 +143,16 @@ class testXML
 
             $hash = $this->select_sql($array,$the_key,$n);
 
-
-
 //          echo $hash; die;
 //            if(count($if_record)) {
 //
 //            }
 
-            $md5_hash = $this->generate_sql_body($array,$n);
+            $md5_hash = $this->generate_md5($array,$n);
 
             if(!$hash) {
+
+                $this->generate_sql_body($array,$n);
                 $sql_header = "INSERT INTO `" . $array['db_table'] . "` SET \n";
                 $this->sql .= $sql_header.$this->sql_body;
                 $this->sql_body = '';
@@ -161,6 +161,7 @@ class testXML
                 $this->count_sql_strings++;
             }
             else if($hash && $hash != $md5_hash) {
+                $this->generate_sql_body($array,$n);
                 $sql_header = "UPDATE `" . $array['db_table'] . "` SET \n";
                 $sql_footer = " WHERE hash = '".$hash."'";
 
@@ -171,9 +172,11 @@ class testXML
 
                 $this->count_sql_strings++;
             }
+//            else if($hash == $md5_hash) {
+//                echo 'qq';
+//            }
 //            echo $sql_header; die;
-
-
+            
 
             unset($this->array[$key]['values_for_db'][$n]);
         }
@@ -184,9 +187,20 @@ class testXML
 
     }
 
+    public function generate_md5($array,$n) {
+        $hash = '';
+        foreach ($array['values_for_db'][$n] as $k => $v) {
+            $hash .= $v;
+        }
+        $md5_hash = md5($hash);
+
+        return $md5_hash;
+    }
+
     public function generate_sql_body($array,$n) {
 
-        $provider_id = $_REQUEST['provider_id'];
+//        $provider_id = $_REQUEST['provider_id'];
+        $provider_id = 1;
 
         $hash = '';
         foreach ($array['values_for_db'][$n] as $k => $v) {
@@ -216,11 +230,13 @@ class testXML
             $this->count++;
        // }
 
-        return $md5_hash;
+
     }
 
     public function select_sql($array,$the_key,$n) {
-        $provider_id = $_REQUEST['provider_id'];
+        //$provider_id = $_REQUEST['provider_id'];
+
+        $provider_id = 1;
 
         foreach ($array['values_for_db'][$n] as $k => $v) {
            if($k==$the_key) {
@@ -311,7 +327,7 @@ class testXML
         $this->conn->set_charset("utf8");
         //$seldb=mysql_select_db("webasyst",$this->conn);
 
-        $retrive=mysqli_query($this->conn,"SELECT * FROM magasins_fields_provider WHERE magasin_id = 15 and provider_id = 1 ORDER BY id DESC");
+        $retrive=mysqli_query($this->conn,"SELECT * FROM magasins_fields_provider WHERE magasin_id = 1 and provider_id = 1 ORDER BY id DESC");
 
         while($row = mysqli_fetch_assoc($retrive)) {
             $rows[] = $row;

@@ -15,6 +15,8 @@ class magasinsBackendSidebarAction extends waViewAction
         $view_all_magasins = waRequest::get('all', null) !== null || empty($request);
         $view_all_providers = waRequest::get('module', null) == 'provider';
         $view_settings = waRequest::get('module', null) == 'settings';
+        $view_products = waRequest::get('module', null) == 'product';
+        $view_categories = waRequest::get('module', null) == 'categorie';
 
 
         $magasins_model = new magasinsMagasinModel();
@@ -29,6 +31,9 @@ class magasinsBackendSidebarAction extends waViewAction
         $this->view->assign('view_all_magasins', $view_all_magasins);
         $this->view->assign('view_all_providers', $view_all_providers);
         $this->view->assign('view_settings', $view_settings);
+
+        $this->view->assign('view_products', $view_products);
+        $this->view->assign('view_categories', $view_categories);
 
         $this->view->assign('new_magasin', waRequest::get('action') == 'edit' && waRequest::get('id') == '');
 

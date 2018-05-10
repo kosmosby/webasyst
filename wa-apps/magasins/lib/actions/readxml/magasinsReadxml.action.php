@@ -28,21 +28,21 @@ class magasinsReadxmlAction extends waViewAction
 
         $this->setLayout(new magasinsDefaultLayout());
 
-        $xml_url = $provider_info['xml_url'];
-        //$xml_url = '/Users/kosmos/Documents/sites/webassist.framework/wa-apps/magasins/xml/747b10bb-bd0a-44fc-97a0-fc963af1e527.xml';
+        //$xml_url = $provider_info['xml_url'];
+        $xml_url = '/Users/kosmos/Documents/sites/webassist.framework/wa-apps/magasins/xml/747b10bb-bd0a-44fc-97a0-fc963af1e527.xml';
 
+        $rows = $this->read_array($magasin_id,$provider_id);
 
-        $rows = $this->read_array($magasin_info,$provider_info);
         $this->get_array($rows,0,0,'');
 
         $this->clean_array();
+
 
         $xml = new XMLReader();
         $xml->open($xml_url);
         $this->xml2assoc($xml);
 
         $this->insert_sql();
-
 
 
         if($search) {
@@ -57,11 +57,13 @@ class magasinsReadxmlAction extends waViewAction
 //        echo "<pre>";
 //        print_r($records); die;
 
-        $this->view->assign('magasin_info', $magasin_info);
-        $this->view->assign('provider_info', $provider_info);
+        $this->redirect(waSystem::getInstance()->getUrl().'?module=product&provider_id='.$provider_info['id'].'&magasin_id='.$magasin_info['id']);
 
-        $this->view->assign('records', $records);
-        $this->view->assign('search', $search);
+//        $this->view->assign('magasin_info', $magasin_info);
+//        $this->view->assign('provider_info', $provider_info);
+//
+//        $this->view->assign('records', $records);
+//        $this->view->assign('search', $search);
     }
 
 
@@ -169,16 +171,16 @@ class magasinsReadxmlAction extends waViewAction
 
             $hash = $this->select_sql($array,$the_key,$n);
 
-
-
 //          echo $hash; die;
 //            if(count($if_record)) {
 //
 //            }
 
-            $md5_hash = $this->generate_sql_body($array,$n);
+            $md5_hash = $this->generate_md5($array,$n);
 
             if(!$hash) {
+
+                $this->generate_sql_body($array,$n);
                 $sql_header = "INSERT INTO `" . $array['db_table'] . "` SET \n";
                 $this->sql .= $sql_header.$this->sql_body;
                 $this->sql_body = '';
@@ -187,6 +189,7 @@ class magasinsReadxmlAction extends waViewAction
                 $this->count_sql_strings++;
             }
             else if($hash && $hash != $md5_hash) {
+                $this->generate_sql_body($array,$n);
                 $sql_header = "UPDATE `" . $array['db_table'] . "` SET \n";
                 $sql_footer = " WHERE hash = '".$hash."'";
 
@@ -197,7 +200,7 @@ class magasinsReadxmlAction extends waViewAction
 
             $this->count_sql_strings++;
             }
-//            echo $sql_header; die;
+            //echo $this->sql; die;
 
 
 
@@ -208,6 +211,16 @@ class magasinsReadxmlAction extends waViewAction
             $this->insert_sql();
         }
 
+    }
+
+    public function generate_md5($array,$n) {
+        $hash = '';
+        foreach ($array['values_for_db'][$n] as $k => $v) {
+            $hash .= $v;
+        }
+        $md5_hash = md5($hash);
+
+        return $md5_hash;
     }
 
     public function generate_sql_body($array,$n) {
@@ -242,7 +255,7 @@ class magasinsReadxmlAction extends waViewAction
             $this->count++;
        // }
 
-        return $md5_hash;
+
     }
 
     public function select_sql($array,$the_key,$n) {
@@ -329,7 +342,7 @@ class magasinsReadxmlAction extends waViewAction
         $this->array = array_values($this->array);
     }
 
-    public function read_array() {
+    public function read_array($magasin_id,$provider_id) {
         $rows=array();
         // Create connection
         $config = wa()->getConfig()->getDatabase();
@@ -338,11 +351,15 @@ class magasinsReadxmlAction extends waViewAction
         $this->conn->set_charset("utf8");
         //$seldb=mysql_select_db("webasyst",$this->conn);
 
-        $retrive=mysqli_query($this->conn,"SELECT * FROM magasins_fields_provider WHERE magasin_id = 15 and provider_id = 1 ORDER BY id DESC");
+
+        $retrive=mysqli_query($this->conn,"SELECT * FROM magasins_fields_provider WHERE magasin_id = ".$magasin_id." and provider_id = ".$provider_id." ORDER BY id DESC");
 
         while($row = mysqli_fetch_assoc($retrive)) {
             $rows[] = $row;
         }
+
+
+
 
         return $rows;
     }

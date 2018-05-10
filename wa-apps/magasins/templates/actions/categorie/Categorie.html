@@ -1,0 +1,44 @@
+<form action="index.php?module=categorie" method="post" id="adminForm" name="adminForm">
+
+    <div style="margin-top: 10px;"></div>
+    <div style="float: left;">
+        <!--<button type="button" class="btn btn-outline-success btn-sm" onclick="return submitbutton('product','edit');" >Добавить</button>-->
+        <!--<button type="button" class="btn btn-outline-danger btn-sm" onclick="return deletebutton('product','delete');">Удалить</button>-->
+    </div>
+
+    <div style="float: right;" class="mr-3 mb-3">
+        <input class="form-control form-control-sm" type="text" placeholder="поиск" name="search" value="{$search}">
+    </div>
+
+    <div style="margin-top: 10px;"></div>
+
+    <div>
+        <table class="table table-striped table-bordered table-hover">
+            <caption>Список продуктов</caption>
+            <thead class="thead-light">
+            <tr>
+                <th scope="col"><input type="checkbox" onclick="return checkAll();"></th>
+                <th scope="col">#</th>
+                <th scope="col">название</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {foreach from=$records item=r}
+            <tr>
+                <td>
+                    <input type="checkbox" class="provider_checkbox" value="{$r.id}" name="cid[]">
+                </td>
+                <td scope="row">{$r.id}</td>
+                <td><a href="?module=provider&action=edit&id={$r.id}">{$r.name}</a></td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+
+
+    <input type="hidden" name="module" value="categorie"/>
+
+
+</form>

@@ -39,9 +39,15 @@
                 </a>
                 </li>
 
-                <li {if isset($view_relations) && $view_relations == true}class="selected"{/if}>
-                <a href="?module=relations">
-                    <i class="icon16 split"></i>Таблицы БД
+                <li {if isset($view_products) && $view_products == true}class="selected"{/if}>
+                <a href="?module=product">
+                    <i class="icon16 widgets"></i>Продукты
+                </a>
+                </li>
+
+                <li {if isset($view_categories) && $view_categories == true}class="selected"{/if}>
+                <a href="?module=categorie">
+                    <i class="icon16 widgets"></i>Категории
                 </a>
                 </li>
 
