@@ -11,6 +11,10 @@ class testXML
     public $sql = '';
     public $sql_body = '';
     public $count;
+    public $arr_db = array();
+    public $arr_xml = array();
+    public $array_update_date = array();
+    //public $arr_insert = array();
 
     function __construct() {
 
@@ -34,8 +38,13 @@ class testXML
 
         $this->insert_sql();
 
-        echo "<pre>";
-        print_r($this->array); die;
+        $this->compose_array_db();
+        $this->compare_arrays();
+
+        $this->clean_tables();
+
+//        echo "<pre>";
+//        print_r($this->array); die;
     }
 
 
@@ -93,7 +102,6 @@ class testXML
                                                             $for_remove = $this->recursive_array_search($m, $this->array);
                                                             unset($this->array[$for_remove]['values_for_db']);
                                                         }
-
                                                     }
                                             }
                                         }
@@ -112,8 +120,11 @@ class testXML
                         }
 
                         if(isset($this->array[$key]['db_table']) && $this->array[$key]['db_table'] && count($this->array[$key]['values_for_db'])) {
-                            $this->insert_update_db($this->array[$key], $key);
 
+                            //commented for a change algorithm
+                            //$this->insert_update_db($this->array[$key], $key);
+
+                            $this->compose_array_xml($this->array[$key], $key);
 
                         }
                         //unset($this->array[$key]['values_for_db']);
@@ -132,11 +143,159 @@ class testXML
         return $tree;
     }
 
+    public function compose_array_xml($array, $key) {
+
+            foreach($array['values_for_db'] as $n=>$m) {
+                $md5_hash = $this->generate_md5($array,$n);
+
+                //$the_key = $this->what_is_key($array['db_table']);
+                //uncommit for get all data
+
+                $this->arr_xml[$array['db_table']][$md5_hash] = $m;
+                //$this->arr_xml[$md5_hash] = $m[$the_key];
+                unset($this->array[$key]['values_for_db'][$n]);
+            }
+
+            if(count($this->arr_xml,COUNT_RECURSIVE) > 40) {
+
+                $this->compose_array_db();
+                $this->compare_arrays();
+            }
+    }
+
+    public function compare_arrays() {
+
+        $provider_id = 1;
+
+        if(count($this->arr_db) && count($this->arr_xml)) {
+            foreach ($this->arr_xml as $table_name => $array) {
+                foreach ($array as $hash=>$values) {
+                    if(isset($this->arr_db[$table_name][$hash])) {
+                        //$array
+                        unset($this->arr_xml[$table_name][$hash]);
+                        $this->array_update_date[$table_name][] = $hash;
+                        unset($this->arr_db[$table_name][$hash]);
+                    }
+                }
+            }
+        }
+
+        if(count($this->arr_xml)) {
+            foreach($this->arr_xml as $table => $array) {
+                foreach($array as $hash=>$values) {
+                    $this->sql .= "INSERT INTO `".$table."` SET ";
+                    foreach($values as $k=>$v) {
+                        if ($this->count > 0) {
+                            $this->sql .= ",";
+                        }
+                        $this->sql .= "`" . str_replace($table . ".", "", $k) . "` = '" . $this->conn->escape_string($v) . "' \n";
+                        $this->count++;
+                    }
+                    $this->sql .= ", `provider_id` = ".$provider_id." \n";
+                    $this->sql .= ", `update_date` = NOW() \n";
+                    $this->sql .= ", `hash` = '".$hash."'; \n";
+
+                    $this->count=0;
+                    unset($this->arr_xml[$table][$hash]);
+                }
+            }
+        }
+
+        if(count($this->arr_xml,COUNT_RECURSIVE) > 2) {
+            foreach($this->arr_xml as $table=>$array) {
+                $key = $this->what_is_key($table);
+                foreach($array as $hash=>$values) {
+                    $this->sql .= "UPDATE `".$table."` SET ";
+                    foreach($values as $k=>$v) {
+                        if ($this->count > 0) {
+                            $this->sql .= ",";
+                        }
+                        $this->sql .= "`" . str_replace($table . ".", "", $k) . "` = '" . $this->conn->escape_string($v) . "' \n";
+                        $this->count++;
+                    }
+
+                    $this->sql .= ", `update_date` = NOW() \n";
+                    $this->sql .= ", `hash` = '".$hash."' \n";
+                    $this->sql .= " WHERE `provider_id` = ".$provider_id." \n";
+                    $this->sql .= " AND `".str_replace($table . ".", "", $key)."` = ".$this->arr_xml[$table][$hash][$key]."; \n";
+
+                    $this->count=0;
+                    unset($this->arr_xml[$table][$hash]);
+                }
+                //if(isset($this->arr_xml))
+            }
+        }
+
+        if(isset($this->array_update_date) && count($this->array_update_date)) {
+            foreach($this->array_update_date as $table=>$array) {
+                $this->sql .= "UPDATE `".$table."` SET `update_date` = NOW() ";
+
+                $array_for_query= array();
+                foreach($this->array_update_date[$table] as $n=>$m) {
+                    array_push($array_for_query,'"'.$m.'"');
+                }
+
+                $query_string = implode(',',$array_for_query);
+                $this->sql .= " WHERE hash IN (".$query_string."); ";
+            }
+            unset($this->array_update_date);
+        }
+
+        $this->insert_sql();
+
+    }
+
+    public function clean_tables() {
+
+            $provider_id = $_REQUEST['provider_id'];
+
+            $this->sql .= "DELETE FROM magasins_categories WHERE update_date < (now() - INTERVAL 1 MINUTE) AND provider_id = ".$provider_id.";";
+            $this->sql .= "DELETE FROM magasins_products WHERE update_date < (now() - INTERVAL 1 MINUTE) AND provider_id = ".$provider_id.";";
+            $this->insert_sql();
+    }
+
+    public function compose_array_db() {
+
+        foreach($this->arr_xml as $k=>$v) {
+            //$the_key = $this->what_is_key($v['db_table']);
+            $hash = '';
+
+            $array_for_query= array();
+            foreach($v as $n=>$m) {
+                //$new_elem = array($n);
+
+                array_push($array_for_query,'"'.$n.'"');
+            }
+
+            $query_string = implode(',',$array_for_query);
+
+            $this->create_array_db($query_string,$k);
+
+        }
+    }
+
+    public function create_array_db($query_string,$table) {
+        $query = "SELECT * FROM ".$table." WHERE hash IN  (".$query_string.")";
+
+        $retrive=mysqli_query($this->conn,$query);
+
+        if(isset($retrive) && $retrive) {
+            while ($row = mysqli_fetch_assoc($retrive)) {
+                $rows[] = $row;
+            }
+        }
+
+        if(isset($rows) && count($rows)) {
+            foreach ($rows as $k => $v) {
+                $this->arr_db[$table][$v['hash']] = $rows[$k];
+            }
+        }
+
+    }
+
     public function insert_update_db($array,$key) {
 
-
         $the_key = $this->what_is_key($array['db_table']);
-
 
         foreach($array['values_for_db'] as $n=>$m) {
             $this->count = 0;
@@ -151,7 +310,6 @@ class testXML
             $md5_hash = $this->generate_md5($array,$n);
 
             if(!$hash) {
-
                 $this->generate_sql_body($array,$n);
                 $sql_header = "INSERT INTO `" . $array['db_table'] . "` SET \n";
                 $this->sql .= $sql_header.$this->sql_body;
@@ -176,7 +334,7 @@ class testXML
 //                echo 'qq';
 //            }
 //            echo $sql_header; die;
-            
+
 
             unset($this->array[$key]['values_for_db'][$n]);
         }
@@ -263,8 +421,8 @@ class testXML
         else {
             return false;
         }
-
     }
+
 
     public function what_is_key($table) {
         $retrive=mysqli_query($this->conn,"SHOW keys FROM ".$table." WHERE key_name = 'magasins_key'");
