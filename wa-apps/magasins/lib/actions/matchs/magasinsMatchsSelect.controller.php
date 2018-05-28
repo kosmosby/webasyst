@@ -16,9 +16,9 @@ class magasinsMatchsSelectController extends waController
 
         $provider_info = $model_provider->getById($provider_id);
 
-        //$xml_url = $provider_info['xml_url'];
+        $xml_url = $provider_info['xml_url'];
 
-        $xml_url = '/Users/kosmos/Documents/sites/webassist.framework/wa-apps/magasins/xml/747b10bb-bd0a-44fc-97a0-fc963af1e527.xml';
+        //$xml_url = '/Users/kosmos/Documents/sites/webassist.framework/wa-apps/magasins/xml/747b10bb-bd0a-44fc-97a0-fc963af1e527.xml';
 
         $xml = new XMLReader();
         $xml->open($xml_url);
