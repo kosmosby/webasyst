@@ -493,7 +493,6 @@ class magasinsReadxmlAction extends waViewAction
         for ($i = 0; $i < count($this->array); $i++) {
             if ($this->array[$i]['get_values'] == 0) {
                 unset($this->array[$i]);
-
             }
         }
         $this->array = array_values($this->array);

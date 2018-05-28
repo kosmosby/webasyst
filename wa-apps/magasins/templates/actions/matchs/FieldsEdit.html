@@ -1,0 +1,99 @@
+<form id="post-form" action="magasins/?module=fields&action=save"  method="post" data-toggle="validator">
+    {$wa->csrf()}
+
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{$wa_app_url}">Магазины</a></li>
+            <li class="breadcrumb-item"><a href="?module=setupmagasin&magasin_id={$magasin_info.id}">{$magasin_info.name}</a></li>
+            <li class="breadcrumb-item"><a href="?module=fields&magasin_id={$magasin_info.id}&provider_id={$provider_info.id}">{$provider_info.name}</a></li>
+            <li class="breadcrumb-item">{$title} <a href="{$provider_info.xml_url}" target="_blank">{$provider_info.xml_url}</a></li>
+        </ol>
+    </nav>
+
+    <div class="container">
+        <div class="row col-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-name">Название поля</span>
+                </div>
+                <input type="text" name="name" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-name" value="{$fields.name|escape}" required>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-parent">Родительское поле</span>
+                </div>
+                <select class="custom-select selectpicker" name="parent_id" required>
+                    <option valaue="0">Родительский элемент</option>
+                    {foreach from=$fields_select item=r}
+                    <option value="{$r.id}" {if $fields.parent_id == $r.id}selected="selected"{/if}>{$r.name}</option>
+                    {/foreach}
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-database">Поле в базе данных</span>
+                </div>
+                <select class="custom-select selectpicker" name="db_field">
+                    <option valaue=""></option>
+                    {foreach from=$database_select item=r}
+                    <option value="{$r.fields}" {if $fields.db_field == $r.fields}selected="selected"{/if}>{$r.fields}</option>
+                    {/foreach}
+                </select>
+            </div>
+
+            <div class="form-check input-group mb-3">
+                <input class="form-check-input" type="radio" name="is_property" id="exampleRadios1" value="0" {if !$fields.is_property}checked{/if}>
+                <label class="form-check-label" for="exampleRadios1">
+                    содержание
+                </label>
+            </div>
+            <div class="form-check input-group mb-3">
+                <input class="form-check-input" type="radio" name="is_property" id="exampleRadios2" value="1" {if $fields.is_property}checked{/if}>
+                <label class="form-check-label" for="exampleRadios2">
+                    свойство
+                </label>
+            </div>
+
+
+            <div class="form-check input-group mb-3">
+                <input class="form-check-input" type="checkbox" id="gridCheck" name="get_values" {if $fields.get_values}checked{/if}>
+                <label class="form-check-label" for="gridCheck">
+                    Получить значения
+                </label>
+            </div>
+
+            <div class="form-check input-group mb-3">
+                <input class="form-check-input" type="checkbox" id="has_a_key" name="has_a_key" {if $fields.has_a_key}checked{/if}>
+                <label class="form-check-label" for="has_a_key">
+                    Ключевой элемент
+                </label>
+            </div>
+
+            <div class="form-check input-group mb-3">
+                <input class="form-check-input" type="checkbox" id="multiply" name="multiply" {if $fields.multiply}checked{/if}>
+                <label class="form-check-label" for="multiply">
+                    Miltiply
+                </label>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-db_table">Таблица, куда писать</span>
+                </div>
+                <input type="text" name="db_table" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-name" value="{$fields.db_table|escape}" >
+            </div>
+
+
+            <div id="b-post-public-settings">
+                <input  type="submit" class="btn btn-success" name="" value="[`Save`]" >
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" name="magasin_id" value="{$magasin_info.id}">
+    <input type="hidden" name="provider_id" value="{$provider_info.id}">
+    <input type="hidden" name="id" value="{$fields.id}">
+</form>
