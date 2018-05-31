@@ -22,24 +22,23 @@ class magasinsReadxmlAction extends waViewAction
         $magasin_id = waRequest::request('magasin_id');
         $provider_id = waRequest::request('provider_id');
 
-//        $this->model = new magasinsFieldsModel();
-
-//        $model_magasin = new magasinsMagasinModel();
         $model_provider = new magasinsProviderModel();
 
-//        $magasin_info = $model_magasin->getById($magasin_id);
         $provider_info = $model_provider->getById($provider_id);
-
-//        $this->setLayout(new magasinsDefaultLayout());
 
         $xml_url = $provider_info['xml_url'];
         //$xml_url = '/Users/kosmos/Documents/sites/webassist.framework/wa-apps/magasins/xml/747b10bb-bd0a-44fc-97a0-fc963af1e527.xml';
 
-        $rows = $this->read_array($magasin_id,$provider_id);
+        $this->array = $this->read_array($magasin_id,$provider_id);
+        $this->arr_db = $this->compose_array_db($provider_id);
+        //$this->get_array($rows,0,0,'');
 
-        $this->get_array($rows,0,0,'');
 
         $this->clean_array();
+
+//
+//        echo "<pre>";
+//        print_r($this->array); die;
 
 
         $xml = new XMLReader();
@@ -48,18 +47,9 @@ class magasinsReadxmlAction extends waViewAction
 
         $this->insert_sql();
 
-        $this->compose_array_db();
+        //$this->compose_array_db();
         $this->compare_arrays();
 
-//        if($search) {
-//            $sql = $this->model->query("SELECT * FROM magasins_products WHERE provider_id = ".$provider_info['id']." AND (name LIKE '%".$search."%' ) ORDER BY id DESC");
-//            $records = $sql->fetchAll();
-//        }
-//        else {
-//            $sql = $this->model->query("SELECT * FROM magasins_products WHERE provider_id = ".$provider_info['id']." ORDER BY id DESC ");
-//            $records = $sql->fetchAll();
-//        }
-        
         $this->clean_tables();
 
 //        echo "<pre>";
@@ -67,11 +57,6 @@ class magasinsReadxmlAction extends waViewAction
 
         $this->redirect(waSystem::getInstance()->getUrl().'?module=product&provider_id='.$provider_id.'&magasin_id='.$magasin_id);
 
-//        $this->view->assign('magasin_info', $magasin_info);
-//        $this->view->assign('provider_info', $provider_info);
-//
-//        $this->view->assign('records', $records);
-//        $this->view->assign('search', $search);
     }
 
 
@@ -185,14 +170,14 @@ class magasinsReadxmlAction extends waViewAction
 
             if(count($this->arr_xml,COUNT_RECURSIVE) > 40) {
 
-                $this->compose_array_db();
+                //$this->compose_array_db();
                 $this->compare_arrays();
             }
     }
 
     public function compare_arrays() {
 
-        $provider_id = 1;
+        $provider_id = waRequest::request('provider_id');
 
         if(count($this->arr_db) && count($this->arr_xml)) {
             foreach ($this->arr_xml as $table_name => $array) {
@@ -274,31 +259,71 @@ class magasinsReadxmlAction extends waViewAction
 
     public function clean_tables() {
 
-            $provider_id = $_REQUEST['provider_id'];
+            $provider_id = waRequest::request('provider_id');
 
-            $this->sql .= "DELETE FROM magasins_categories WHERE update_date < (now() - INTERVAL 1 MINUTE) AND provider_id = ".$provider_id.";";
-            $this->sql .= "DELETE FROM magasins_products WHERE update_date < (now() - INTERVAL 1 MINUTE) AND provider_id = ".$provider_id.";";
-            $this->insert_sql();
-    }
-
-    public function compose_array_db() {
-
-        foreach($this->arr_xml as $k=>$v) {
-            //$the_key = $this->what_is_key($v['db_table']);
-            $hash = '';
+//            echo "<pre>";
+//            print_r($this->arr_db); die;
 
             $array_for_query= array();
-            foreach($v as $n=>$m) {
-                //$new_elem = array($n);
-
+            foreach($this->arr_db['magasins_categories'] as $n=>$m) {
                 array_push($array_for_query,'"'.$n.'"');
-            }
-
+    }
             $query_string = implode(',',$array_for_query);
 
-            $this->create_array_db($query_string,$k);
+            if($query_string) {
+                $this->sql .= "DELETE FROM magasins_categories WHERE hash IN (" . $query_string . ") AND provider_id = " . $provider_id . ";";
+            }
+            $array_for_query= array();
+            foreach($this->arr_db['magasins_products'] as $n=>$m) {
+                array_push($array_for_query,'"'.$n.'"');
+            }
+            $query_string = implode(',',$array_for_query);
 
+            if($query_string) {
+                $this->sql .= "DELETE FROM magasins_products WHERE hash IN (" . $query_string . ") AND provider_id = " . $provider_id . ";";
+            }
+
+            //echo $this->sql; die;
+
+            $this->insert_sql();
+            }
+
+    public function compose_array_db($provider_id) {
+
+        $query = "SELECT id, hash FROM magasins_categories WHERE  provider_id = ".$provider_id;
+        $retrive=mysqli_query($this->conn,$query);
+        if(isset($retrive) && $retrive) {
+            while ($row = mysqli_fetch_assoc($retrive)) {
+                $rows['magasins_categories'][$row['hash']] = $row['id'];
+            }
         }
+
+        $query = "SELECT id, hash FROM magasins_products WHERE provider_id = ".$provider_id;
+        $retrive=mysqli_query($this->conn,$query);
+        if(isset($retrive) && $retrive) {
+            while ($row = mysqli_fetch_assoc($retrive)) {
+                $rows['magasins_products'][$row['hash']] = $row['id'];
+        }
+    }
+
+        return $rows;
+
+//        foreach($this->arr_xml as $k=>$v) {
+//            //$the_key = $this->what_is_key($v['db_table']);
+//            $hash = '';
+//
+//            $array_for_query= array();
+//            foreach($v as $n=>$m) {
+//                //$new_elem = array($n);
+//
+//                array_push($array_for_query,'"'.$n.'"');
+//            }
+//
+//            $query_string = implode(',',$array_for_query);
+//
+//            $this->create_array_db($query_string,$k);
+//
+//        }
     }
 
     public function create_array_db($query_string,$table) {
@@ -468,25 +493,25 @@ class magasinsReadxmlAction extends waViewAction
         }
     }
 
-    public function get_array($my_array, $parent, $level, $path)
-    {
-        $level++;
-        foreach ($my_array as $k => $v) {
-            if ($v['parent_id'] == $parent) {
-                $v['level'] = $level;
-
-                if ($v['is_property']) {
-                    $v['path'] = $path . '/@' . $v['name'];
-                } else {
-                    $v['path'] = $path . '/' . $v['name'];
-                }
-
-
-                $this->array[] = $v;
-                $this->get_array($my_array, $v['id'], $level, $v['path']);
-            }
-        }
-    }
+//    public function get_array($my_array, $parent, $level, $path)
+//    {
+//        $level++;
+//        foreach ($my_array as $k => $v) {
+//            if ($v['parent_id'] == $parent) {
+//                $v['level'] = $level;
+//
+//                if ($v['is_property']) {
+//                    //$v['path'] = $path . '/@' . $v['name'];
+//                } else {
+//                    //$v['path'] = $path . '/' . $v['name'];
+//                }
+//
+//
+//                $this->array[] = $v;
+//                $this->get_array($my_array, $v['id'], $level, $v['path']);
+//            }
+//        }
+//    }
 
     public function clean_array()
     {
@@ -507,14 +532,11 @@ class magasinsReadxmlAction extends waViewAction
         $this->conn->set_charset("utf8");
         //$seldb=mysql_select_db("webasyst",$this->conn);
 
-
         $retrive=mysqli_query($this->conn,"SELECT * FROM magasins_fields_provider WHERE magasin_id = ".$magasin_id." and provider_id = ".$provider_id." ORDER BY id DESC");
 
         while($row = mysqli_fetch_assoc($retrive)) {
             $rows[] = $row;
         }
-
-
 
 
         return $rows;

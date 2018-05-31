@@ -18,18 +18,16 @@ class testXML
 
     function __construct() {
 
-        $rows = $this->read_array();
-        $this->get_array($rows,0,0,'');
+        $this->array = $this->read_array();
 
+        //$this->get_array($rows,0,0,'');
         //$this->generate_array();
+        //$this->clean_array();
 
-        $this->clean_array();
+        $provider_id = $_REQUEST['provider_id'];
+        $this->arr_db = $this->compose_array_db($provider_id);
 
-//        echo "<pre>";
-//        print_r($this->array);
-//        echo "</pre>";
-//        die;
-
+        //$this->compose_array_db();
         $xml_url = '/Users/kosmos/Documents/sites/webassist.framework/wa-apps/magasins/xml/747b10bb-bd0a-44fc-97a0-fc963af1e527.xml';
 
         $xml = new XMLReader();
@@ -38,7 +36,7 @@ class testXML
 
         $this->insert_sql();
 
-        $this->compose_array_db();
+        //$this->compose_array_db();
         $this->compare_arrays();
 
         $this->clean_tables();
@@ -158,7 +156,7 @@ class testXML
 
             if(count($this->arr_xml,COUNT_RECURSIVE) > 40) {
 
-                $this->compose_array_db();
+                //$this->compose_array_db();
                 $this->compare_arrays();
             }
     }
@@ -249,29 +247,67 @@ class testXML
 
             $provider_id = $_REQUEST['provider_id'];
 
-            $this->sql .= "DELETE FROM magasins_categories WHERE update_date < (now() - INTERVAL 1 MINUTE) AND provider_id = ".$provider_id.";";
-            $this->sql .= "DELETE FROM magasins_products WHERE update_date < (now() - INTERVAL 1 MINUTE) AND provider_id = ".$provider_id.";";
+//            echo "<pre>";
+//            print_r($this->arr_db); die;
+
+            $array_for_query= array();
+            foreach($this->arr_db['magasins_categories'] as $n=>$m) {
+                array_push($array_for_query,'"'.$n.'"');
+            }
+            $query_string = implode(',',$array_for_query);
+
+            $this->sql .= "DELETE FROM magasins_categories WHERE hash IN (".$query_string.") AND provider_id = ".$provider_id.";";
+
+            $array_for_query= array();
+            foreach($this->arr_db['magasins_products'] as $n=>$m) {
+                array_push($array_for_query,'"'.$n.'"');
+            }
+            $query_string = implode(',',$array_for_query);
+
+            $this->sql .= "DELETE FROM magasins_products WHERE hash IN (".$query_string.") AND provider_id = ".$provider_id.";";
+
+
+            //echo $this->sql; die;
+
             $this->insert_sql();
     }
 
-    public function compose_array_db() {
+    public function compose_array_db($provider_id) {
 
-        foreach($this->arr_xml as $k=>$v) {
-            //$the_key = $this->what_is_key($v['db_table']);
-            $hash = '';
-
-            $array_for_query= array();
-            foreach($v as $n=>$m) {
-                //$new_elem = array($n);
-
-                array_push($array_for_query,'"'.$n.'"');
+        $query = "SELECT id, hash FROM magasins_categories WHERE  provider_id = ".$provider_id;
+        $retrive=mysqli_query($this->conn,$query);
+        if(isset($retrive) && $retrive) {
+            while ($row = mysqli_fetch_assoc($retrive)) {
+                $rows['magasins_categories'][$row['hash']] = $row['id'];
             }
-
-            $query_string = implode(',',$array_for_query);
-
-            $this->create_array_db($query_string,$k);
-
         }
+
+        $query = "SELECT id, hash FROM magasins_products WHERE provider_id = ".$provider_id;
+        $retrive=mysqli_query($this->conn,$query);
+        if(isset($retrive) && $retrive) {
+            while ($row = mysqli_fetch_assoc($retrive)) {
+                $rows['magasins_products'][$row['hash']] = $row['id'];
+            }
+        }
+
+        return $rows;
+
+//        foreach($this->arr_xml as $k=>$v) {
+//            //$the_key = $this->what_is_key($v['db_table']);
+//            $hash = '';
+//
+//            $array_for_query= array();
+//            foreach($v as $n=>$m) {
+//                //$new_elem = array($n);
+//
+//                array_push($array_for_query,'"'.$n.'"');
+//            }
+//
+//            $query_string = implode(',',$array_for_query);
+//
+//            $this->create_array_db($query_string,$k);
+//
+//        }
     }
 
     public function create_array_db($query_string,$table) {

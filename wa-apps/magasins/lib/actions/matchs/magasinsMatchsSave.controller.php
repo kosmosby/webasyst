@@ -7,6 +7,7 @@ class magasinsMatchsSaveController extends waController
     public $conn;
 
 
+
     public function execute()
     {
 
@@ -41,7 +42,9 @@ class magasinsMatchsSaveController extends waController
                         $this->sql .= "`magasin_id` = " . $magasin_id . " ,\n";
                         $this->sql .= "`provider_id` = " . $provider_id . " ,\n";
 
-                        $is_property = (isset($reg2[2])) ? 1 : 0;
+
+
+                        $is_property = (isset($reg2[1]) && $reg2[1]) ? 1 : 0;
                         $this->sql .= "`is_property` = " . $is_property . " ,\n";
                         $this->sql .= "`get_values` = 1 ,\n";
 
@@ -62,17 +65,114 @@ class magasinsMatchsSaveController extends waController
                     }
 
                 }
-                //echo $this->sql."<br/>";
+                //echo $this->sql."<hr/>";
             }
+
+
 
             if($this->sql) {
                 $this->insert_sql();
             }
+
+            $rows = $this->getvalues($magasin_id,$provider_id);
+
+
+
+            $this->insert_other_tags($rows,$magasin_id,$provider_id);
+
+
+            $rows = $this->getvalues($magasin_id,$provider_id);
+
+
+            $this->setParentId($rows);
+
+//          echo "<pre>";
+//          print_r($rows);
+
            // echo $this->sql; die;
         }
 
         $this->redirect(waSystem::getInstance()->getUrl().'?module=matchs&magasin_id='.$magasin_id.'&provider_id='.$provider_id);
     }
+
+    public function setParentId($rows) {
+
+        for($i=0;$i<count($rows);$i++) {
+
+            $path = $rows[$i]['path'];
+            preg_match("/(.*\/(.*))\/.*$/", $path, $output_array);
+            $key = $this->recursive_array_search($output_array[1],$rows);
+            if ($key !== FALSE) {
+                  $this->sql_update($rows[$i]['id'],$rows[$key]['id']);
+            }
+        }
+
+        $this->insert_sql();
+//        echo $this->sql; die;
+
+    }
+
+
+    public function insert_other_tags($rows,$magasin_id,$provider_id) {
+
+        for($i=0;$i<count($rows);$i++) {
+            $path = $rows[$i]['path'];
+
+            preg_match("/(.*\/(.*))\/.*$/", $path, $output_array);
+
+            $key = $this->recursive_array_search($output_array[1],$rows);
+
+
+            if ($key == FALSE) {
+                $this->sql_insert($magasin_id,$provider_id, $output_array[2], $output_array[1]);
+            }
+//            echo "<pre>";
+//            print_r($output_array[1]); die;
+
+        }
+
+        //echo $this->sql; die;
+        $array = explode(";" , $this->sql);
+
+        $array = array_unique($array);
+        $array = array_filter($array);
+
+        $this->sql = '';
+        $this->sql = implode(";",$array);
+
+        $this->insert_sql();
+    }
+
+    public function getvalues($magasin_id,$provider_id) {
+
+        $rows = $this->sql_select($magasin_id,$provider_id);
+        return $rows;
+
+    }
+
+    public function sql_update($id,$parent_id) {
+
+        $this->sql .= "UPDATE magasins_fields_provider SET parent_id = ".$parent_id." WHERE id = ".$id.";";
+    }
+
+    public function sql_select($magasin_id,$provider_id) {
+
+        $retrive=mysqli_query($this->conn,"SELECT id, path FROM magasins_fields_provider WHERE magasin_id = ".$magasin_id." and provider_id = ".$provider_id." ORDER BY id DESC");
+
+        while($row = mysqli_fetch_assoc($retrive)) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    public function sql_insert($magasin_id,$provider_id, $name, $path) {
+
+        $this->sql .= "INSERT INTO magasins_fields_provider SET magasin_id = ".$magasin_id." , provider_id = ".$provider_id.", name = '".$name."', path= '".$path."' ,get_values=1 ;";
+
+        //$this->insert_sql();
+    }
+
 
     public function db_connection()
     {
@@ -94,5 +194,15 @@ class magasinsMatchsSaveController extends waController
                 ;
             } // flush multi_queries
         }
+    }
+
+    public function recursive_array_search($needle,$haystack) {
+        foreach($haystack as $key=>$value) {
+            $current_key=$key;
+            if($needle===$value OR (is_array($value) && $this->recursive_array_search($needle,$value) !== false)) {
+                return $current_key;
+            }
+        }
+        return false;
     }
 }

@@ -16,6 +16,7 @@
                 var values = JSON.parse(data);
                 $( "#adminForm select" ).each(function( index ) {
                     var name = $(this).attr("name");
+
                     $(this).val(values[name]['path'])
 
                     var name_key = name+'_has_a_key';
@@ -36,6 +37,8 @@
                 //     var name = $(this).attr("name");
                 //     $(this).val(values[name]['path'])
                 // });
+
+
 
 
 
@@ -65,6 +68,7 @@
              $("#adminForm").submit();
             }
         });
+
 
     });
 </script>
@@ -119,7 +123,8 @@
         </table>
     </div>
 
-
+    <!--<div>Тэг со списком для продуктов:</div>-->
+    <!--<div class="select" data-field-id="db_table_products"></div>-->
     <br /><br />
 
     <div style="margin-top: 10px;"></div>
@@ -151,7 +156,15 @@
         </table>
     </div>
 
+    <!--<form action="index.php?module=matchs&action=save" method="post" id="db_table_form" name="db_table_form">-->
+        <!--<div class="select" data-field-id="db_table_products"></div>-->
 
+        <!--<div class="select" data-field-id="db_table_catetories"></div>-->
+    <!--</form>-->
+
+
+    <!--<div>Тэг со списком для категорий:</div>-->
+    <!--<div class="select" data-field-id="db_table_categories"></div>-->
 
 
     <input type="hidden" name="module" value="matchs"/>
