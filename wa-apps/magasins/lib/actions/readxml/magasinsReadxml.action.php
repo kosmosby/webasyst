@@ -265,17 +265,24 @@ class magasinsReadxmlAction extends waViewAction
 //            print_r($this->arr_db); die;
 
             $array_for_query= array();
-            foreach($this->arr_db['magasins_categories'] as $n=>$m) {
-                array_push($array_for_query,'"'.$n.'"');
-    }
+
+            if(isset($this->arr_db['magasins_categories']) && count($this->arr_db['magasins_categories'])) {
+                foreach ($this->arr_db['magasins_categories'] as $n => $m) {
+                    array_push($array_for_query, '"' . $n . '"');
+                }
+            }
+
             $query_string = implode(',',$array_for_query);
 
             if($query_string) {
                 $this->sql .= "DELETE FROM magasins_categories WHERE hash IN (" . $query_string . ") AND provider_id = " . $provider_id . ";";
             }
             $array_for_query= array();
-            foreach($this->arr_db['magasins_products'] as $n=>$m) {
-                array_push($array_for_query,'"'.$n.'"');
+
+            if(isset($this->arr_db['magasins_products']) && count($this->arr_db['magasins_products'])) {
+                foreach ($this->arr_db['magasins_products'] as $n => $m) {
+                    array_push($array_for_query, '"' . $n . '"');
+                }
             }
             $query_string = implode(',',$array_for_query);
 
@@ -298,6 +305,7 @@ class magasinsReadxmlAction extends waViewAction
             }
         }
 
+        $rows = array();
         $query = "SELECT id, hash FROM magasins_products WHERE provider_id = ".$provider_id;
         $retrive=mysqli_query($this->conn,$query);
         if(isset($retrive) && $retrive) {

@@ -27,7 +27,7 @@ class magasinsProductAction extends waViewAction
         else {
 //            $records = $model->order('id DESC')->fetchAll();
 
-            $sql = $model->query("SELECT a.*,b.name as category_name FROM magasins_products as a, magasins_categories as b where a.categoryId = b.category_id ORDER BY a.id ASC");
+            $sql = $model->query("SELECT a.*,b.name as category_name FROM magasins_products as a, magasins_categories as b where a.categoryId = b.category_id GROUP BY a.id ORDER BY a.id ASC");
             $records = $sql->fetchAll();
         }
 

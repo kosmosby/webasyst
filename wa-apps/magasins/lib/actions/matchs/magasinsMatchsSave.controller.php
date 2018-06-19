@@ -83,10 +83,12 @@ class magasinsMatchsSaveController extends waController
 
             $rows = $this->getvalues($magasin_id,$provider_id);
 
+//                      echo "<pre>";
+//          print_r($rows); die;
+
             $this->setParentId($rows);
 
-//          echo "<pre>";
-//          print_r($rows);
+
 
            // echo $this->sql; die;
         }
@@ -123,9 +125,9 @@ class magasinsMatchsSaveController extends waController
                   $this->sql_update($rows[$i]['id'],$rows[$key]['id']);
             }
         }
-
-        $this->insert_sql();
 //        echo $this->sql; die;
+        $this->insert_sql();
+
 
     }
 
