@@ -4,50 +4,54 @@
         $.post( "{$wa_app_url}?module=matchs&action=select&magasin_id={$magasin_info.id}&provider_id={$provider_info.id}", function( data ) {
 
             $( ".select" ).each(function( index ) {
-                var field_name = $(this).attr('data-field-id');
-                var response = data;
 
-                $(this).html(response);
-                $(this).find("select").attr('name',field_name);
+                if ($(this).attr('data-field-id')) {
+                    var field_name = $(this).attr('data-field-id');
+                    var response = data;
+
+                    $(this).html(response);
+                    $(this).find("select").attr('name', field_name);
+                }
 
             });
 
             $.post( "{$wa_app_url}?module=matchs&action=values&magasin_id={$magasin_info.id}&provider_id={$provider_info.id}", function( data ) {
                 var values = JSON.parse(data);
+
                 $( "#adminForm select" ).each(function( index ) {
                     var name = $(this).attr("name");
 
-                    $(this).val(values[name]['path'])
+                    if(values.hasOwnProperty(name)) {
+                        $(this).val(values[name]['path']);
 
-                    var name_key = name+'_has_a_key';
-                    var has_a_key_checkbox = $("#adminForm input:checkbox[name='"+name_key+"']");
-                    if(values[name]['has_a_key'] == 1) {
-                        has_a_key_checkbox.prop('checked',true);
+                        var name_key = name+'_has_a_key';
+                        var has_a_key_checkbox = $("#adminForm input:checkbox[name='"+name_key+"']");
+                        if(values[name]['has_a_key'] == 1) {
+                            has_a_key_checkbox.prop('checked',true);
+                        }
+
+                        var name_multiply = name+'_multiply';
+                        var multiply_checkbox = $("#adminForm input:checkbox[name='"+name_multiply+"']");
+                        if(values[name]['multiply'] == 1) {
+                            multiply_checkbox.prop('checked',true);
+                        }
                     }
-
-                    var name_multiply = name+'_multiply';
-                    var multiply_checkbox = $("#adminForm input:checkbox[name='"+name_multiply+"']");
-                    if(values[name]['multiply'] == 1) {
-                        multiply_checkbox.prop('checked',true);
-                    }
-
                 });
+            });
 
-                // $( "#adminForm checkbox" ).each(function( index ) {
-                //     var name = $(this).attr("name");
-                //     $(this).val(values[name]['path'])
-                // });
+            $.post( "{$wa_app_url}?module=matchs&action=dbtable&magasin_id={$magasin_info.id}&provider_id={$provider_info.id}", function( data ) {
 
-
+                var values = JSON.parse(data);
 
 
+                //console.log(values[0]['magasins_categories'])
+
+                $("select[name='db_table_products']").val(values[1]['magasins_products']);
+                $("select[name='db_table_categories']").val(values[0]['magasins_categories']);
 
             });
-            // var select = $(this).find("select.validate");
-            // select.validate({
-            //     expression: "if (VAL) return true; else return false;",
-            //     message: "Выберите значение из списка"
-            // });
+
+
         });
 
         $( "#matchs_save" ).on( "click", function() {
@@ -69,8 +73,14 @@
             }
         });
 
-
     });
+
+    function isset(v){
+        if(v === 'undefined'){
+            return false;
+        }
+        return true;
+    }
 </script>
 
 
@@ -102,9 +112,7 @@
             <thead class="thead-light">
             <tr>
                 {foreach from=$products_select item=r}
-
                     <th scope="col" >{$r.fields_products} </th>
-
                 {/foreach}
 
             </tr>
@@ -163,8 +171,11 @@
     <!--</form>-->
 
 
-    <!--<div>Тэг со списком для категорий:</div>-->
-    <!--<div class="select" data-field-id="db_table_categories"></div>-->
+    <div>Тэг со списком продуктов:</div>
+    <div class="select" data-field-id="db_table_products"></div>
+
+    <div>Тэг со списком категорий:</div>
+    <div class="select" data-field-id="db_table_categories"></div>
 
 
     <input type="hidden" name="module" value="matchs"/>
