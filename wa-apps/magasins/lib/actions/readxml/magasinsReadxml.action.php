@@ -33,13 +33,10 @@ class magasinsReadxmlAction extends waViewAction
         $this->arr_db = $this->compose_array_db($provider_id);
         //$this->get_array($rows,0,0,'');
 
-
         $this->clean_array();
-
 //
 //        echo "<pre>";
 //        print_r($this->array); die;
-
 
         $xml = new XMLReader();
         $xml->open($xml_url);

@@ -13,8 +13,8 @@ preg_match_all("/object_link\"\s*href=\"(.*)\"\>/",$input_line,$output_array);
 
 
 
-echo "<pre>";
-print_r(count($output_array[1])); die;
+//echo "<pre>";
+//print_r(count($output_array[1])); die;
 
 $csv_array = array();
 $i=0;
@@ -22,7 +22,7 @@ $i=0;
 
 foreach($output_array[1] as $k=>$v) {
 
-    if($k>=1500 && $k<2000) {
+    if($k>=2000 && $k<2500) {
         $input_line_link = file_get_contents($v);
         preg_match_all("/le\"\s*data-item-id=\"{IID}\"\>(.*)\s(.*)\<\/h2\>.*<td>(.*)<\/td>/", $input_line_link, $output_array_link);
         $csv_array[$i]['first_name'] = $output_array_link[1][0];
@@ -30,7 +30,7 @@ foreach($output_array[1] as $k=>$v) {
         $csv_array[$i]['company'] = $output_array_link[3][0];
         $i++;
     }
-    if($k>2000) {
+    if($k>2500) {
         break;
     }
 
