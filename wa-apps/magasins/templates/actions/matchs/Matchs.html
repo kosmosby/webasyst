@@ -88,17 +88,6 @@
                 });
 
             });
-
-                // $( ".select" ).each(function( index ) {
-                //     if ($(this).attr('data-field-id')) {
-                //         var field_name = $(this).attr('data-field-id');
-                //         var response = data;
-                //
-                //         $(this).html(response);
-                //         $(this).find("select").attr('name', field_name);
-                //     }
-                // });
-
         });
 
     });
@@ -130,8 +119,8 @@
     <div style="float: left;">
         <button type="button" class="btn btn-outline-secondary btn-sm" onclick="return window.location.href = '?module=setupmagasin&magasin_id={$magasin_info.id}';">Вернуться</button>
         <button type="button" class="btn btn-outline-success btn-sm" id="matchs_save">Сохранить</button>
-        <!--<button type="button" class="btn btn-outline-info btn-sm" onclick="return window.location.href = '?module=readxml&provider_id={$provider_info.id}&magasin_id={$magasin_info.id}';">Прочитать</button>-->
-        <button type="button" class="btn btn-outline-info btn-sm" id="matchs_read">Прочитать</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" onclick="return window.location.href = '?module=readxml&provider_id={$provider_info.id}&magasin_id={$magasin_info.id}';">Прочитать</button>
+        <button type="button" class="btn btn-outline-info btn-sm" id="matchs_read">Предпросмотр</button>
 
     </div>
 
