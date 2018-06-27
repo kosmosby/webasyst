@@ -5,13 +5,21 @@ class magasinsProviderEditAction extends waViewAction
 
     public function execute()
     {
+
         $id = waRequest::get('id', null, waRequest::TYPE_INT);
 
         $model = new magasinsProviderModel();
 
         if ($id) { // edit post
             $provider = $model->getById($id);
-            $title = 'Редактируем провайдера';
+            $title = 'Редактируем провайдераa';
+
+            $result = $model->query("SELECT a.*,b.* FROM magasins_setupmagasin as a, magasins_magasin as b WHERE a.provider_id = ".$id." AND a.magasin_id = b.id");
+            $magasins = $result->fetchAll();
+
+//            echo "<pre>";
+//            print_r($magasins); die;
+
 
         } else { // add magasin
             $provider = array(
@@ -25,6 +33,8 @@ class magasinsProviderEditAction extends waViewAction
 
         $this->view->assign('title', $title);
         $this->view->assign('provider', $provider);
+
+        $this->view->assign('magasins', $magasins);
 
         $this->setLayout(new magasinsDefaultLayout());
         $this->getResponse()->setTitle($title);

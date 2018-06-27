@@ -325,3 +325,22 @@ Query: SELECT * FROM magasins_fields_provider WHERE magasin_id =  and provider_i
 #11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #12 index.php(7): waSystem->dispatch()
 #13 {main}
+
+2018-06-27 18:22:05 127.0.0.1
+Query Error 1054: Unknown column 'a.magasins_id' in 'where clause'
+Query: SELECT a.*,b.* FROM magasins_setupmagasin as a, magasins_magasin as b WHERE a.provider_id = 3 AND a.magasins_id = b.id
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT a.*,b.* ...')
+#1 wa-apps/magasins/lib/actions/providers/magasinsProviderEdit.action.php(17): waModel->query('SELECT a.*,b.* ...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsProviderEditAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsProviderEditAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'provider', 'edit')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}

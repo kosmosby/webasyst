@@ -4,7 +4,6 @@ class magasinsProviderAction extends waViewAction
 {
     public function execute()
     {
-
         $search =  waRequest::post('search');
 
         $model = new magasinsProviderModel();
