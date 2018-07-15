@@ -7,6 +7,14 @@
     </div>
 
     <div style="float: right;" class="mr-3 mb-3">
+        <select class="custom-select selectpicker form-control-sm" name="filter_provider" onchange="this.form.submit()">
+            <option valaue="">-выберите поставщика-</option>
+            {foreach from=$providers item=r}
+            <option value="{$r.id}" {if $filter_provider eq $r.id}selected{/if}>{$r.name}</option>
+            {/foreach}
+        </select>
+    </div>
+    <div style="float: right;" class="mr-3 mb-3">
         <input class="form-control form-control-sm" type="text" placeholder="поиск" name="search" value="{$search}">
     </div>
 
@@ -24,6 +32,7 @@
                 <th scope="col">описание</th>
                 <th scope="col">цена</th>
                 <th scope="col">категория</th>
+                <th scope="col">поставщик</th>
             </tr>
             </thead>
 
@@ -35,10 +44,11 @@
                 </td>
                 <td scope="row">{$r.id}</td>
                 <td><a href="?module=provider&action=edit&id={$r.id}">{$r.name}</a></td>
-                <td><a href="{$r.url}" target="_blank">{$r.url}</a></td>
+                <td><a href="{$r.url}" target="_blank">{$r.url|truncate:20}</a></td>
                 <td>{$r.description|truncate:50}</td>
                 <td>{$r.price} {$r.currencyId}</td>
                 <td>{$r.category_name}</td>
+                <td>{$r.provider}</td>
             </tr>
             {/foreach}
             </tbody>
