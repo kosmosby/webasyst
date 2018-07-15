@@ -30,16 +30,15 @@ class magasinsReadxmlAction extends waViewAction
         //$xml_url = '/Users/kosmos/Documents/sites/webassist.framework/wa-apps/magasins/xml/747b10bb-bd0a-44fc-97a0-fc963af1e527.xml';
 
         $this->array = $this->read_array($magasin_id,$provider_id);
+
         $this->arr_db = $this->compose_array_db($provider_id);
         //$this->get_array($rows,0,0,'');
 
         $this->clean_array();
-//
-//        echo "<pre>";
-//        print_r($this->array); die;
+
 
         $xml = new XMLReader();
-        $xml->open($xml_url);
+        $xml->open(trim($xml_url));
         $this->xml2assoc($xml);
 
         $this->insert_sql();
@@ -49,8 +48,6 @@ class magasinsReadxmlAction extends waViewAction
 
         $this->clean_tables();
 
-//        echo "<pre>";
-//        print_r($records); die;
 
         $this->redirect(waSystem::getInstance()->getUrl().'?module=product&provider_id='.$provider_id.'&magasin_id='.$magasin_id);
 

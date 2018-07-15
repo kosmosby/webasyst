@@ -10,6 +10,7 @@ class magasinsProviderEditAction extends waViewAction
 
         $model = new magasinsProviderModel();
 
+        $magasins = array();
         if ($id) { // edit post
             $provider = $model->getById($id);
             $title = 'Редактируем провайдераa';

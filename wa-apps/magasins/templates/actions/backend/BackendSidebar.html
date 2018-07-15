@@ -41,13 +41,20 @@
 
                 <li {if isset($view_products) && $view_products == true}class="selected"{/if}>
                 <a href="?module=product">
-                    <i class="icon16 widgets"></i>Продукты
+                    <i class="icon16 upload"></i>Продукты
                 </a>
                 </li>
 
                 <li {if isset($view_categories) && $view_categories == true}class="selected"{/if}>
                 <a href="?module=categorie">
-                    <i class="icon16 widgets"></i>Категории
+                    <i class="icon16 apps"></i>Категории
+                </a>
+                </li>
+
+
+                <li {if isset($view_similars) && $view_similars == true}class="selected"{/if}>
+                <a href="?module=similars">
+                    <i class="icon16 checkboxes"></i>Симиляры
                 </a>
                 </li>
 

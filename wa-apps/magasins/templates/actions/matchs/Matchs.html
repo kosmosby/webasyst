@@ -43,10 +43,12 @@
 
                 var values = JSON.parse(data);
 
-                //console.log(values[0]['magasins_categories'])
+                //console.log(values)
 
-                $("select[name='db_table_products']").val(values[1]['magasins_products']);
-                $("select[name='db_table_categories']").val(values[0]['magasins_categories']);
+                if(values.length) {
+                    $("select[name='db_table_products']").val(values[1]['magasins_products']);
+                    $("select[name='db_table_categories']").val(values[0]['magasins_categories']);
+                }
 
             });
         });
@@ -60,9 +62,9 @@
                 var input = $(this);
                 //alert('Name: ' + input.attr('name') + ' Value: ' + input.val());
                 if(input.val() == '') {
-                    alert('Заполните значение для '+ input.attr('name'));
-                    flag = 1;
-                    return false;
+                    // alert('Заполните значение для '+ input.attr('name'));
+                    // flag = 1;
+                    // return false;
                 }
             });
             if(flag == 0 && count > 0) {

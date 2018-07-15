@@ -21,7 +21,7 @@ class magasinsMatchsSelectController extends waController
         //$xml_url = '/Users/kosmos/Documents/sites/webassist.framework/wa-apps/magasins/xml/747b10bb-bd0a-44fc-97a0-fc963af1e527.xml';
 
         $xml = new XMLReader();
-        $xml->open($xml_url);
+        $xml->open(trim($xml_url));
         $array = $this->xml2assoc($xml);
 
         $xml->close();
