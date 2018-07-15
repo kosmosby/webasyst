@@ -98,7 +98,7 @@
 
                 var values = JSON.parse(data);
 
-                if(values > 0) {
+                if(values.count_elements > 0) {
                     return window.location.href = '?module=readxml&provider_id={$provider_info.id}&magasin_id={$magasin_info.id}';
                 }
                 else {
