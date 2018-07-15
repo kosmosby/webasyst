@@ -49,7 +49,7 @@ class magasinsReadxmlAction extends waViewAction
         $this->clean_tables();
 
 
-        $this->redirect(waSystem::getInstance()->getUrl().'?module=product&provider_id='.$provider_id.'&magasin_id='.$magasin_id);
+        $this->redirect(waSystem::getInstance()->getUrl().'?module=product&provider_id='.$provider_id.'&magasin_id='.$magasin_id.'&filter_provider='.$provider_id);
 
     }
 

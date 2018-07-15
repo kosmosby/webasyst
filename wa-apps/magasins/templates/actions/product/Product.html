@@ -8,7 +8,7 @@
 
     <div style="float: right;" class="mr-3 mb-3">
         <select class="custom-select selectpicker form-control-sm" name="filter_provider" onchange="this.form.submit()">
-            <option valaue="">-выберите поставщика-</option>
+            <option value="">-выберите поставщика-</option>
             {foreach from=$providers item=r}
             <option value="{$r.id}" {if $filter_provider eq $r.id}selected{/if}>{$r.name}</option>
             {/foreach}

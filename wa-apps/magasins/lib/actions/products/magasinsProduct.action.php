@@ -7,7 +7,8 @@ class magasinsProductAction extends waViewAction
 
 
         $search =  waRequest::post('search');
-        $filter_provider =  waRequest::post('filter_provider');
+        $filter_provider =  waRequest::request('filter_provider');
+
 
         $model = new magasinsProductModel();
 
@@ -30,7 +31,7 @@ class magasinsProductAction extends waViewAction
         if($filter_provider) {
             $sql_string .= " AND c.id = ".$filter_provider." ";
         }
-        $sql_string .= " ORDER BY a.id ASC";
+        $sql_string .= " GROUP BY a.id ORDER BY a.id ASC";
         $sql = $model->query($sql_string);
         $records = $sql->fetchAll();
 
