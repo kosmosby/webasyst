@@ -7,6 +7,8 @@ class magasinsProductAction extends waViewAction
 
 
         $search =  waRequest::post('search');
+        $page =  waRequest::request('page',1);
+
         $filter_provider =  waRequest::request('filter_provider');
 
 
@@ -23,7 +25,10 @@ class magasinsProductAction extends waViewAction
             ->fetchAll();
 
 
-        $sql_header_count = "SELECT count(*) ";
+        $offset = $page*10-11;
+        if($offset < 0) $offset=0;
+
+        $sql_header_count = "SELECT count(*) as total_records";
 
         $sql_header = " SELECT a.*,b.name as category_name, c.name as provider";
         $sql_body = " FROM magasins_products as a, magasins_categories as b, magasins_provider as c  ";
@@ -34,20 +39,23 @@ class magasinsProductAction extends waViewAction
         if($filter_provider) {
             $sql_body .= " AND c.id = ".$filter_provider." ";
         }
-        $sql_body .= " GROUP BY a.id ORDER BY a.id ASC";
 
-        $sql_string = $sql_header.$sql_body;
+        $sql_body .= " ORDER BY a.id ASC";
+
+        $sql_footer = " LIMIT 10 OFFSET ".$offset;
+
+        $sql_string = $sql_header.$sql_body.$sql_footer;
         $sql = $model->query($sql_string);
         $records = $sql->fetchAll();
 
         $sql_string_count = $sql_header_count.$sql_body;
         $sql = $model->query($sql_string_count);
-        $count  = count($sql->fetchAll());
+        $row  = $sql->fetch();
 
         //echo $sql_string_count; die;
 
-        //echo "<pre>";
-        //print_r($count); die;
+//        echo "<pre>";
+//        print_r($count); die;
         //echo $count; die;
 
 
@@ -80,5 +88,8 @@ class magasinsProductAction extends waViewAction
         $this->view->assign('providers', $providers);
         $this->view->assign('records', $records);
         $this->view->assign('search', $search);
+
+        $this->view->assign('total', ceil($row['total_records']/10));
+        $this->view->assign('page', $page);
     }
 }
