@@ -23,17 +23,35 @@ class magasinsProductAction extends waViewAction
             ->fetchAll();
 
 
-        $sql_string = "SELECT a.*,b.name as category_name, c.name as provider FROM magasins_products as a, magasins_categories as b, magasins_provider as c  ";
-        $sql_string .= "WHERE a.categoryId = b.category_id AND c.id = a.provider_id ";
+        $sql_header_count = "SELECT count(*) ";
+
+        $sql_header = " SELECT a.*,b.name as category_name, c.name as provider";
+        $sql_body = " FROM magasins_products as a, magasins_categories as b, magasins_provider as c  ";
+        $sql_body .= " WHERE a.categoryId = b.category_id AND c.id = a.provider_id ";
         if($search) {
-            $sql_string .= " AND (a.name LIKE '%" . $search . "%' OR a.description LIKE '%" . $search . "%') ";
+            $sql_body .= " AND (a.name LIKE '%" . $search . "%' OR a.description LIKE '%" . $search . "%') ";
         }
         if($filter_provider) {
-            $sql_string .= " AND c.id = ".$filter_provider." ";
+            $sql_body .= " AND c.id = ".$filter_provider." ";
         }
-        $sql_string .= " GROUP BY a.id ORDER BY a.id ASC";
+        $sql_body .= " GROUP BY a.id ORDER BY a.id ASC";
+
+        $sql_string = $sql_header.$sql_body;
         $sql = $model->query($sql_string);
         $records = $sql->fetchAll();
+
+        $sql_string_count = $sql_header_count.$sql_body;
+        $sql = $model->query($sql_string_count);
+        $count  = count($sql->fetchAll());
+
+        //echo $sql_string_count; die;
+
+        //echo "<pre>";
+        //print_r($count); die;
+        //echo $count; die;
+
+
+
 
 //        if($search) {
 ////            $records = $model->select('*')

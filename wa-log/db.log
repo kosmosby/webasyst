@@ -382,3 +382,79 @@ Query: SELECT a.*,b.name as category_name, c.name as provider FROM magasins_prod
 #11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #12 index.php(7): waSystem->dispatch()
 #13 {main}
+
+2018-07-18 12:46:03 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'magasins_products as a, magasins_categories as b, magasins_provider as c  WHERE ' at line 1
+Query: SELECT a.*,b.name as category_name, c.name as providerFROM magasins_products as a, magasins_categories as b, magasins_provider as c  WHERE a.categoryId = b.category_id AND c.id = a.provider_id  GROUP BY a.id ORDER BY a.id ASC
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT a.*,b.na...')
+#1 wa-apps/magasins/lib/actions/products/magasinsProduct.action.php(39): waModel->query('SELECT a.*,b.na...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsProductAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsProductAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', NULL)
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-07-18 12:59:55 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) FROM magasins_products as a, magasins_categories as b, magasins_provider as c' at line 1
+Query: SELECT count(a.*) FROM magasins_products as a, magasins_categories as b, magasins_provider as c  WHERE a.categoryId = b.category_id AND c.id = a.provider_id  GROUP BY a.id ORDER BY a.id ASC
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT count(a....')
+#1 wa-apps/magasins/lib/actions/products/magasinsProduct.action.php(44): waModel->query('SELECT count(a....')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsProductAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsProductAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', NULL)
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-07-18 13:00:22 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) FROM magasins_products as a, magasins_categories as b, magasins_provider as c' at line 1
+Query: SELECT count(a.*) FROM magasins_products as a, magasins_categories as b, magasins_provider as c   WHERE a.categoryId = b.category_id AND c.id = a.provider_id  GROUP BY a.id ORDER BY a.id ASC
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT count(a....')
+#1 wa-apps/magasins/lib/actions/products/magasinsProduct.action.php(44): waModel->query('SELECT count(a....')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsProductAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsProductAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', NULL)
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-07-18 13:00:43 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*)  FROM magasins_products as a, magasins_categories as b, magasins_provider as ' at line 1
+Query: SELECT count(a.*)  FROM magasins_products as a, magasins_categories as b, magasins_provider as c   WHERE a.categoryId = b.category_id AND c.id = a.provider_id  GROUP BY a.id ORDER BY a.id ASC
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT count(a....')
+#1 wa-apps/magasins/lib/actions/products/magasinsProduct.action.php(44): waModel->query('SELECT count(a....')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsProductAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsProductAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', NULL)
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}

@@ -34,6 +34,10 @@ class magasinsReadxmlAction extends waViewAction
         $this->arr_db = $this->compose_array_db($provider_id);
         //$this->get_array($rows,0,0,'');
 
+//        echo "<pre>";
+//        print_r($this->arr_db); die;
+
+
         $this->clean_array();
 
 
@@ -299,7 +303,7 @@ class magasinsReadxmlAction extends waViewAction
             }
         }
 
-        $rows = array();
+        //$rows = array();
         $query = "SELECT id, hash FROM magasins_products WHERE provider_id = ".$provider_id;
         $retrive=mysqli_query($this->conn,$query);
         if(isset($retrive) && $retrive) {
