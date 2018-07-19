@@ -1,4 +1,18 @@
 <!--<script src="{$wa_app_static_url}js/jquery.validate.js" type="text/javascript"></script>-->
+
+<link rel="stylesheet" href="{$wa_app_static_url}css/jquery-ui.min.css">
+<script src="{$wa_app_static_url}js/jquery-ui.min.js" type="text/javascript"></script>
+
+
+<style>
+    #draggable { width: 70%; height: 300px; padding: 0.5em; }
+    #draggable { text-align: center; margin: 0; }
+    #xmlcontent { position : relative;
+        height:90%;
+        overflow:auto;
+        width: 100%}
+</style>
+
 <script language="javascript">
     $( document ).ready(function() {
         $.post( "{$wa_app_url}?module=matchs&action=select&magasin_id={$magasin_info.id}&provider_id={$provider_info.id}", function( data ) {
@@ -106,6 +120,14 @@
                     return false;
                 }
             });
+        });
+
+
+        $( "#draggable" ).draggable({ containment: "parent", scroll: false }).resizable();
+
+        $.post( "{$wa_app_url}?module=matchs&action=xmlcontent&provider_id={$provider_info.id}", function( data ) {
+
+           $("#xmlcontent").html(data);
         });
 
     });
@@ -218,6 +240,13 @@
 
     <div>Тэг со списком категорий:</div>
     <div class="select" data-field-id="db_table_categories"></div>
+
+
+    <div id="draggable" class="ui-widget-content">
+        <div class="ui-widget-header">Xml файл</div>
+        <textarea id="xmlcontent">
+        </textarea>
+    </div>
 
 
     <input type="hidden" name="module" value="matchs"/>

@@ -496,3 +496,117 @@ Query: SELECT a.*,b.name as category_name, c.name as provider FROM magasins_prod
 #11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #12 index.php(7): waSystem->dispatch()
 #13 {main}
+
+2018-07-18 14:46:04 127.0.0.1
+Query Error 1109: Unknown table 'a' in order clause
+Query: SELECT count(*) as total_records ORDER BY a.id ASC
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT count(*)...')
+#1 wa-apps/magasins/lib/actions/categories/magasinsCategorie.action.php(36): waModel->query('SELECT count(*)...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsCategorieAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsCategorieAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'categorie', NULL)
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-07-18 14:46:56 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) as total_records ORDER BY a.id ASC' at line 1
+Query: SELECT count(a.*) as total_records ORDER BY a.id ASC
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run(' SELECT count(a...')
+#1 wa-apps/magasins/lib/actions/categories/magasinsCategorie.action.php(36): waModel->query(' SELECT count(a...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsCategorieAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsCategorieAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'categorie', NULL)
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-07-18 14:47:15 127.0.0.1
+Query Error 1109: Unknown table 'a' in order clause
+Query: SELECT count(*) as total_records ORDER BY a.id ASC
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run(' SELECT count(*...')
+#1 wa-apps/magasins/lib/actions/categories/magasinsCategorie.action.php(36): waModel->query(' SELECT count(*...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsCategorieAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsCategorieAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'categorie', NULL)
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-07-18 14:47:28 127.0.0.1
+Query Error 1054: Unknown column 'd' in 'order clause'
+Query: SELECT a.* FROM  magasins_categories as a ORDER BY d ASC LIMIT 10 OFFSET 0
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run(' SELECT a.* FRO...')
+#1 wa-apps/magasins/lib/actions/categories/magasinsCategorie.action.php(32): waModel->query(' SELECT a.* FRO...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsCategorieAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsCategorieAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'categorie', NULL)
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-07-18 14:47:42 127.0.0.1
+Query Error 1054: Unknown column 'id' in 'order clause'
+Query: SELECT count(*) as total_records ORDER BY id ASC
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run(' SELECT count(*...')
+#1 wa-apps/magasins/lib/actions/categories/magasinsCategorie.action.php(36): waModel->query(' SELECT count(*...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsCategorieAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsCategorieAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'categorie', NULL)
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-07-18 14:48:15 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'magasins_categories as a ORDER BY a.id ASC' at line 1
+Query: SELECT count(*) as total_recordsFROM  magasins_categories as a ORDER BY a.id ASC
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run(' SELECT count(*...')
+#1 wa-apps/magasins/lib/actions/categories/magasinsCategorie.action.php(37): waModel->query(' SELECT count(*...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsCategorieAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsCategorieAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'categorie', NULL)
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
