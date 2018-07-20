@@ -29,7 +29,7 @@ class magasinsReadxmlAction extends waViewAction
         $xml_url = $provider_info['xml_url'];
         //$xml_url = '/Users/kosmos/Documents/sites/webassist.framework/wa-apps/magasins/xml/747b10bb-bd0a-44fc-97a0-fc963af1e527.xml';
 
-        $this->array = $this->read_array($magasin_id,$provider_id);
+        $this->array = $this->read_array($provider_id);
 
         $this->arr_db = $this->compose_array_db($provider_id);
         //$this->get_array($rows,0,0,'');
@@ -295,6 +295,7 @@ class magasinsReadxmlAction extends waViewAction
 
     public function compose_array_db($provider_id) {
 
+        $rows = array();
         $query = "SELECT id, hash FROM magasins_categories WHERE  provider_id = ".$provider_id;
         $retrive=mysqli_query($this->conn,$query);
         if(isset($retrive) && $retrive) {
@@ -303,14 +304,14 @@ class magasinsReadxmlAction extends waViewAction
             }
         }
 
-        //$rows = array();
+
         $query = "SELECT id, hash FROM magasins_products WHERE provider_id = ".$provider_id;
         $retrive=mysqli_query($this->conn,$query);
         if(isset($retrive) && $retrive) {
             while ($row = mysqli_fetch_assoc($retrive)) {
                 $rows['magasins_products'][$row['hash']] = $row['id'];
+            }
         }
-    }
 
         return $rows;
 
@@ -529,7 +530,7 @@ class magasinsReadxmlAction extends waViewAction
         $this->array = array_values($this->array);
     }
 
-    public function read_array($magasin_id,$provider_id) {
+    public function read_array($provider_id) {
         $rows=array();
         // Create connection
         $config = wa()->getConfig()->getDatabase();
@@ -538,7 +539,7 @@ class magasinsReadxmlAction extends waViewAction
         $this->conn->set_charset("utf8");
         //$seldb=mysql_select_db("webasyst",$this->conn);
 
-        $retrive=mysqli_query($this->conn,"SELECT * FROM magasins_fields_provider WHERE magasin_id = ".$magasin_id." and provider_id = ".$provider_id." ORDER BY id DESC");
+        $retrive=mysqli_query($this->conn,"SELECT * FROM magasins_fields_provider WHERE provider_id = ".$provider_id." ORDER BY id DESC");
 
         while($row = mysqli_fetch_assoc($retrive)) {
             $rows[] = $row;

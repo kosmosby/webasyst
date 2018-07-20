@@ -13,13 +13,12 @@ class magasinsMatchsSaveController extends waController
 
         $this->db_connection();
 
-        $magasin_id = waRequest::post('magasin_id');
         $provider_id = waRequest::post('provider_id');
 
 
-        if(isset($_POST) && count($_POST) && $magasin_id && $provider_id) {
+        if(isset($_POST) && count($_POST)  && $provider_id) {
 
-            $this->sql .= "DELETE FROM `magasins_fields_provider` WHERE magasin_id = ".$magasin_id." AND provider_id = ".$provider_id.";";
+            $this->sql .= "DELETE FROM `magasins_fields_provider` WHERE provider_id = ".$provider_id.";";
             $this->insert_sql();
 
 //            echo "<pre>";
@@ -40,7 +39,6 @@ class magasinsMatchsSaveController extends waController
                         $this->sql .= "INSERT INTO `magasins_fields_provider` SET ";
                         $name = (isset($reg2[2])) ? $reg2[2] : $reg2[1];
                         $this->sql .= "`name` = '" . $name . "' ,\n";
-                        $this->sql .= "`magasin_id` = " . $magasin_id . " ,\n";
                         $this->sql .= "`provider_id` = " . $provider_id . " ,\n";
 
 
@@ -79,13 +77,13 @@ class magasinsMatchsSaveController extends waController
                 $this->insert_sql();
             }
 
-            $rows = $this->getvalues($magasin_id,$provider_id);
+            $rows = $this->getvalues($provider_id);
 
-            $this->insert_other_tags($rows,$magasin_id,$provider_id);
+            $this->insert_other_tags($rows,$provider_id);
 
             $this->setDbField();
 
-            $rows = $this->getvalues($magasin_id,$provider_id);
+            $rows = $this->getvalues($provider_id);
 
 //                      echo "<pre>";
 //          print_r($rows); die;
@@ -97,34 +95,32 @@ class magasinsMatchsSaveController extends waController
            // echo $this->sql; die;
         }
 
-        $this->redirect(waSystem::getInstance()->getUrl().'?module=matchs&magasin_id='.$magasin_id.'&provider_id='.$provider_id);
+        $this->redirect(waSystem::getInstance()->getUrl().'?module=matchs&provider_id='.$provider_id);
     }
 
     public function setDbField() {
         $path_products  = waRequest::post('db_table_products');
         $path_categories  = waRequest::post('db_table_categories');
 
-        $magasin_id = waRequest::post('magasin_id');
         $provider_id = waRequest::post('provider_id');
 
-        $product_row = $this->searchIfSet($magasin_id,$provider_id,$path_products);
+        $product_row = $this->searchIfSet($provider_id,$path_products);
         if(!count($product_row)) {
             $path = $_POST['db_table_products'];
             preg_match("/.*\/(.*)$/", $path, $reg);
 
             $this->sql .= "INSERT INTO `magasins_fields_provider` SET ";
             $this->sql .= "`name` = '" . $reg[1] . "' ,\n";
-            $this->sql .= "`magasin_id` = '" . $magasin_id . "' ,\n";
             $this->sql .= "`provider_id` = '" . $provider_id . "' ,\n";
             $this->sql .= "`get_values` = 1 ,\n";
             $this->sql .= "`db_table` = 'magasins_products' ,\n";
             $this->sql .= "`path` = '" . $path . "' ;\n";
         }
         else {
-            $this->sql .= "UPDATE magasins_fields_provider SET db_table = 'magasins_products' WHERE path = '".$path_products."' AND magasin_id = ".$magasin_id." AND provider_id = ".$provider_id.";";
+            $this->sql .= "UPDATE magasins_fields_provider SET db_table = 'magasins_products' WHERE path = '".$path_products."' AND provider_id = ".$provider_id.";";
         }
 
-        $categories_row = $this->searchIfSet($magasin_id,$provider_id,$path_categories);
+        $categories_row = $this->searchIfSet($provider_id,$path_categories);
 
 //        echo "<pre>";
 //        print_r($categories_row); die;
@@ -135,24 +131,23 @@ class magasinsMatchsSaveController extends waController
 
             $this->sql .= "INSERT INTO `magasins_fields_provider` SET ";
             $this->sql .= "`name` = '" . $reg[1] . "' ,\n";
-            $this->sql .= "`magasin_id` = '" . $magasin_id . "' ,\n";
             $this->sql .= "`provider_id` = '" . $provider_id . "' ,\n";
             $this->sql .= "`get_values` = 1 ,\n";
             $this->sql .= "`db_table` = 'magasins_categories' ,\n";
             $this->sql .= "`path` = '" . $path . "' ;\n";
         }
         else {
-            $this->sql .= "UPDATE magasins_fields_provider SET db_table = 'magasins_categories' WHERE path = '" . $path_categories . "' AND magasin_id = " . $magasin_id . " AND provider_id = " . $provider_id . ";";
+            $this->sql .= "UPDATE magasins_fields_provider SET db_table = 'magasins_categories' WHERE path = '" . $path_categories . "' AND provider_id = " . $provider_id . ";";
         }
 
         $this->insert_sql();
 
     }
 
-    public function searchIfSet($magasin_id,$provider_id,$path) {
+    public function searchIfSet($provider_id,$path) {
 
         $rows = array();
-        $retrive=mysqli_query($this->conn,"SELECT id FROM magasins_fields_provider WHERE magasin_id = ".$magasin_id." and provider_id = ".$provider_id." AND path = '".$path."'");
+        $retrive=mysqli_query($this->conn,"SELECT id FROM magasins_fields_provider WHERE provider_id = ".$provider_id." AND path = '".$path."'");
         while($row = mysqli_fetch_assoc($retrive)) {
             $rows[] = $row;
         }
@@ -178,7 +173,7 @@ class magasinsMatchsSaveController extends waController
     }
 
 
-    public function insert_other_tags($rows,$magasin_id,$provider_id) {
+    public function insert_other_tags($rows,$provider_id) {
 
         $sql_array = array();
 
@@ -190,7 +185,7 @@ class magasinsMatchsSaveController extends waController
             $key = $this->recursive_array_search($output_array[1],$rows);
 
             if ($key === FALSE) {
-                $sql_array[] = $this->generate_sql_string($magasin_id,$provider_id, $output_array[2], $output_array[1]);
+                $sql_array[] = $this->generate_sql_string($provider_id, $output_array[2], $output_array[1]);
             }
         }
 
@@ -203,9 +198,9 @@ class magasinsMatchsSaveController extends waController
         $this->insert_sql();
     }
 
-    public function getvalues($magasin_id,$provider_id) {
+    public function getvalues($provider_id) {
 
-        $rows = $this->sql_select($magasin_id,$provider_id);
+        $rows = $this->sql_select($provider_id);
         return $rows;
 
     }
@@ -215,9 +210,9 @@ class magasinsMatchsSaveController extends waController
         $this->sql .= "UPDATE magasins_fields_provider SET parent_id = ".$parent_id." WHERE id = ".$id.";";
     }
 
-    public function sql_select($magasin_id,$provider_id) {
+    public function sql_select($provider_id) {
 
-        $retrive=mysqli_query($this->conn,"SELECT id, path FROM magasins_fields_provider WHERE magasin_id = ".$magasin_id." and provider_id = ".$provider_id." ORDER BY id DESC");
+        $retrive=mysqli_query($this->conn,"SELECT id, path FROM magasins_fields_provider WHERE provider_id = ".$provider_id." ORDER BY id DESC");
 
         while($row = mysqli_fetch_assoc($retrive)) {
             $rows[] = $row;
@@ -226,9 +221,9 @@ class magasinsMatchsSaveController extends waController
         return $rows;
     }
 
-    public function generate_sql_string($magasin_id,$provider_id, $name, $path) {
+    public function generate_sql_string($provider_id, $name, $path) {
 
-        $sql = "INSERT INTO magasins_fields_provider SET magasin_id = ".$magasin_id." , provider_id = ".$provider_id.", name = '".$name."', path= '".$path."' ,get_values=1 ;";
+        $sql = "INSERT INTO magasins_fields_provider SET provider_id = ".$provider_id.", name = '".$name."', path= '".$path."' ,get_values=1 ;";
 
         //$this->insert_sql();
         return $sql;

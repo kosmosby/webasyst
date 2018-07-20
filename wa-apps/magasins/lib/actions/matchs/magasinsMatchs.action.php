@@ -8,7 +8,6 @@ class magasinsMatchsAction extends waViewAction
     {
 
         $search =  waRequest::post('search');
-        $magasin_id = waRequest::request('magasin_id');
         $provider_id = waRequest::request('provider_id');
 
         $model = new magasinsMatchsModel();
@@ -16,17 +15,16 @@ class magasinsMatchsAction extends waViewAction
         $model_magasin = new magasinsMagasinModel();
         $model_provider = new magasinsProviderModel();
 
-        $magasin_info = $model_magasin->getById($magasin_id);
         $provider_info = $model_provider->getById($provider_id);
 
         $this->setLayout( new magasinsDefaultLayout());
 
         if($search) {
-            $sql = $model->query("SELECT * FROM magasins_fields_provider WHERE magasin_id = ".$magasin_info['id']." and provider_id = ".$provider_info['id']." AND (name LIKE '%".$search."%' ) ORDER BY id DESC");
+            $sql = $model->query("SELECT * FROM magasins_fields_provider WHERE provider_id = ".$provider_info['id']." AND (name LIKE '%".$search."%' ) ORDER BY id DESC");
             $records = $sql->fetchAll();
         }
         else {
-            $sql = $model->query("SELECT * FROM magasins_fields_provider WHERE magasin_id = ".$magasin_info['id']." and provider_id = ".$provider_info['id']." ORDER BY id DESC");
+            $sql = $model->query("SELECT * FROM magasins_fields_provider WHERE provider_id = ".$provider_info['id']." ORDER BY id DESC");
             $records = $sql->fetchAll();
         }
 
@@ -72,7 +70,6 @@ class magasinsMatchsAction extends waViewAction
 //        print_r($records); die;
 //        echo "</pre>";
 
-        $this->view->assign('magasin_info', $magasin_info);
         $this->view->assign('provider_info', $provider_info);
 
         $this->view->assign('records', $records);

@@ -18,14 +18,14 @@
                 </li>
                 {/if}
 
-                <li {if isset($view_all_magasins) && $view_all_magasins == true}class="selected"{/if}>
+                <li {if (isset($view_all_magasins) && $view_all_magasins == true) || (isset($view_setupmagasin) && $view_setupmagasin == true)}class="selected"{/if}>
                 <a href="{$wa_app_url}">
                     <span class="count ">{$magasins_count}</span>
                     <i class="icon16 widgets"></i>Магазины
                 </a>
                 </li>
 
-                <li {if isset($view_all_providers) && $view_all_providers == true}class="selected"{/if}>
+                <li {if (isset($view_all_providers) && $view_all_providers == true) || (isset($view_matchs) && $view_matchs == true)}class="selected"{/if}>
                 <a href="?module=provider">
                     <span class="count ">{$providers_count}</span>
                     <i class="icon16 plugins"></i>Поставщики

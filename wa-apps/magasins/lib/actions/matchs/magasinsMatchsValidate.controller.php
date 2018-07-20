@@ -14,6 +14,7 @@ class magasinsMatchsValidateController extends waController
         $model = new magasinsFieldsModel();
 
         $array_for_json = array();
+        $json = '';
         if(isset($provider_id) && $provider_id) {
 
             $array = $model->getByField('provider_id', $provider_id, true);

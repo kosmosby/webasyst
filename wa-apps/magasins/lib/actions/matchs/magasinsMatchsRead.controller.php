@@ -13,7 +13,7 @@ class magasinsMatchsReadController extends waController
 
         $model = new magasinsProviderModel();
 
-        $json = array();
+        $json = '';
 
         $array = array();
         if(isset($provider_id) && $provider_id) {

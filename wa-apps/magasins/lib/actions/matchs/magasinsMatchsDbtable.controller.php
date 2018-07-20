@@ -5,17 +5,16 @@ class magasinsMatchsDbtableController extends waController
 
     public function execute()
     {
-        $magasin_id = waRequest::request('magasin_id');
         $provider_id = waRequest::request('provider_id');
 
         $model = new magasinsProviderModel();
 
-        $json = array();
+        $json = '';
 
         $array = array();
-        if(isset($magasin_id) && isset($provider_id) && $magasin_id && $provider_id) {
+        if(isset($provider_id) && $provider_id) {
 
-            $result = $model->query("SELECT db_table,path FROM magasins_fields_provider WHERE magasin_id = ".$magasin_id." AND provider_id = ".$provider_id." AND db_table !=''");
+            $result = $model->query("SELECT db_table,path FROM magasins_fields_provider WHERE provider_id = ".$provider_id." AND db_table !=''");
             $data = $result->fetchAll();
 
             for($i=0;$i<count($data);$i++) {

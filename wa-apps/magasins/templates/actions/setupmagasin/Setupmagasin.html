@@ -1,3 +1,30 @@
+<script language="javascript">
+    $( document ).ready(function() {
+
+        $( ".matchs_extract" ).on( "click", function () {
+
+            var provider_id = $(this).attr('provider_id');
+            var magasin_id = $(this).attr('magasin_id');
+
+            $.post( "{$wa_app_url}?module=matchs&action=validate&provider_id="+provider_id, function( data ) {
+
+                var values = JSON.parse(data);
+
+                if(values.count_elements > 0) {
+                    return window.location.href = '?module=readxml&provider_id='+provider_id+'&magasin_id='+magasin_id;
+                }
+                else {
+                    alert('Необходимо сделать сопоставление полей');
+                    return false;
+                }
+            });
+        });
+
+
+        });
+</script>
+
+
 <form action="index.php?module=setupmagasin" method="post" id="adminForm" name="adminForm">
 
     <nav aria-label="breadcrumb">
@@ -32,7 +59,7 @@
                 <th scope="col">url</th>
                 <th scope="col">только обновлять</th>
                 <th scope="col">периодичность обновления</th>
-                <th scope="col">настройка xml поставщика</th>
+                <th scope="col">прочитать xml</th>
                 <th scope="col">настройка полей поставщика</th>
 
             </tr>
@@ -60,7 +87,7 @@
                     <button type="button" class="btn btn-outline-info btn-sm" onclick="return window.location.href = '?module=setupmagasin&id={$r.id}';">настройка</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-outline-dark btn-sm" onclick="return window.location.href = '?module=fieldsprovider&magasin_id={$magasin_id}&provider_id={$r.provider_id}';">настройка</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm matchs_extract" magasin_id="{$magasin_id}" provider_id="{$r.provider_id}" >прочитать</button>
                 </td>
                 <td>
                     <button type="button" class="btn btn-outline-primary btn-sm" onclick="return window.location.href = '?module=matchs&magasin_id={$magasin_id}&provider_id={$r.provider_id}';">настройка</button>

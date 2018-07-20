@@ -9,7 +9,6 @@ class magasinsMatchsSelectController extends waController
 
     public function execute()
     {
-        $magasin_id = waRequest::request('magasin_id');
         $provider_id = waRequest::request('provider_id');
 
         $model_provider = new magasinsProviderModel();
