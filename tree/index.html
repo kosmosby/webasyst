@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="jquery.min.js"></script>
+    <script src="tree.jquery.js"></script>
+    <link rel="stylesheet" href="jqtree.css">
+</head>
+<body>
+<div id="tree1"></div>
+
+
+<script language="JavaScript">
+    var data = [
+        {
+            name: 'node1',
+            children: [
+                { name: 'child1' },
+                { name: 'child2' }
+            ]
+        },
+        {
+            name: 'node2',
+            children: [
+                { name: 'child3' }
+            ]
+        }
+    ];
+    $(function() {
+        $('#tree1').tree({
+            data: data,
+            dragAndDrop: true,
+            autoOpen: 0,
+            saveState: true
+        });
+    });
+
+
+</script>
+</body>
+</html>

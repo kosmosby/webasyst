@@ -629,3 +629,67 @@ Query: SELECT * FROM magasins_fields_provider WHERE magasin_id =  and provider_i
 #11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #12 index.php(7): waSystem->dispatch()
 #13 {main}
+
+2018-07-26 15:23:47 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query: SELECT * FROM
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT * FROM ')
+#1 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroups.action.php(14): waModel->query('SELECT * FROM ')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsProvidergroupsAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsProvidergroupsAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', NULL)
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-07-29 12:59:11 127.0.0.1
+Query Error 1062: Duplicate entry '1-4' for key 'magasin_id'
+Query: INSERT  INTO magasins_setupmagasin
+                   (`magasin_id`, `provider_id`) VALUES ('1', '4')
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('INSERT  INTO ma...')
+#1 wa-system/database/waModel.class.php(572): waModel->query('INSERT  INTO ma...')
+#2 wa-apps/magasins/lib/actions/setupmagasins/magasinsSetupmagasinSaveselect.controller.php(30): waModel->insert(Array)
+#3 wa-system/controller/waController.class.php(21): magasinsSetupmagasinSaveselectController->execute()
+#4 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#5 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsSetupmagasinSaveselectController), NULL)
+#6 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'setupmagasin', 'saveselect')
+#7 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#8 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#9 index.php(7): waSystem->dispatch()
+#10 {main}
+
+2018-08-15 09:41:40 127.0.0.1
+Table 'webasyst.shop_category_routes' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('shop_category_r...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/classes/magasinsCategories.class.php(224): waModel->__construct()
+#6 wa-apps/magasins/lib/classes/magasinsCategories.class.php(156): magasinsCategories->getTree(0)
+#7 wa-apps/magasins/lib/classes/magasinsCategories.class.php(54): magasinsCategories->_getList(0)
+#8 wa-cache/apps/magasins/templates/compiled/magasins_ru_RU/32/85/f1/3285f1e3dd43b8cda4f817d8935eedb2737959ac.file.BackendSidebar.html.php(156): magasinsCategories->getList()
+#9 wa-system/vendors/smarty3/sysplugins/smarty_internal_templatebase.php(180): content_5b33d25fb5f0c7_26129223(Object(Smarty_Internal_Template))
+#10 wa-system/view/waSmarty3View.class.php(117): Smarty_Internal_TemplateBase->fetch('templates/actio...', NULL)
+#11 wa-system/controller/waViewAction.class.php(171): waSmarty3View->fetch('templates/actio...', NULL)
+#12 wa-system/layout/waLayout.class.php(77): waViewAction->display()
+#13 wa-apps/magasins/lib/layouts/magasinsDefault.layout.php(8): waLayout->executeAction('sidebar', Object(magasinsBackendSidebarAction))
+#14 wa-system/layout/waLayout.class.php(138): magasinsDefaultLayout->execute()
+#15 wa-system/controller/waViewController.class.php(104): waLayout->display()
+#16 wa-system/controller/waViewController.class.php(47): waViewController->display()
+#17 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#18 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#19 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'setupmagasin', NULL)
+#20 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#21 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#22 index.php(7): waSystem->dispatch()
+#23 {main}

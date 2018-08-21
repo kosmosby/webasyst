@@ -7,13 +7,12 @@ class magasinsProviderEditAction extends waViewAction
     {
 
         $id = waRequest::get('id', null, waRequest::TYPE_INT);
-
         $model = new magasinsProviderModel();
 
         $magasins = array();
         if ($id) { // edit post
             $provider = $model->getById($id);
-            $title = 'Редактируем провайдераa';
+            $title = 'Редактируем провайдера';
 
             $result = $model->query("SELECT a.*,b.* FROM magasins_setupmagasin as a, magasins_magasin as b WHERE a.provider_id = ".$id." AND a.magasin_id = b.id");
             $magasins = $result->fetchAll();

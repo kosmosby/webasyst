@@ -1,4 +1,6 @@
-<div class="sidebar left200px">
+
+
+<div class="sidebar left250px" id="s-sidebar">
     <div class="b-sidebar menu-collapsible b-sidebar-block" id="b-sidebar-block">
         <!-- core navigation -->
         <div class="block">
@@ -18,7 +20,7 @@
                 </li>
                 {/if}
 
-                <li {if (isset($view_all_magasins) && $view_all_magasins == true) || (isset($view_setupmagasin) && $view_setupmagasin == true)}class="selected"{/if}>
+                <li {if (isset($view_all_magasins) && $view_all_magasins == true) || (isset($view_setupmagasin) && $view_setupmagasin == true) || (isset($view_selectfields) && $view_selectfields == true)}class="selected"{/if}>
                 <a href="{$wa_app_url}">
                     <span class="count ">{$magasins_count}</span>
                     <i class="icon16 widgets"></i>Магазины
@@ -58,7 +60,23 @@
                 </a>
                 </li>
 
+                <li {if isset($view_groups) && $view_groups == true}class="selected"{/if}>
+                <a href="?module=groups">
+                    <i class="icon16 apps"></i>Группы
+                </a>
+                </li>
+
+                <li {if isset($view_providergroups) && $view_providergroups == true}class="selected"{/if}>
+                <a href="?module=providergroups">
+                    <i class="icon16 apps"></i>Поставщики в группах
+                </a>
+                </li>
+
             </ul>
         </div>
+
+        <div id="tree1"></div>
+
+
     </div>
 </div>

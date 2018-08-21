@@ -7,7 +7,6 @@ class magasinsSetupmagasinSaveController extends waController
     {
         $model = new magasinsSetupmagasinModel();
 
-
         if (waRequest::method() == 'post') {
             $id = waRequest::request('id');
             $magasin_id = waRequest::request('magasin_id');

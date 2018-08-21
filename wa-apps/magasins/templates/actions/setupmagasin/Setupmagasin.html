@@ -1,3 +1,9 @@
+
+<script src="{$wa_app_static_url}js/jquery.min.js"></script>
+<script src="{$wa_app_static_url}js/tree.jquery.js"></script>
+<link rel="stylesheet" href="{$wa_app_static_url}css/jqtree.css">
+<link rel="stylesheet" href="{$wa_app_static_url}css/magasin.css">
+
 <script language="javascript">
     $( document ).ready(function() {
 
@@ -20,8 +26,29 @@
             });
         });
 
+        var data = [
+            {
+                name: 'node1',
+                children: [
+                    { name: 'child1' },
+                    { name: 'child2' }
+                ]
+            },
+            {
+                name: 'node2',
+                children: [
+                    { name: 'child3' }
+                ]
+            }
+        ];
 
+        $('#tree1').tree({
+            data: data,
+            dragAndDrop: true,
+            autoOpen: true
         });
+
+    });
 </script>
 
 
@@ -60,7 +87,7 @@
                 <th scope="col">только обновлять</th>
                 <th scope="col">периодичность обновления</th>
                 <th scope="col">прочитать xml</th>
-                <th scope="col">настройка полей поставщика</th>
+                <th scope="col">настройка что забирать</th>
 
             </tr>
             </thead>
@@ -90,7 +117,7 @@
                     <button type="button" class="btn btn-outline-dark btn-sm matchs_extract" magasin_id="{$magasin_id}" provider_id="{$r.provider_id}" >прочитать</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="return window.location.href = '?module=matchs&magasin_id={$magasin_id}&provider_id={$r.provider_id}';">настройка</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="return window.location.href = '?module=selectfields&magasin_id={$magasin_id}&provider_id={$r.provider_id}';">настройка</button>
                 </td>
             </tr>
             {/foreach}
@@ -98,9 +125,32 @@
         </table>
     </div>
 
-
     <input type="hidden" name="module" value="setupmagasin"/>
     <input type="hidden" name="magasin_id" value="{$magasin_id}"/>
 
-
 </form>
+
+<form action="index.php?module=setupmagasin&action=saveselect" method="post" name="adminForm">
+<div>
+    <select multiple="multiple" id="select" style="width:200px; height: 200px;" name="providersgroups[]">
+        {foreach from=$select item=r}
+            <optgroup label="{$r.name}">
+                {foreach from=$r.childs item=n}
+                    <option value="{$n.id}" {if  isset($n.selected)}selected{/if}>{$n.name}</option>
+                {/foreach}
+            </optgroup>
+        {/foreach}
+    </select>
+</div>
+<div>
+    <input type="submit" value="Сохранить" class="btn btn-outline-success btn-sm">
+</div>
+    <input type="hidden" name="magasin_id" value="{$magasin_id}"/>
+</form>
+    <br />
+    <br />
+
+
+
+
+

@@ -2,3 +2,14 @@
     box-sizing: content-box;
 }
 
+#tree1 {
+    margin-left: 10px;
+}
+
+#tree1 .jqtree-title {
+
+    border: 1px solid red;
+    padding-left: 20px;
+    background-image: url();
+}
+

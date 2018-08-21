@@ -1,0 +1,25 @@
+<form id="post-form" action="magasins/?module=groups&action=save"  method="post" data-toggle="validator">
+    {$wa->csrf()}
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{$wa_app_url}?module=groups">Группы</a></li>
+            <li class="breadcrumb-item">{$title}</li>
+        </ol>
+    </nav>
+
+    <div class="container">
+        <div class="row col-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-name">Название</span>
+                </div>
+                <input type="text" name="name" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-name" value="{$group.name|escape}" required>
+            </div>
+            <div id="b-post-public-settings">
+                <input  type="submit" class="btn btn-success" name="" value="[`Save`]" >
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="d" name="id" value="{$group.id}">
+</form>

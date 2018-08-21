@@ -1,0 +1,56 @@
+<form id="post-form" action="magasins/?module=providergroups&action=save"  method="post" data-toggle="validator">
+    {$wa->csrf()}
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{$wa_app_url}?module=providergroups">Поставщики в группах</a></li>
+            <li class="breadcrumb-item">{$title}</li>
+        </ol>
+    </nav>
+
+    <div class="container">
+        <div class="row col-6">
+            <div class="input-group mb-3">
+
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-groups">Группы поставщиков</span>
+                    </div>
+                    <select class="custom-select selectpicker" name="group_id" required>
+                        <option valaue="">Группы поставщиков</option>
+                        {foreach from=$groups_select item=r}
+                        <option value="{$r.id}" {if $provider_groups.group_id == $r.id}selected="selected"{/if}>{$r.name}</option>
+                        {/foreach}
+                    </select>
+                </div>
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-providers">Поставщики</span>
+                    </div>
+                    <select class="custom-select selectpicker" name="provider_id" required>
+                        <option valaue="">Поставщики</option>
+                        {foreach from=$providers_select item=r}
+                        <option value="{$r.id}" {if $provider_groups.provider_id == $r.id}selected="selected"{/if}>{$r.name}</option>
+                        {/foreach}
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-name">Порядок</span>
+                    </div>
+                    <input type="text" name="priority" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-name" value="{$provider_groups.priority|escape}" required>
+                </div>
+
+            </div>
+            <div id="b-post-public-settings">
+                <input  type="submit" class="btn btn-success" name="" value="[`Save`]" >
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="id" name="id" value="{$provider_groups.id}">
+</form>
