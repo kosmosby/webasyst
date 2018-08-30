@@ -5,8 +5,6 @@ class magasinsSetupmagasinAction extends waViewAction
     public function execute()
     {
 
-
-
         $magasin_id = waRequest::request('magasin_id');
 
         $search = waRequest::post('search');
@@ -42,6 +40,7 @@ class magasinsSetupmagasinAction extends waViewAction
         $model = new magasinsProvidergroupsModel();
         $result = $model->query("SELECT a.*,b.name as provider_name, c.name as group_name FROM magasins_provider_groups as a, magasins_provider as b, magasins_groups as c WHERE b.id = a.provider_id AND c.id = a.group_id");
         $rows = $result->fetchAll();
+
 
         $class = new magasinsProvidergroupsAction();
         $select = $class->getArray($rows);

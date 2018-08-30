@@ -1,11 +1,14 @@
 
-<script src="{$wa_app_static_url}js/jquery.min.js"></script>
+<!--<script src="{$wa_app_static_url}js/jquery.min.js"></script>-->
 <script src="{$wa_app_static_url}js/tree.jquery.js"></script>
 <link rel="stylesheet" href="{$wa_app_static_url}css/jqtree.css">
 <link rel="stylesheet" href="{$wa_app_static_url}css/magasin.css">
 
 <script language="javascript">
     $( document ).ready(function() {
+
+        show_tree();
+
 
         $( ".matchs_extract" ).on( "click", function () {
 
@@ -26,29 +29,145 @@
             });
         });
 
-        var data = [
-            {
-                name: 'node1',
-                children: [
-                    { name: 'child1' },
-                    { name: 'child2' }
-                ]
-            },
-            {
-                name: 'node2',
-                children: [
-                    { name: 'child3' }
-                ]
-            }
-        ];
+        $('#groupForm').on("submit", function() {
 
-        $('#tree1').tree({
-            data: data,
-            dragAndDrop: true,
-            autoOpen: true
+            var post = $('#groupForm').serialize();
+
+            $.post( "{$wa_app_url}?module=groups&action=save&"+post, function( data ) {
+               $('#groupModal').modal('hide');
+               reload_tree();
+            });
+            return false;
         });
+        //
+        // $("#tree1 div.jqtree-element").on( "mouseover", function() {
+        //     var level = $(this).find("span").attr("aria-level");
+        //     if(level == 1) {
+        //         if ($(this).find("div.add-provider").length) {
+        //             $(this).find("div.add-provider").show();
+        //         }
+        //         else {
+        //             $(this).append("<div class='add-provider'></div>");
+        //         }
+        //     }
+        // });
+        //
+        // $("#tree1 div.jqtree-element").on( "mouseout", function() {
+        //     var level = $(this).find("span").attr("aria-level");
+        //     if(level == 1) {
+        //         if ($(this).find("div.add-provider").length) {
+        //             $(".add-provider").hide();
+        //         }
+        //     }
+        // });
 
     });
+
+    function reload_tree() {
+        unbind();
+       $.post( "{$wa_app_url}?module=providergroups&action=readjson", function( new_data  ) {
+            var values = JSON.parse(new_data );
+            $('#tree1').tree('loadData', values);
+            events();
+        });
+    }
+
+    function unbind() {
+        $("#tree1 div.jqtree-element").unbind('mouseenter mouseleave');
+    }
+
+    function show_tree() {
+
+        $.post( "{$wa_app_url}?module=providergroups&action=readjson", function( data ) {
+
+            $( "#tree1" ).wrap( "<div class='group_toggle'></div>" );
+
+            $('.group_toggle').prepend("<div class='arrow arrow-right'></div><div class='groups-title'>Группы поставщиков</div><div class='button-plus'>&nbsp;&nbsp;</div>");
+
+            var values = JSON.parse(data);
+            $('#tree1').tree({
+                data: values,
+                dragAndDrop: true,
+                autoOpen: true,
+                selectable: false
+            });
+
+            $( ".groups-title,.arrow" ).on( "click", function() {
+                $( "#tree1" ).toggle();
+
+                if( $( '.arrow' ).hasClass( "arrow-right" )) {
+                    $( '.arrow' ).removeClass( "arrow-right" ).addClass( "arrow-down" );
+                }
+                else {
+                    $( '.arrow' ).removeClass( "arrow-down" ).addClass( "arrow-right" );
+                }
+            });
+
+            $(".button-plus").on("click", function() {
+                $('#groupModal').modal('show');
+                return false;
+            });
+
+            events();
+
+            // $( "ul.jqtree-tree  div.add-provider").live( "click", function() {
+            //     alert('qqq');
+            //     return false;
+            // });
+
+            // bind 'tree.click' event
+            $('#tree1').on(
+                'tree.click',
+                function(event) {
+                    // The clicked node is 'event.node'
+                    var node = event.node;
+                    //alert(node.id);
+
+                    var elm  = event.click_event.target;
+                    var jelm = $(elm)
+
+                    if(jelm.hasClass('add-provider')) {
+
+                    }
+                    else {
+                        $.post( "{$wa_app_url}?module=providergroups&action=edit", function( data ) {
+
+                        $('#groupModal').modal('show');
+                    }
+
+                }
+            );
+
+            $('.add_provider').on('click',function() {
+                //console.log('add_provider worked');
+            });
+        });
+    }
+
+    function events () {
+
+        $("#tree1 div.jqtree-element").on("mouseenter", function(){
+            var level = $(this).find("span").attr("aria-level");
+            if(level == 1) {
+                if ($(this).find("div.add-provider").length) {
+                    $(this).find("div.add-provider").show();
+                }
+                else {
+                    $(this).append("<div class='add-provider'></div>");
+                }
+            }
+        });
+
+        $("#tree1 div.jqtree-element").on( "mouseleave", function() {
+            var level = $(this).find("span").attr("aria-level");
+            if(level == 1) {
+                if ($(this).find("div.add-provider").length) {
+                    $(".add-provider").hide();
+                }
+            }
+        });
+    }
+
 </script>
 
 
@@ -149,6 +268,38 @@
 </form>
     <br />
     <br />
+
+
+<div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="groupModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Новая группа</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="groupForm">
+                    <div class="form-group">
+                        <label for="validationServerUsername" class="col-form-label">Название:</label>
+                        <input type="text" class="form-control" id="validationServerUsername" name="name" required>
+                        <div class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Сохранить</button>
+                    <input type="hidden" name="is_modal" value="1">
+                    <input type="hidden" name="id" value="">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>-->
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

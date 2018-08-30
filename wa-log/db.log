@@ -693,3 +693,33 @@ Table 'webasyst.shop_category_routes' doesn't exist
 #21 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #22 index.php(7): waSystem->dispatch()
 #23 {main}
+
+2018-08-21 17:46:29 127.0.0.1
+Query Error 1051: Unknown table 'a'
+Query: SELECT a.* FROM  magasins_provider
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT a.* FROM...')
+#1 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(11): waModel->query('SELECT a.* FROM...')
+#2 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-08-21 17:54:19 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND a.provider_id = b.id ORDER BY a.priority' at line 1
+Query: SELECT b.id, b.name FROM  magasins_provider_groups as a, magasins_provider as b WHERE a.group_id =  AND a.provider_id = b.id ORDER BY a.priority
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT b.id, b....')
+#1 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(15): waModel->query('SELECT b.id, b....')
+#2 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}

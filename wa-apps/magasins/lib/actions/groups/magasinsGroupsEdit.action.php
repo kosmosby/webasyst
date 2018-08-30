@@ -5,7 +5,8 @@ class magasinsGroupsEditAction extends waViewAction
 
     public function execute()
     {
-        $id = waRequest::get('id', null, waRequest::TYPE_INT);
+        $id = waRequest::request('id', null, waRequest::TYPE_INT);
+        $is_modal = waRequest::request('is_modal');
 
         $model = new magasinsGroupsModel();
 
@@ -20,6 +21,9 @@ class magasinsGroupsEditAction extends waViewAction
             );
             $title = 'Добавляем группу поставщиков';
         }
+
+
+
 
         $this->view->assign('title', $title);
         $this->view->assign('group', $group);

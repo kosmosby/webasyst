@@ -2,27 +2,30 @@
 
 class magasinsGroupsSaveController extends waController
 {
-
     public function execute()
     {
         $model = new magasinsGroupsModel();
 
-        if (waRequest::method() == 'post') {
-            $id = waRequest::post('id');
-            $name = waRequest::post('name');
+        $id = waRequest::request('id');
+        $name = waRequest::request('name');
+        $is_modal = waRequest::request('is_modal');
 
-
-            if($id) {
-                $model->updateById($id,array(
-                    'name' => $name
-                ));
-            }
-            else {
-                $model->insert(array(
-                    'name' => $name
-                ));
-            }
+        if($id) {
+            $result =  $model->updateById($id,array(
+                'name' => $name
+            ));
         }
-        $this->redirect(waSystem::getInstance()->getUrl().'?module=groups');
+        else {
+            $result = $model->insert(array(
+                'name' => $name
+            ));
+        }
+
+        if(!$is_modal) {
+            $this->redirect(waSystem::getInstance()->getUrl() . '?module=groups');
+        }
+        else {
+            return $result;
+        }
     }
 }

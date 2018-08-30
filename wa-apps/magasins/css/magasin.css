@@ -7,9 +7,58 @@
 }
 
 #tree1 .jqtree-title {
+    padding-left: 19px;
+    background-image: url("../img/folder1.png");
+    background-repeat: no-repeat;
+}
 
-    border: 1px solid red;
-    padding-left: 20px;
-    background-image: url();
+#tree1 a.jqtree-toggler {
+    font-family: Helvetica Neue;
+}
+
+.group_toggle {
+
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+.arrow-right {
+    background-image: url("../img/arrow-right.png");
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 23px;
+    float: left;
+}
+
+.arrow-down {
+    background-image: url("../img/arrow-down.png");
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 23px;
+    float: left;
+}
+
+.button-plus {
+    float: right;
+    background-image: url("../img/plus.png");
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    display: block;
+    margin: 5px 5px 0 0;
+}
+
+.groups-title {
+    float: left;
+}
+
+.add-provider {
+    float: right;
+    background-image: url("../img/plus1.png");
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    display: block;
+    margin: 5px 5px 0 0;
 }
 
