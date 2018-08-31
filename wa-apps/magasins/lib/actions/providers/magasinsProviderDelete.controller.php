@@ -8,8 +8,16 @@ class magasinsProviderDeleteController extends waController
         $model = new magasinsProviderModel();
         $ids = waRequest::post('ids');
 
-        if (isset($ids) && $ids) {
-            $model->deleteById(explode(',',$ids));
+        $id = waRequest::request('id');
+        $is_modal = waRequest::request('is_modal');
+
+        if($is_modal && $id) {
+            $model->deleteById($id);
+        }
+        else {
+            if (isset($ids) && $ids) {
+                $model->deleteById(explode(',', $ids));
+            }
         }
     }
 }

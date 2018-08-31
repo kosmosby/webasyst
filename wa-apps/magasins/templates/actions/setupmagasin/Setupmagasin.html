@@ -30,9 +30,7 @@
         });
 
         $('#groupForm').on("submit", function() {
-
             var post = $('#groupForm').serialize();
-
             $.post( "{$wa_app_url}?module=groups&action=save&"+post, function( data ) {
                $('#groupModal').modal('hide');
                reload_tree();
@@ -40,7 +38,16 @@
             return false;
         });
 
+        $('#providerForm').on("submit", function() {
 
+            var post = $('#providerForm').serialize();
+
+            $.post( "{$wa_app_url}?module=provider&action=save&"+post, function( data ) {
+                $('#providerModal').modal('hide');
+                reload_tree();
+            });
+            return false;
+        });
 
 
         //
@@ -123,18 +130,51 @@
             $('#tree1').on(
                 'tree.click',
                 function(event) {
+
+
+
                     // The clicked node is 'event.node'
                     var node = event.node;
                     //alert(node.id);
 
-
-
                     var elm = event.click_event.target;
+
                     var jelm = $(elm)
 
                     if (jelm.hasClass('add-provider')) {
 
-                        $('#groupModal').modal('show');
+                        $('#providerModal').modal('show');
+                        $('#providerModal').find('[name="group_id"]').val(node.id);
+
+                    }
+                    else if( jelm.attr('aria-level') == 2) {
+
+
+                        // console.log(event.node.id)
+                        // console.log(event.node.parent.id)
+
+                        //return false;
+
+                        $.post("{$wa_app_url}?module=provider&action=edit&is_modal=1&id="+node.id+"&group_id="+node.parent_id, function (data) {
+                            var values = JSON.parse(data );
+
+                            $('#providerModal').modal('show');
+                            $('#providerModal').find('.modal-title').text('Обновить провайдера');
+
+                            $('#providerModal').find('.delete_provider').show();
+
+                            if(values.id) {
+                                $('#providerModal').find('[name="id"]').val(values.id);
+                                $('#providerModal').find('[name="url"]').val(values.url);
+                                $('#providerModal').find('[name="xml_url"]').val(values.xml_url);
+                                $('#providerModal').find('#providerName').val(values.name);
+                            }
+
+                            $('#providerModal').find(':submit').text('Обновить');
+
+                        });
+
+
                     }
                     else {
 
@@ -146,7 +186,10 @@
 
                             $('#groupModal').find('.delete_group').show();
 
-                            $('#groupModal').find('[name="id"]').val(values.id);
+                            if(values.id) {
+                                $('#groupModal').find('[name="id"]').val(values.id);
+                            }
+
                             $('#groupModal').find('#validationServerUsername').val(values.name);
                             $('#groupModal').find(':submit').text('Обновить');
 
@@ -170,6 +213,18 @@
                 });
                 return false;
             });
+
+            $('.delete_provider').on("click", function () {
+                var id = $('#providerModal').find('[name="id"]').val();
+
+                $.post( "{$wa_app_url}?module=provider&action=delete&id="+id+"&is_modal=1", function( data ) {
+                    $('#providerModal').find('.delete_provider').hide();
+                    $('#providerModal').modal('hide');
+                    reload_tree();
+                });
+                return false;
+            });
+
         });
     }
 
@@ -236,7 +291,6 @@
                 <th scope="col">периодичность обновления</th>
                 <th scope="col">прочитать xml</th>
                 <th scope="col">настройка что забирать</th>
-
             </tr>
             </thead>
 
@@ -315,12 +369,54 @@
                         <div style="float: right; display: none;" class="delete_group">удалить группу</div>
                         <input type="text" class="form-control" id="validationServerUsername" name="name" required>
                         <div class="invalid-feedback">
-                            Please choose a username.
+                            Введите название
                         </div>
                     </div>
                     <button class="btn btn-primary" type="submit">Сохранить</button>
                     <input type="hidden" name="is_modal" value="1">
                     <input type="hidden" name="id" value="">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>-->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="providerModal" tabindex="-1" role="dialog" aria-labelledby="groupModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="providerModalLabel">Новый поставщик</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="providerForm">
+                    <div class="form-group">
+                        <label for="providerName" class="col-form-label">Название:</label>
+                        <div style="float: right; display: none;" class="delete_provider">удалить провайдера</div>
+                        <input type="text" class="form-control" id="providerName" name="name" required>
+                        <div class="invalid-feedback">
+                            Введите название
+                        </div>
+
+                        <label for="providerUrl" class="col-form-label">Url:</label>
+                        <input type="text" class="form-control" id="providerUrl" name="url" required>
+
+                        <label for="providerXmlurl" class="col-form-label">Xml url:</label>
+                        <input type="text" class="form-control" id="providerXmlurl" name="xml_url" required>
+
+
+                    </div>
+                    <button class="btn btn-primary" type="submit">Сохранить</button>
+                    <input type="hidden" name="is_modal" value="1">
+                    <input type="hidden" name="id" value="">
+                    <input type="hidden" name="group_id" value="">
                 </form>
             </div>
             <div class="modal-footer">
