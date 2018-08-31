@@ -22,14 +22,16 @@ class magasinsGroupsEditAction extends waViewAction
             $title = 'Добавляем группу поставщиков';
         }
 
+        if($is_modal) {
+            echo json_encode($group); exit();
+        }
+        else {
+            $this->view->assign('title', $title);
+            $this->view->assign('group', $group);
 
-
-
-        $this->view->assign('title', $title);
-        $this->view->assign('group', $group);
-
-        $this->setLayout(new magasinsDefaultLayout());
-        $this->getResponse()->setTitle($title);
+            $this->setLayout(new magasinsDefaultLayout());
+            $this->getResponse()->setTitle($title);
+        }
     }
 
 }

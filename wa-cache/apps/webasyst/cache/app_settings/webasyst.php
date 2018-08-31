@@ -21,26 +21,26 @@ return array (
   3 => 
   array (
     'app_id' => 'webasyst',
-    'name' => 'url',
-    'value' => 'http://c23431.shared.hc.ru/',
+    'name' => 'email',
+    'value' => 'kosmos.by@gmail.com',
   ),
   4 => 
   array (
     'app_id' => 'webasyst',
-    'name' => 'auth_form_background_stretch',
-    'value' => '1',
+    'name' => 'sender',
+    'value' => 'kosmos.by@gmail.com',
   ),
   5 => 
   array (
     'app_id' => 'webasyst',
-    'name' => 'email',
-    'value' => '',
+    'name' => 'url',
+    'value' => 'http://webassist.tst/',
   ),
   6 => 
   array (
     'app_id' => 'webasyst',
-    'name' => 'sender',
-    'value' => '',
+    'name' => 'auth_form_background_stretch',
+    'value' => '1',
   ),
   7 => 
   array (
@@ -52,12 +52,12 @@ return array (
   array (
     'app_id' => 'webasyst',
     'name' => 'map_adapter',
-    'value' => 'google',
+    'value' => 'yandex',
   ),
   9 => 
   array (
     'app_id' => 'webasyst',
-    'name' => 'map_adapter_google',
-    'value' => '{"key":""}',
+    'name' => 'map_adapter_yandex',
+    'value' => '[]',
   ),
 );

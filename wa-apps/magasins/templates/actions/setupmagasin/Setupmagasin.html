@@ -39,6 +39,10 @@
             });
             return false;
         });
+
+
+
+
         //
         // $("#tree1 div.jqtree-element").on( "mouseover", function() {
         //     var level = $(this).find("span").attr("aria-level");
@@ -123,23 +127,48 @@
                     var node = event.node;
                     //alert(node.id);
 
-                    var elm  = event.click_event.target;
+
+
+                    var elm = event.click_event.target;
                     var jelm = $(elm)
 
-                    if(jelm.hasClass('add-provider')) {
-
-                    }
-                    else {
-                        $.post( "{$wa_app_url}?module=providergroups&action=edit", function( data ) {
+                    if (jelm.hasClass('add-provider')) {
 
                         $('#groupModal').modal('show');
                     }
+                    else {
 
+                        $.post("{$wa_app_url}?module=groups&action=edit&is_modal=1&id="+node.id, function (data) {
+                            var values = JSON.parse(data );
+
+                            $('#groupModal').modal('show');
+                            $('#groupModal').find('.modal-title').text('Обновить группу');
+
+                            $('#groupModal').find('.delete_group').show();
+
+                            $('#groupModal').find('[name="id"]').val(values.id);
+                            $('#groupModal').find('#validationServerUsername').val(values.name);
+                            $('#groupModal').find(':submit').text('Обновить');
+
+                        });
+                    }
                 }
             );
 
             $('.add_provider').on('click',function() {
                 //console.log('add_provider worked');
+            });
+
+
+            $('.delete_group').on("click", function () {
+                var id = $('#groupModal').find('[name="id"]').val();
+
+                $.post( "{$wa_app_url}?module=groups&action=delete&id="+id+"&is_modal=1", function( data ) {
+                    $('#groupModal').find('.delete_group').hide();
+                    $('#groupModal').modal('hide');
+                    reload_tree();
+                });
+                return false;
             });
         });
     }
@@ -283,6 +312,7 @@
                 <form id="groupForm">
                     <div class="form-group">
                         <label for="validationServerUsername" class="col-form-label">Название:</label>
+                        <div style="float: right; display: none;" class="delete_group">удалить группу</div>
                         <input type="text" class="form-control" id="validationServerUsername" name="name" required>
                         <div class="invalid-feedback">
                             Please choose a username.
