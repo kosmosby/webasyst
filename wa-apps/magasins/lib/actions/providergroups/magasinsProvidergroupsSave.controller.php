@@ -15,6 +15,7 @@ class magasinsProvidergroupsSaveController extends waController
 
 
 
+
             if($id) {
                 $model->updateById($id,array(
                     'provider_id' => $provider_id,

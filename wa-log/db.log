@@ -775,3 +775,192 @@ Access denied for user 'root'@'localhost' (using password: NO)
 #10 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/')
 #11 index.php(7): waSystem->dispatch()
 #12 {main}
+
+2018-09-04 12:00:52 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query: DELETE FROM `magasins_groups_magasin` WHERE magasin_id =
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('DELETE FROM `ma...')
+#1 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsSaveorder.controller.php(14): waModel->query('DELETE FROM `ma...')
+#2 wa-system/controller/waController.class.php(21): magasinsProvidergroupsSaveorderController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsSaveorderController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'saveorder')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-09-04 12:46:52 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND provider_id = 14' at line 1
+Query: DELETE FROM `magasins_provider_groups_magasin` WHERE magasin_id =  AND provider_id = 14
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('DELETE FROM `ma...')
+#1 wa-apps/magasins/lib/actions/providers/magasinsProviderDelete.controller.php(17): waModel->query('DELETE FROM `ma...')
+#2 wa-system/controller/waController.class.php(21): magasinsProviderDeleteController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProviderDeleteController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'provider', 'delete')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-09-04 13:05:32 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query: SELECT * FROM magasins_groups_magasin WHERE magasin_id  =
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT * FROM m...')
+#1 wa-apps/magasins/lib/actions/groups/magasinsGroupsEdit.action.php(14): waModel->query('SELECT * FROM m...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsGroupsEditAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsGroupsEditAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'groups', 'edit')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-04 13:05:33 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query: SELECT * FROM magasins_groups_magasin WHERE magasin_id  =
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT * FROM m...')
+#1 wa-apps/magasins/lib/actions/groups/magasinsGroupsEdit.action.php(14): waModel->query('SELECT * FROM m...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsGroupsEditAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsGroupsEditAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'groups', 'edit')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-04 13:05:40 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query: SELECT * FROM magasins_groups_magasin WHERE magasin_id  =
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT * FROM m...')
+#1 wa-apps/magasins/lib/actions/groups/magasinsGroupsEdit.action.php(14): waModel->query('SELECT * FROM m...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsGroupsEditAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsGroupsEditAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'groups', 'edit')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-04 13:06:33 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query: SELECT * FROM magasins_groups_magasin WHERE magasin_id  =
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT * FROM m...')
+#1 wa-apps/magasins/lib/actions/groups/magasinsGroupsEdit.action.php(14): waModel->query('SELECT * FROM m...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsGroupsEditAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsGroupsEditAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'groups', 'edit')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-04 13:06:40 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query: SELECT * FROM magasins_groups_magasin WHERE magasin_id  =
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT * FROM m...')
+#1 wa-apps/magasins/lib/actions/groups/magasinsGroupsEdit.action.php(14): waModel->query('SELECT * FROM m...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsGroupsEditAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsGroupsEditAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'groups', 'edit')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-04 13:06:46 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query: SELECT * FROM magasins_groups_magasin WHERE magasin_id  =
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT * FROM m...')
+#1 wa-apps/magasins/lib/actions/groups/magasinsGroupsEdit.action.php(14): waModel->query('SELECT * FROM m...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsGroupsEditAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsGroupsEditAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'groups', 'edit')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-04 13:16:00 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query: SELECT id, name FROM  magasins_groups_magasin WHERE magasin_id=
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT id, name...')
+#1 wa-apps/magasins/lib/actions/groups/magasinsGroupsSave.controller.php(14): waModel->query('SELECT id, name...')
+#2 wa-system/controller/waController.class.php(21): magasinsGroupsSaveController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsGroupsSaveController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'groups', 'save')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-09-04 13:16:06 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query: SELECT id, name FROM  magasins_groups_magasin WHERE magasin_id=
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT id, name...')
+#1 wa-apps/magasins/lib/actions/groups/magasinsGroupsSave.controller.php(14): waModel->query('SELECT id, name...')
+#2 wa-system/controller/waController.class.php(21): magasinsGroupsSaveController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsGroupsSaveController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'groups', 'save')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-09-04 13:16:58 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query: SELECT id, name FROM  magasins_groups_magasin WHERE magasin_id=
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT id, name...')
+#1 wa-apps/magasins/lib/actions/groups/magasinsGroupsSave.controller.php(14): waModel->query('SELECT id, name...')
+#2 wa-system/controller/waController.class.php(21): magasinsGroupsSaveController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsGroupsSaveController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'groups', 'save')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}

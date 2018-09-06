@@ -31,7 +31,8 @@
 
         $('#groupForm').on("submit", function() {
             var post = $('#groupForm').serialize();
-            $.post( "{$wa_app_url}?module=groups&action=save&"+post, function( data ) {
+
+            $.post( "{$wa_app_url}?module=groups&action=save&"+post+"&magasin_id={$magasin_id}", function( data ) {
                $('#groupModal').modal('hide');
                reload_tree();
             });
@@ -42,35 +43,16 @@
 
             var post = $('#providerForm').serialize();
 
-            $.post( "{$wa_app_url}?module=provider&action=save&"+post, function( data ) {
+            // console.log("{$wa_app_url}?module=provider&action=save&"+post+"&magasin_id={$magasin_id}")
+            // return false;
+
+
+            $.post( "{$wa_app_url}?module=provider&action=save&"+post+"&magasin_id={$magasin_id}", function( data ) {
                 $('#providerModal').modal('hide');
                 reload_tree();
             });
             return false;
         });
-
-
-        //
-        // $("#tree1 div.jqtree-element").on( "mouseover", function() {
-        //     var level = $(this).find("span").attr("aria-level");
-        //     if(level == 1) {
-        //         if ($(this).find("div.add-provider").length) {
-        //             $(this).find("div.add-provider").show();
-        //         }
-        //         else {
-        //             $(this).append("<div class='add-provider'></div>");
-        //         }
-        //     }
-        // });
-        //
-        // $("#tree1 div.jqtree-element").on( "mouseout", function() {
-        //     var level = $(this).find("span").attr("aria-level");
-        //     if(level == 1) {
-        //         if ($(this).find("div.add-provider").length) {
-        //             $(".add-provider").hide();
-        //         }
-        //     }
-        // });
 
     });
 
@@ -103,6 +85,29 @@
                 selectable: false
             });
 
+            $('#tree1').on(
+                'tree.move',
+                function(event) {
+                    // console.log('moved_node', event.move_info.moved_node);
+                    // console.log('target_node', event.move_info.target_node);
+                    // console.log('position', event.move_info.position);
+                    // console.log('previous_parent', event.move_info.previous_parent);
+
+                    event.preventDefault();
+                    // do the move first, and _then_ POST back.
+                    event.move_info.do_move();
+
+                    var jsonData = {};
+
+                    jsonData['tree'] = $(this).tree("toJson");
+
+                    $.post("{$wa_app_url}?module=providergroups&action=saveorder&magasin_id={$magasin_id}", jsonData)
+                        .done(function( data ) {
+                            console.log(data)
+                        });
+                }
+            );
+
             $( ".groups-title,.arrow" ).on( "click", function() {
                 $( "#tree1" ).toggle();
 
@@ -116,22 +121,16 @@
 
             $(".button-plus").on("click", function() {
                 $('#groupModal').modal('show');
+                $('#groupModal').find('[name="magasin_id"]').val({$magasin_id});
                 return false;
             });
 
             events();
 
-            // $( "ul.jqtree-tree  div.add-provider").live( "click", function() {
-            //     alert('qqq');
-            //     return false;
-            // });
 
-            // bind 'tree.click' event
             $('#tree1').on(
                 'tree.click',
                 function(event) {
-
-
 
                     // The clicked node is 'event.node'
                     var node = event.node;
@@ -150,12 +149,7 @@
                     else if( jelm.attr('aria-level') == 2) {
 
 
-                        // console.log(event.node.id)
-                        // console.log(event.node.parent.id)
-
-                        //return false;
-
-                        $.post("{$wa_app_url}?module=provider&action=edit&is_modal=1&id="+node.id+"&group_id="+node.parent_id, function (data) {
+                        $.post("{$wa_app_url}?module=provider&action=edit&is_modal=1&id="+node.id+"&group_id="+node.parent_id+"&magasin_id={$magasin_id}", function (data) {
                             var values = JSON.parse(data );
 
                             $('#providerModal').modal('show');
@@ -173,12 +167,10 @@
                             $('#providerModal').find(':submit').text('Обновить');
 
                         });
-
-
                     }
                     else {
 
-                        $.post("{$wa_app_url}?module=groups&action=edit&is_modal=1&id="+node.id, function (data) {
+                        $.post("{$wa_app_url}?module=groups&action=edit&is_modal=1&id="+node.id+"&magasin_id={$magasin_id}", function (data) {
                             var values = JSON.parse(data );
 
                             $('#groupModal').modal('show');
@@ -206,7 +198,7 @@
             $('.delete_group').on("click", function () {
                 var id = $('#groupModal').find('[name="id"]').val();
 
-                $.post( "{$wa_app_url}?module=groups&action=delete&id="+id+"&is_modal=1", function( data ) {
+                $.post( "{$wa_app_url}?module=groups&action=delete&id="+id+"&is_modal=1&magasin_id={$magasin_id}", function( data ) {
                     $('#groupModal').find('.delete_group').hide();
                     $('#groupModal').modal('hide');
                     reload_tree();
@@ -217,7 +209,7 @@
             $('.delete_provider').on("click", function () {
                 var id = $('#providerModal').find('[name="id"]').val();
 
-                $.post( "{$wa_app_url}?module=provider&action=delete&id="+id+"&is_modal=1", function( data ) {
+                $.post( "{$wa_app_url}?module=provider&action=delete&id="+id+"&is_modal=1&magasin_id={$magasin_id}", function( data ) {
                     $('#providerModal').find('.delete_provider').hide();
                     $('#providerModal').modal('hide');
                     reload_tree();
@@ -249,6 +241,16 @@
                     $(".add-provider").hide();
                 }
             }
+        });
+
+        $('#groupModal,#providerModal').on('hidden.bs.modal', function() {
+            $(this)
+                .find("input,textarea,select")
+                .val('')
+                .end()
+
+            $('#groupModal').find('.delete_group').hide();
+            $('#providerModal').find('.delete_provider').hide();
         });
     }
 
@@ -375,6 +377,7 @@
                     <button class="btn btn-primary" type="submit">Сохранить</button>
                     <input type="hidden" name="is_modal" value="1">
                     <input type="hidden" name="id" value="">
+                    <input type="hidden" name="magasin_id" value="">
                 </form>
             </div>
             <div class="modal-footer">

@@ -12,7 +12,8 @@ class magasinsGroupsDeleteController extends waController
         $is_modal = waRequest::request('is_modal');
 
         if($is_modal && $id) {
-            $model->deleteById($id);
+            $GroupsmagasinModel = new magasinsGroupsmagasinModel();
+            $GroupsmagasinModel->deleteById($id);
         }
         else {
             if (isset($ids) && $ids) {

@@ -5,11 +5,12 @@ class magasinsProviderEditAction extends waViewAction
 
     public function execute()
     {
-
         $id = waRequest::request('id', null, waRequest::TYPE_INT);
         $is_modal = waRequest::request('is_modal');
 
         $model = new magasinsProviderModel();
+
+
 
         $magasins = array();
         if ($id) { // edit post
