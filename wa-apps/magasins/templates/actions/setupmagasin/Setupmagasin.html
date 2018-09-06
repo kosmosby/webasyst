@@ -9,7 +9,6 @@
 
         show_tree();
 
-
         $( ".matchs_extract" ).on( "click", function () {
 
             var provider_id = $(this).attr('provider_id');
@@ -293,6 +292,7 @@
                 <th scope="col">периодичность обновления</th>
                 <th scope="col">прочитать xml</th>
                 <th scope="col">настройка что забирать</th>
+                <th scope="col">csv</th>
             </tr>
             </thead>
 
@@ -323,6 +323,11 @@
                 <td>
                     <button type="button" class="btn btn-outline-primary btn-sm" onclick="return window.location.href = '?module=selectfields&magasin_id={$magasin_id}&provider_id={$r.provider_id}';">настройка</button>
                 </td>
+
+                <td>
+                    <button type="button" class="btn btn-outline-success btn-sm" onclick="return window.location.href = '?module=product&action=csv&&provider_id={$r.provider_id}';">получить csv</button>
+                </td>
+
             </tr>
             {/foreach}
             </tbody>

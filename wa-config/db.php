@@ -6,8 +6,8 @@ return array (
     'host' => 'localhost',
     'port' => false,
     'user' => 'root',
-    'password' => 'password',
-    'database' => 'webasyst',
+    'password' => '',
+    'database' => 'c23431_system',
     'type' => 'mysqli',
   ),
 );
