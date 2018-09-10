@@ -1016,3 +1016,18 @@ Access denied for user 'root'@'localhost' (using password: YES)
 #10 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst')
 #11 index.php(7): waSystem->dispatch()
 #12 {main}
+
+2018-09-10 14:10:25 127.0.0.1
+Query Error 1052: Column 'provider_id' in where clause is ambiguous
+Query: SELECT magasins_products.name,magasins_products.available,magasins_products.url,magasins_products.price,magasins_products.currencyId,magasins_products.description,magasins_products.picture,magasins_categories.name FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE provider_id = 1
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT magasins...')
+#1 wa-apps/magasins/lib/actions/products/magasinsProductCsv.controller.php(43): waModel->query('SELECT magasins...')
+#2 wa-system/controller/waController.class.php(21): magasinsProductCsvController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProductCsvController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', 'csv')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
