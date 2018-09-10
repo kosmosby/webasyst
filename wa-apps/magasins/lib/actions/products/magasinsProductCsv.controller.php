@@ -31,7 +31,7 @@ class magasinsProductCsvController extends waController
 
         if(in_array('magasins_products.picture',$data2)) {
             $elem = array_search('magasins_products.picture',$data2);
-            unset($data2[6]);
+            unset($data2[$elem]);
             $data2 = array_values($data2);
             $data2[] = 'magasins_products.picture';
         }
@@ -52,10 +52,10 @@ class magasinsProductCsvController extends waController
 //            echo "<pre>";
 //            print_r($string_for_select);
 //            die;
-
             $sql = $model->query("SELECT " . $string_for_select . " FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE `magasins_products`.`provider_id` = " . $provider_id . " GROUP BY `magasins_products`.`id`");
 
-            //echo "SELECT " . $string_for_select . " FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE `magasins_products`.`provider_id` = " . $provider_id . " GROUP BY `magasins_products`.`id`"; die;
+//            echo "SELECT " . $string_for_select . " FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE `magasins_products`.`provider_id` = " . $provider_id . " GROUP BY `magasins_products`.`id`"; die;
+//            die;
             $products = $sql->fetchAll();
         }
 
