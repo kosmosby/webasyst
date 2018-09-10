@@ -42,51 +42,47 @@ class magasinsProductCsvController extends waController
         $data1 = '"' . str_replace(";", '";"', $data1) . '"';
         $data1 = $data1."\n";
 
-        echo "<pre>";
-        print_r($data1);
-        print_r($products); die;
+//        echo "<pre>";
+//        print_r($data1);
+//        print_r($products); die;
 
 
         $data3 = '';
-
         for($i=0;$i<count($products);$i++) {
-
-            $data2 = '';
+            $array = array();
             foreach ($products[$i] as $k=>$v) {
 
 //                if($v=='picture') {
 //                    $v = str_replace('|', ';', $products[$i]['picture']);
 //                }
+                if($k=='name') {
+                    $name_ = str_replace('"', '""', $products[$i]['name']);
+                    $v = '{name}';
+                }
+
+                if($k=='description') {
+                    $description_ = str_replace('"', '""', $products[$i]['description']);
+                    $v = '{description}';
+                }
 //
-//                if($v=='description') {
-//                    $description_ = str_replace('"', '""', $products[$i]['description']);
-//                    $description = '{description}';
-//                }
-//
-//                if($v=='name') {
-//                    $name_ = str_replace('"', '""', $products[$i]['name']);
-//                    $name = '{name}';
-//                }
+//               $data2 = $name . ";;" . $products[$i]['product_id'] . ";" . $products[$i]['currencyId'] . ";" . $products[$i]['price'] . ";" . $products[$i]['available'] . ";;;;;" . $description . ";;;" . $products[$i]['category'] . ";;;" . $name . ";;;" . $products[$i]['url'] . ";;;" . $pictures . "";
+//               $data2 = '"' . str_replace(";", '";"', $data2) . '"';
 
-//                $data2 .= $v
-
- //               $data2 = $name . ";;" . $products[$i]['product_id'] . ";" . $products[$i]['currencyId'] . ";" . $products[$i]['price'] . ";" . $products[$i]['available'] . ";;;;;" . $description . ";;;" . $products[$i]['category'] . ";;;" . $name . ";;;" . $products[$i]['url'] . ";;;" . $pictures . "";
- //               $data2 = '"' . str_replace(";", '";"', $data2) . '"';
-
-                $data2 = $data2 . "\n";
-
-//                $data2 = str_replace('{name}', $name_, $data2);
-//                $data2 = str_replace('{description}', $description_, $data2);
-
-                $data3 .= $data2;
+                $array[] = str_replace('"','""',$v);
             }
+            $my_string_value = implode(";",$array);
+            $my_string_value_with_quotes = '"' . str_replace(";", '";"', $my_string_value) . '"'."\n";
+
+            $my_string_value_with_quotes = str_replace('{name}', $name_, $my_string_value_with_quotes);
+            $my_string_value_with_quotes = str_replace('{description}', $description_, $my_string_value_with_quotes);
+
+            $data3 .= $my_string_value_with_quotes;
         }
 
-
-
-//            echo "<pre>";
-//            print_r($products); die;
         $data = $data1.$data3;
+
+//        echo "<pre>";
+//        print_r($data); die;
 
 
         header('Content-Type: application/csv');
