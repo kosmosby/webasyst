@@ -12,6 +12,7 @@ class magasinsMatchsXmlcontentController extends waController
         $row = $model->getById($provider_id);
 
         $content = file_get_contents(trim($row['xml_url']),FALSE, NULL, 0, 60000);
+        $content = iconv('CP1251', 'UTF-8', $content);
 
         //$array = array();
         //$array['content'] = htmlspecialchars($content, ENT_COMPAT,'ISO-8859-1', true);
