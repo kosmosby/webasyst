@@ -37,7 +37,7 @@ class magasinsMatchsReadController extends waController
                 $readxml_obj = new magasinsReadxmlAction();
 
                 $readxml_obj->array = $readxml_obj->read_array($provider_id);
-                $readxml_obj->arr_db = $readxml_obj->compose_array_db($provider_id);
+                $readxml_obj->arr_db = array();
 
                 $readxml_obj->clean_array();
 

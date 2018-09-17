@@ -1,6 +1,7 @@
 <!--<script src="{$wa_app_static_url}js/jquery.validate.js" type="text/javascript"></script>-->
 
 <link rel="stylesheet" href="{$wa_app_static_url}css/jquery-ui.min.css">
+<script src="{$wa_app_static_url}js/jquery.blockUI.js" type="text/javascript"></script>
 <script src="{$wa_app_static_url}js/jquery-ui.min.js" type="text/javascript"></script>
 
 
@@ -15,6 +16,7 @@
 
 <script language="javascript">
     $( document ).ready(function() {
+
         $.post( "{$wa_app_url}?module=matchs&action=select&provider_id={$provider_info.id}", function( data ) {
 
             $( ".select" ).each(function( index ) {
@@ -87,11 +89,30 @@
         });
 
         $( "#matchs_read" ).on( "click", function() {
+
+            //block module
+            jQuery('body').block({
+                message: 'Выполняем чтение XML файла',
+                css: { border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff',
+                    font_size: '10px'
+                },
+                onBlock: function() {}
+            });
+
             $.post( "{$wa_app_url}?module=matchs&action=read&provider_id={$provider_info.id}", function( data ) {
+
+                jQuery('body').unblock();
 
                 var values = JSON.parse(data);
 
                 if(values.error){
+
                     alert(values['error']);
                     return false;
                 }
@@ -113,12 +134,27 @@
 
         $( "#matchs_extract" ).on( "click", function () {
 
+            //block module
+            jQuery('body').block({
+                message: 'Выполняем добавление XML файла в базу данных',
+                css: { border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff',
+                    font_size: '10px'
+                },
+                onBlock: function() {}
+            });
+
             $.post( "{$wa_app_url}?module=matchs&action=validate&provider_id={$provider_info.id}", function( data ) {
 
                 var values = JSON.parse(data);
 
                 if(values.count_elements > 0) {
-                    return window.location.href = '?module=readxml&provider_id={$provider_info.id}';
+                    return window.location.href = '?module=readxml&provider_id={$provider_info.id}&magasin_id=0';
                 }
                 else {
                     alert('Необходимо сделать сопоставление полей');
@@ -126,6 +162,7 @@
                 }
             });
         });
+
 
 
         $( "#draggable" ).draggable({ containment: "parent", scroll: false }).resizable();
@@ -158,8 +195,10 @@
 
     <div class="mt-3"></div>
     <div style="float: left;">
-        <button type="button" class="btn btn-outline-success btn-sm" id="matchs_save">Сохранить</button>
-        <button type="button" class="btn btn-outline-info btn-sm" id="matchs_read">Предпросмотр</button>
+        <button type="button" class="btn btn-outline-success btn-sm" id="matchs_save">1.Сохранить</button>
+        <button type="button" class="btn btn-outline-info btn-sm" id="matchs_read">2.Предпросмотр</button>
+
+        <button type="button" class="btn btn-outline-danger btn-sm" id="matchs_extract">3.Добавить в базу</button>
 
     </div>
 
