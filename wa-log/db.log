@@ -1091,3 +1091,18 @@ Query: SELECT magasins_products.product_id AS magasins_products.product_id,magas
 #7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #8 index.php(7): waSystem->dispatch()
 #9 {main}
+
+2018-09-17 17:24:14 127.0.0.1
+Query Error 1146: Table 'c23431_system.magasins_categories_tmp' doesn't exist
+Query: SELECT category_id,name,parentId FROM magasins_categories_tmp WHERE provider_id = 4 LIMIT 10
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT category...')
+#1 wa-apps/magasins/lib/actions/matchs/magasinsMatchsRead.controller.php(68): waModel->query('SELECT category...')
+#2 wa-system/controller/waController.class.php(21): magasinsMatchsReadController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsMatchsReadController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'matchs', 'read')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}

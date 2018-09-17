@@ -34,12 +34,7 @@ class magasinsReadxmlAction extends waViewAction
         $this->arr_db = $this->compose_array_db($provider_id);
         //$this->get_array($rows,0,0,'');
 
-//        echo "<pre>";
-//        print_r($this->arr_db); die;
-
-
         $this->clean_array();
-
 
         $xml = new XMLReader();
         $xml->open(trim($xml_url));
@@ -477,7 +472,6 @@ class magasinsReadxmlAction extends waViewAction
         }
     }
 
-
     public function what_is_key($table) {
         $retrive=mysqli_query($this->conn,"SHOW keys FROM ".$table." WHERE key_name = 'magasins_key'");
         $row = mysqli_fetch_assoc($retrive);
@@ -485,6 +479,12 @@ class magasinsReadxmlAction extends waViewAction
     }
 
     public function insert_sql() {
+
+        $action = waRequest::request('action');
+        if($action == 'read') {
+            $this->sql = str_replace('INSERT INTO `magasins_categories`','INSERT INTO `magasins_categories_tmp`',$this->sql);
+            $this->sql = str_replace('INSERT INTO `magasins_products`','INSERT INTO `magasins_products_tmp`',$this->sql);
+        }
 
         if($this->sql) {
             if (mysqli_multi_query($this->conn, $this->sql)) {
@@ -560,12 +560,41 @@ class magasinsReadxmlAction extends waViewAction
     }
 
     public function get_childs_by_parent_id($parent_id) {
+
+        require_once "array_column.php";
+
         $rows = array();
         $keys = array_keys(array_column($this->array, 'parent_id'), $parent_id);
         if ($keys !== FALSE) {
             foreach ($keys as $k => $v) {
                 $rows[] = $this->array[$v];
             }
+        }
+        return $rows;
+    }
+
+    public function select_tmp_products()
+    {
+        $provider_id = waRequest::request('provider_id');
+        $query = "SELECT * FROM magasins_products_tmp WHERE provider_id = " . $provider_id . " LIMIT 10";
+
+        $retrive = mysqli_query($this->conn, $query);
+
+        while ($row = mysqli_fetch_assoc($retrive)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    public function select_tmp_categories()
+    {
+        $provider_id = waRequest::request('provider_id');
+        $query = "SELECT category_id,name,parentId FROM magasins_categories_tmp WHERE provider_id = ".$provider_id." LIMIT 10";
+
+        $retrive = mysqli_query($this->conn, $query);
+
+        while ($row = mysqli_fetch_assoc($retrive)) {
+            $rows[] = $row;
         }
         return $rows;
     }

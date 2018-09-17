@@ -91,6 +91,11 @@
 
                 var values = JSON.parse(data);
 
+                if(values.error){
+                    alert(values['error']);
+                    return false;
+                }
+
                 $.each( values.categories, function( key, value ) {
                     $.each(value, function (k,v) {
                         $("div[data-field-id='magasins_categories."+k+"']").parent().find("div.container").append("<div>"+v.substring(0,15)+"</div>");
