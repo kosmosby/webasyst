@@ -964,3 +964,145 @@ Query: SELECT id, name FROM  magasins_groups_magasin WHERE magasin_id=
 #7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #8 index.php(7): waSystem->dispatch()
 #9 {main}
+
+2018-09-06 13:44:50 127.0.0.1
+Access denied for user 'root'@'localhost' (using password: YES)
+## wa-system/database/waDbMysqliAdapter.class.php(33)
+#0 wa-system/database/waDbAdapter.class.php(30): waDbMysqliAdapter->connect(Array)
+#1 wa-system/database/waDbConnector.class.php(49): waDbAdapter->__construct(Array)
+#2 wa-system/database/waModel.class.php(75): waDbConnector::getConnection('default', false)
+#3 wa-system/contact/waContact.class.php(67): waModel->__construct()
+#4 wa-system/user/waUser.class.php(22): waContact->init()
+#5 wa-system/user/waAuthUser.class.php(30): waUser->init()
+#6 wa-system/user/waAuthUser.class.php(24): waAuthUser->init()
+#7 wa-system/waSystem.class.php(240): waAuthUser->__construct(NULL, Array)
+#8 wa-system/waSystem.class.php(281): waSystem::getCommonFactory('auth_user', 'waAuthUser', Array, NULL)
+#9 wa-system/waSystem.class.php(526): waSystem->getUser()
+#10 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst')
+#11 index.php(7): waSystem->dispatch()
+#12 {main}
+
+2018-09-06 13:44:51 127.0.0.1
+Access denied for user 'root'@'localhost' (using password: YES)
+## wa-system/database/waDbMysqliAdapter.class.php(33)
+#0 wa-system/database/waDbAdapter.class.php(30): waDbMysqliAdapter->connect(Array)
+#1 wa-system/database/waDbConnector.class.php(49): waDbAdapter->__construct(Array)
+#2 wa-system/database/waModel.class.php(75): waDbConnector::getConnection('default', false)
+#3 wa-system/auth/waAuth.class.php(43): waModel->__construct()
+#4 wa-system/waSystem.class.php(215): waAuth->__construct(Array)
+#5 wa-system/waSystem.class.php(382): waSystem->getFactory('auth', 'waAuth', Array)
+#6 wa-system/user/waAuthUser.class.php(43): waSystem->getAuth()
+#7 wa-system/user/waAuthUser.class.php(24): waAuthUser->init()
+#8 wa-system/waSystem.class.php(240): waAuthUser->__construct(NULL, Array)
+#9 wa-system/waSystem.class.php(281): waSystem::getCommonFactory('auth_user', 'waAuthUser', Array, NULL)
+#10 wa-system/waSystem.class.php(526): waSystem->getUser()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-06 13:44:52 127.0.0.1
+Access denied for user 'root'@'localhost' (using password: YES)
+## wa-system/database/waDbMysqliAdapter.class.php(33)
+#0 wa-system/database/waDbAdapter.class.php(30): waDbMysqliAdapter->connect(Array)
+#1 wa-system/database/waDbConnector.class.php(49): waDbAdapter->__construct(Array)
+#2 wa-system/database/waModel.class.php(75): waDbConnector::getConnection('default', false)
+#3 wa-system/auth/waAuth.class.php(236): waModel->__construct()
+#4 wa-system/auth/waAuth.class.php(78): waAuth->_authByCookie()
+#5 wa-system/user/waAuthUser.class.php(44): waAuth->isAuth()
+#6 wa-system/user/waAuthUser.class.php(24): waAuthUser->init()
+#7 wa-system/waSystem.class.php(240): waAuthUser->__construct(NULL, Array)
+#8 wa-system/waSystem.class.php(281): waSystem::getCommonFactory('auth_user', 'waAuthUser', Array, NULL)
+#9 wa-system/waSystem.class.php(526): waSystem->getUser()
+#10 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst')
+#11 index.php(7): waSystem->dispatch()
+#12 {main}
+
+2018-09-10 14:10:25 127.0.0.1
+Query Error 1052: Column 'provider_id' in where clause is ambiguous
+Query: SELECT magasins_products.name,magasins_products.available,magasins_products.url,magasins_products.price,magasins_products.currencyId,magasins_products.description,magasins_products.picture,magasins_categories.name FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE provider_id = 1
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT magasins...')
+#1 wa-apps/magasins/lib/actions/products/magasinsProductCsv.controller.php(43): waModel->query('SELECT magasins...')
+#2 wa-system/controller/waController.class.php(21): magasinsProductCsvController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProductCsvController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', 'csv')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-09-10 20:24:34 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.product_id,magasins_products.name AS magasins_products.name,magasins_products.a' at line 1
+Query: SELECT magasins_products.product_id AS magasins_products.product_id,magasins_products.name AS magasins_products.name,magasins_products.available AS magasins_products.available,magasins_products.price AS magasins_products.price,magasins_products.currencyId AS magasins_products.currencyId,magasins_products.description AS magasins_products.description,magasins_categories.name AS magasins_categories.name,magasins_products.picture AS magasins_products.picture FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE `magasins_products`.`provider_id` = 1 GROUP BY `magasins_products`.`id`
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT magasins...')
+#1 wa-apps/magasins/lib/actions/products/magasinsProductCsv.controller.php(56): waModel->query('SELECT magasins...')
+#2 wa-system/controller/waController.class.php(21): magasinsProductCsvController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProductCsvController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', 'csv')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-09-10 20:25:41 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.product_id,magasins_products.name AS magasins_products.name,magasins_products.a' at line 1
+Query: SELECT magasins_products.product_id AS magasins_products.product_id,magasins_products.name AS magasins_products.name,magasins_products.available AS magasins_products.available,magasins_products.price AS magasins_products.price,magasins_products.currencyId AS magasins_products.currencyId,magasins_products.description AS magasins_products.description,magasins_categories.name AS magasins_categories.name,magasins_products.picture AS magasins_products.picture FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE `magasins_products`.`provider_id` = 1 GROUP BY `magasins_products`.`id`
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT magasins...')
+#1 wa-apps/magasins/lib/actions/products/magasinsProductCsv.controller.php(56): waModel->query('SELECT magasins...')
+#2 wa-system/controller/waController.class.php(21): magasinsProductCsvController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProductCsvController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', 'csv')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-09-10 20:25:57 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.product_id,magasins_products.name AS magasins_products.name,magasins_products.a' at line 1
+Query: SELECT magasins_products.product_id AS magasins_products.product_id,magasins_products.name AS magasins_products.name,magasins_products.available AS magasins_products.available,magasins_products.price AS magasins_products.price,magasins_products.currencyId AS magasins_products.currencyId,magasins_products.description AS magasins_products.description,magasins_categories.name AS magasins_categories.name,magasins_products.picture AS magasins_products.picture FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE `magasins_products`.`provider_id` = 1 GROUP BY `magasins_products`.`id`
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT magasins...')
+#1 wa-apps/magasins/lib/actions/products/magasinsProductCsv.controller.php(56): waModel->query('SELECT magasins...')
+#2 wa-system/controller/waController.class.php(21): magasinsProductCsvController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProductCsvController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', 'csv')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-09-10 20:26:13 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.product_id,magasins_products.name AS magasins_products.name,magasins_products.a' at line 1
+Query: SELECT magasins_products.product_id AS magasins_products.product_id,magasins_products.name AS magasins_products.name,magasins_products.available AS magasins_products.available,magasins_products.price AS magasins_products.price,magasins_products.currencyId AS magasins_products.currencyId,magasins_products.description AS magasins_products.description,magasins_categories.name AS magasins_categories.name,magasins_products.picture AS magasins_products.picture FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE `magasins_products`.`provider_id` = 1 GROUP BY `magasins_products`.`id`
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT magasins...')
+#1 wa-apps/magasins/lib/actions/products/magasinsProductCsv.controller.php(56): waModel->query('SELECT magasins...')
+#2 wa-system/controller/waController.class.php(21): magasinsProductCsvController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProductCsvController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', 'csv')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-09-17 17:24:14 127.0.0.1
+Query Error 1146: Table 'c23431_system.magasins_categories_tmp' doesn't exist
+Query: SELECT category_id,name,parentId FROM magasins_categories_tmp WHERE provider_id = 4 LIMIT 10
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT category...')
+#1 wa-apps/magasins/lib/actions/matchs/magasinsMatchsRead.controller.php(68): waModel->query('SELECT category...')
+#2 wa-system/controller/waController.class.php(21): magasinsMatchsReadController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsMatchsReadController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'matchs', 'read')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
