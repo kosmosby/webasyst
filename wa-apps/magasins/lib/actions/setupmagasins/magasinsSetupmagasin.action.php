@@ -23,7 +23,7 @@ class magasinsSetupmagasinAction extends waViewAction
                      . "FROM magasins_setupmagasin as a, magasins_magasin as b, magasins_provider as c "
                      . "WHERE a.magasin_id = b.id AND a.provider_id = c.id "
                      . " AND a.magasin_id = ".$magasin_id." "
-                     . " AND c.name LIKE '%".$search."%'");
+                     . " AND c.name LIKE '%".$search."%' ORDER BY priority");
 
             $records = $sql->fetchAll();
         }
@@ -32,7 +32,7 @@ class magasinsSetupmagasinAction extends waViewAction
                 "SELECT a.*, c.name as provider_name, c.url as provider_url "
                 . "FROM magasins_setupmagasin as a, magasins_magasin as b, magasins_provider as c "
                 . "WHERE a.magasin_id = b.id AND a.provider_id = c.id "
-                . " AND a.magasin_id = ".$magasin_id." ");
+                . " AND a.magasin_id = ".$magasin_id." ORDER BY priority");
 
             $records = $sql->fetchAll();
         }

@@ -66,3 +66,11 @@
     cursor: pointer;
 
 }
+
+.disc {
+    background-image: url("../img/disc.png");
+    width: 20px;
+    height: 21px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}

@@ -1106,3 +1106,685 @@ Query: SELECT category_id,name,parentId FROM magasins_categories_tmp WHERE provi
 #7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #8 index.php(7): waSystem->dispatch()
 #9 {main}
+
+2018-09-18 09:15:22 127.0.0.1
+Access denied for user 'root'@'localhost' (using password: NO)
+## wa-system/database/waDbMysqliAdapter.class.php(33)
+#0 wa-system/database/waDbAdapter.class.php(30): waDbMysqliAdapter->connect(Array)
+#1 wa-system/database/waDbConnector.class.php(49): waDbAdapter->__construct(Array)
+#2 wa-system/database/waModel.class.php(75): waDbConnector::getConnection('default', false)
+#3 wa-system/contact/waContact.class.php(67): waModel->__construct()
+#4 wa-system/user/waUser.class.php(22): waContact->init()
+#5 wa-system/user/waAuthUser.class.php(30): waUser->init()
+#6 wa-system/user/waAuthUser.class.php(24): waAuthUser->init()
+#7 wa-system/waSystem.class.php(240): waAuthUser->__construct(NULL, Array)
+#8 wa-system/waSystem.class.php(281): waSystem::getCommonFactory('auth_user', 'waAuthUser', Array, NULL)
+#9 wa-system/waSystem.class.php(526): waSystem->getUser()
+#10 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/')
+#11 index.php(7): waSystem->dispatch()
+#12 {main}
+
+2018-09-18 09:15:22 127.0.0.1
+Access denied for user 'root'@'localhost' (using password: NO)
+## wa-system/database/waDbMysqliAdapter.class.php(33)
+#0 wa-system/database/waDbAdapter.class.php(30): waDbMysqliAdapter->connect(Array)
+#1 wa-system/database/waDbConnector.class.php(49): waDbAdapter->__construct(Array)
+#2 wa-system/database/waModel.class.php(75): waDbConnector::getConnection('default', false)
+#3 wa-system/auth/waAuth.class.php(43): waModel->__construct()
+#4 wa-system/waSystem.class.php(215): waAuth->__construct(Array)
+#5 wa-system/waSystem.class.php(382): waSystem->getFactory('auth', 'waAuth', Array)
+#6 wa-system/user/waAuthUser.class.php(43): waSystem->getAuth()
+#7 wa-system/user/waAuthUser.class.php(24): waAuthUser->init()
+#8 wa-system/waSystem.class.php(240): waAuthUser->__construct(NULL, Array)
+#9 wa-system/waSystem.class.php(281): waSystem::getCommonFactory('auth_user', 'waAuthUser', Array, NULL)
+#10 wa-system/waSystem.class.php(526): waSystem->getUser()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:15:22 127.0.0.1
+Access denied for user 'root'@'localhost' (using password: NO)
+## wa-system/database/waDbMysqliAdapter.class.php(33)
+#0 wa-system/database/waDbAdapter.class.php(30): waDbMysqliAdapter->connect(Array)
+#1 wa-system/database/waDbConnector.class.php(49): waDbAdapter->__construct(Array)
+#2 wa-system/database/waModel.class.php(75): waDbConnector::getConnection('default', false)
+#3 wa-system/auth/waAuth.class.php(236): waModel->__construct()
+#4 wa-system/auth/waAuth.class.php(78): waAuth->_authByCookie()
+#5 wa-system/user/waAuthUser.class.php(44): waAuth->isAuth()
+#6 wa-system/user/waAuthUser.class.php(24): waAuthUser->init()
+#7 wa-system/waSystem.class.php(240): waAuthUser->__construct(NULL, Array)
+#8 wa-system/waSystem.class.php(281): waSystem::getCommonFactory('auth_user', 'waAuthUser', Array, NULL)
+#9 wa-system/waSystem.class.php(526): waSystem->getUser()
+#10 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/')
+#11 index.php(7): waSystem->dispatch()
+#12 {main}
+
+2018-09-18 09:15:52 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:17:55 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:18:42 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:24:27 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:25:48 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:26:47 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:26:56 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:27:09 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:35:35 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:35:38 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:36:06 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:36:21 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:36:23 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:36:30 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:39:44 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:39:46 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:39:48 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:40:06 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:40:23 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:40:28 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:40:29 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:40:44 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:41:46 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:41:48 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:42:06 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:42:55 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:43:21 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:43:27 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:44:30 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:45:58 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:46:03 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:46:39 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:50:59 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:51:03 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-18 09:51:46 127.0.0.1
+Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_provid...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/providergroups/magasinsProvidergroupsReadjson.controller.php(7): waModel->__construct()
+#6 wa-system/controller/waController.class.php(21): magasinsProvidergroupsReadjsonController->execute()
+#7 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProvidergroupsReadjsonController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'providergroups', 'readjson')
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}

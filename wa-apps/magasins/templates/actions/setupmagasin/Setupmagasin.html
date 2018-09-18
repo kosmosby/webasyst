@@ -45,7 +45,6 @@
             // console.log("{$wa_app_url}?module=provider&action=save&"+post+"&magasin_id={$magasin_id}")
             // return false;
 
-
             $.post( "{$wa_app_url}?module=provider&action=save&"+post+"&magasin_id={$magasin_id}", function( data ) {
                 $('#providerModal').modal('hide');
                 reload_tree();
@@ -53,6 +52,13 @@
             return false;
         });
 
+        $('.disc').on("click", function() {
+
+            var post = $('#adminForm').serialize();
+            $.post( "{$wa_app_url}?module=setupmagasin&action=savepriority&"+post, function( data ) {
+                location.reload();
+            });
+        });
     });
 
     function reload_tree() {
@@ -285,7 +291,7 @@
             <tr>
                 <th scope="col"><input type="checkbox" onclick="return checkAll();"> </th>
                 <th scope="col">#</th>
-                <th scope="col"># поставищка</th>
+                <th scope="col">id</th>
                 <th scope="col">название</th>
                 <th scope="col">url</th>
                 <th scope="col">только обновлять</th>
@@ -293,6 +299,7 @@
                 <th scope="col">прочитать xml</th>
                 <th scope="col">настройка что забирать</th>
                 <th scope="col">csv</th>
+                <th scope="col">приор.<div class="disc"></div></th>
             </tr>
             </thead>
 
@@ -303,7 +310,7 @@
                     <input type="checkbox" class="setupmagasin_checkbox" value="{$r.id}" name="cid[]">
                 </td>
                 <td>{$r.id}</td>
-                <td>{$r.provider_id}</td>
+                <td><input type="hidden" name="cid[]" value="{$r.id}">{$r.provider_id}</td>
                 <td><a href="?module=provider&action=edit&id={$r.provider_id}">{$r.provider_name}</a></td>
                 <td><a href="{$r.provider_url}">{$r.provider_url}</a></td>
 
@@ -326,6 +333,10 @@
 
                 <td>
                     <button type="button" class="btn btn-outline-success btn-sm" onclick="return window.location.href = '?module=product&action=csv&provider_id={$r.provider_id}&magasin_id={$r.magasin_id}';">получить csv</button>
+                </td>
+
+                <td>
+                    <input type="text" name="priority[]" style="width: 30px;" value="{$r.priority}">
                 </td>
 
             </tr>

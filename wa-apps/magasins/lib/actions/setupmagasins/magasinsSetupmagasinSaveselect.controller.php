@@ -11,7 +11,6 @@ class magasinsSetupmagasinSaveselectController extends waController
 //        echo "<pre>";
 //        print_r($_REQUEST); die;
 
-
         if (waRequest::method() == 'post') {
             $magasin_id = waRequest::request('magasin_id');
 
