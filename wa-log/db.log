@@ -1826,3 +1826,18 @@ Query: SELECT CONCAT(TABLE_NAME ,".",COLUMN_NAME ) as fields_categories FROM INF
 #11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #12 index.php(7): waSystem->dispatch()
 #13 {main}
+
+2018-09-19 11:14:02 127.0.0.1
+Query Error 1146: Table 'c23431_system.magasin_products' doesn't exist
+Query: SELECT * FROM magasin_products WHERE sim !=''
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT * FROM m...')
+#1 wa-apps/magasins/lib/actions/setupmagasins/magasinsSetupmagasinSimilars.controller.php(34): waModel->query('SELECT * FROM m...')
+#2 wa-system/controller/waController.class.php(21): magasinsSetupmagasinSimilarsController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsSetupmagasinSimilarsController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'setupmagasin', 'similars')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}

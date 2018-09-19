@@ -59,6 +59,14 @@
                 location.reload();
             });
         });
+
+        $('#similars_check').on("click", function() {
+
+            $.post( "{$wa_app_url}?module=setupmagasin&action=similars&magasin_id={$magasin_id}", function( data ) {
+                //location.reload();
+            });
+
+        });
     });
 
     function reload_tree() {
@@ -276,6 +284,8 @@
         <button type="button" class="btn btn-outline-success btn-sm" onclick="return submitbuttonsetup('setupmagasin','edit', {$magasin_id});" >Добавить</button>
         <button type="button" class="btn btn-outline-danger btn-sm" onclick="return deletebutton('setupmagasin','delete');">Удалить</button>
         <button type="button" class="btn btn-outline-secondary btn-sm" onclick="return window.location.href = '{$wa_app_url}';">Вернуться</button>
+
+        <button type="button" class="btn btn-outline-warning btn-sm" id="similars_check">Симиляры</button>
     </div>
 
     <div style="float: right;" class="mr-3 mb-3">
