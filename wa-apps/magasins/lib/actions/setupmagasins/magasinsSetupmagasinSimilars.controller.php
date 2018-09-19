@@ -39,8 +39,9 @@ class magasinsSetupmagasinSimilarsController extends waController
             $rows[$i]['similars'] = $result->fetchAll();
         }
 
-        echo "<pre>";
-        print_r($rows); die;
+        $json = json_encode($rows);
+        echo $json;
+        exit();
 
     }
 
