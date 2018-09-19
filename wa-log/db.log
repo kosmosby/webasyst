@@ -1788,3 +1788,41 @@ Table 'c23431_system.magasins_provider_groups_magasin' doesn't exist
 #11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #12 index.php(7): waSystem->dispatch()
 #13 {main}
+
+2018-09-19 08:16:06 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''c23431_system' at line 1
+Query: SELECT CONCAT(TABLE_NAME ,".",COLUMN_NAME ) as fields_categories FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME in ('magasins_categories') AND COLUMN_NAME NOT IN ('id','provider_id','update_date','hash') AND TABLE_SCHEMA = 'c23431_system
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT CONCAT(T...')
+#1 wa-apps/magasins/lib/actions/matchs/magasinsMatchs.action.php(37): waModel->query('SELECT CONCAT(T...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsMatchsAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsMatchsAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'matchs', NULL)
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-09-19 08:16:26 127.0.0.1
+Query Error 1054: Unknown column 'c23431_system' in 'where clause'
+Query: SELECT CONCAT(TABLE_NAME ,".",COLUMN_NAME ) as fields_categories FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME in ('magasins_categories') AND COLUMN_NAME NOT IN ('id','provider_id','update_date','hash') AND TABLE_SCHEMA = c23431_system
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT CONCAT(T...')
+#1 wa-apps/magasins/lib/actions/matchs/magasinsMatchs.action.php(37): waModel->query('SELECT CONCAT(T...')
+#2 wa-system/controller/waViewAction.class.php(170): magasinsMatchsAction->execute()
+#3 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#4 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsMatchsAction))
+#5 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#6 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#7 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#8 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#9 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'matchs', NULL)
+#10 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}

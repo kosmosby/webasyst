@@ -28,18 +28,24 @@ class magasinsMatchsAction extends waViewAction
             $records = $sql->fetchAll();
         }
 
+        $config = wa()->getConfig()->getDatabase();
+        $database = $config['default']['database'];
+
         $sql = $model->query('SELECT CONCAT(TABLE_NAME ,".",COLUMN_NAME ) as fields_categories'
             .' FROM INFORMATION_SCHEMA.COLUMNS'
-            .' WHERE TABLE_NAME in (\'magasins_categories\') AND COLUMN_NAME NOT IN (\'id\',\'provider_id\',\'update_date\',\'hash\')'
+            .' WHERE TABLE_NAME in (\'magasins_categories\') AND COLUMN_NAME NOT IN (\'id\',\'provider_id\',\'update_date\',\'hash\') AND TABLE_SCHEMA = \''.$database.'\''
         );
         $categories_select = $sql->fetchAll();
 
 
         $sql = $model->query('SELECT CONCAT(TABLE_NAME ,".",COLUMN_NAME ) as fields_products'
             .' FROM INFORMATION_SCHEMA.COLUMNS'
-            .' WHERE TABLE_NAME in (\'magasins_products\') AND COLUMN_NAME NOT IN (\'id\',\'provider_id\',\'update_date\',\'hash\')'
+            .' WHERE TABLE_NAME in (\'magasins_products\') AND COLUMN_NAME NOT IN (\'id\',\'provider_id\',\'update_date\',\'hash\',\'sim\') AND TABLE_SCHEMA = \''.$database.'\''
         );
         $products_select = $sql->fetchAll();
+
+
+
 
 
   //      $xml_url = $provider_info['xml_url'];

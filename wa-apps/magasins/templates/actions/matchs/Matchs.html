@@ -17,7 +17,25 @@
 <script language="javascript">
     $( document ).ready(function() {
 
+
+        //block module
+        jQuery('body').block({
+            message: 'Выполняем чтение структуры XML файла',
+            css: { border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff',
+                font_size: '10px'
+            },
+            onBlock: function() {}
+        });
+
         $.post( "{$wa_app_url}?module=matchs&action=select&provider_id={$provider_info.id}", function( data ) {
+
+            jQuery('body').unblock();
 
             $( ".select" ).each(function( index ) {
 
@@ -92,7 +110,7 @@
 
             //block module
             jQuery('body').block({
-                message: 'Выполняем чтение XML файла',
+                message: 'Выполняем предварительно чтение XML файла',
                 css: { border: 'none',
                     padding: '15px',
                     backgroundColor: '#000',
