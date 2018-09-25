@@ -107,6 +107,7 @@ class magasinsMatchsReadController extends waController
                     `pickup` varchar(10) NOT NULL,
                     `delivery` varchar(10) NOT NULL,
                     `description` text NOT NULL,
+                    `sku` varchar(255) NOT NULL,
                     `picture` text NOT NULL,
                     `update_date` datetime NOT NULL,
                     `hash` varchar(255) NOT NULL,

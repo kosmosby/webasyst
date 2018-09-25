@@ -1841,3 +1841,78 @@ Query: SELECT * FROM magasin_products WHERE sim !=''
 #7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #8 index.php(7): waSystem->dispatch()
 #9 {main}
+
+2018-09-19 16:49:13 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.' at line 1
+Query: SELECT  FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE `magasins_products`.`provider_id` = 4 GROUP BY `magasins_products`.`id`
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT  FROM `m...')
+#1 wa-apps/magasins/lib/actions/products/magasinsProductCsv.controller.php(55): waModel->query('SELECT  FROM `m...')
+#2 wa-system/controller/waController.class.php(21): magasinsProductCsvController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProductCsvController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', 'csv')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-09-19 16:49:29 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.' at line 1
+Query: SELECT  FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE `magasins_products`.`provider_id` = 1 GROUP BY `magasins_products`.`id`
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT  FROM `m...')
+#1 wa-apps/magasins/lib/actions/products/magasinsProductCsv.controller.php(55): waModel->query('SELECT  FROM `m...')
+#2 wa-system/controller/waController.class.php(21): magasinsProductCsvController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProductCsvController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', 'csv')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-09-19 16:49:32 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.' at line 1
+Query: SELECT  FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE `magasins_products`.`provider_id` = 2 GROUP BY `magasins_products`.`id`
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT  FROM `m...')
+#1 wa-apps/magasins/lib/actions/products/magasinsProductCsv.controller.php(55): waModel->query('SELECT  FROM `m...')
+#2 wa-system/controller/waController.class.php(21): magasinsProductCsvController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProductCsvController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', 'csv')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-09-19 16:55:49 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.' at line 1
+Query: SELECT  FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE `magasins_products`.`provider_id` = 2 GROUP BY `magasins_products`.`id`
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT  FROM `m...')
+#1 wa-apps/magasins/lib/actions/products/magasinsProductCsv.controller.php(55): waModel->query('SELECT  FROM `m...')
+#2 wa-system/controller/waController.class.php(21): magasinsProductCsvController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProductCsvController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', 'csv')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-09-19 16:55:52 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.' at line 1
+Query: SELECT  FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE `magasins_products`.`provider_id` = 2 GROUP BY `magasins_products`.`id`
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT  FROM `m...')
+#1 wa-apps/magasins/lib/actions/products/magasinsProductCsv.controller.php(55): waModel->query('SELECT  FROM `m...')
+#2 wa-system/controller/waController.class.php(21): magasinsProductCsvController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProductCsvController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', 'csv')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}

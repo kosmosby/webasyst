@@ -27,6 +27,7 @@
             <tr>
                 <th scope="col"><input type="checkbox" onclick="return checkAll();"></th>
                 <th scope="col">#</th>
+                <th scope="col">SKU</th>
                 <th scope="col">название</th>
                 <th scope="col">url</th>
                 <th scope="col">описание</th>
@@ -43,6 +44,7 @@
                     <input type="checkbox" class="provider_checkbox" value="{$r.id}" name="cid[]">
                 </td>
                 <td scope="row">{$r.id}</td>
+                <td scope="row">{$r.sku}</td>
                 <td><a href="?module=provider&action=edit&id={$r.id}">{$r.name}</a></td>
                 <td><a href="{$r.url}" target="_blank">{$r.url|truncate:20}</a></td>
                 <td>{$r.description|truncate:50}</td>
