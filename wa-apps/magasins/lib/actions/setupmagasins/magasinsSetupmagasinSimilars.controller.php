@@ -4,10 +4,15 @@ class magasinsSetupmagasinSimilarsController extends waController
 {
 
     public $string = array();
+    public $conn;
+    public $sql = '';
 
     public function execute()
     {
         $magasin_id = waRequest::request('magasin_id');
+
+        $this->setup_db_connect();
+        $this->create_tmp_table();
 
         $model = new magasinsSetupmagasinModel();
 
@@ -31,13 +36,26 @@ class magasinsSetupmagasinSimilarsController extends waController
         }
 
 
-        $result = $model->query("SELECT a.id, a.name, a.sim, b.name as provider_name FROM magasins_products as a, magasins_provider as b WHERE a.sim !='' AND a.provider_id = b.id");
-        $rows = $result->fetchAll();
+//        $result = $model->query("SELECT a.id, a.name, a.sim, b.name as provider_name FROM magasins_products as a, magasins_provider as b WHERE a.sim !='' AND a.provider_id = b.id");
+//        $rows = $result->fetchAll();
+//
+//        for($i=0;$i<count($rows); $i++) {
+//            $result = $model->query("SELECT a.id, a.name, b.name as provider_name FROM magasins_products as a, magasins_provider as b WHERE a.id IN (".$rows[$i]['sim'].") AND a.provider_id = b.id");
+//            $rows[$i]['similars'] = $result->fetchAll();
+//        }
 
-        for($i=0;$i<count($rows); $i++) {
-            $result = $model->query("SELECT a.id, a.name, b.name as provider_name FROM magasins_products as a, magasins_provider as b WHERE a.id IN (".$rows[$i]['sim'].") AND a.provider_id = b.id");
-            $rows[$i]['similars'] = $result->fetchAll();
+
+        $query = "SELECT * FROM magasins_similars_values_tmp";
+
+        $retrive = mysqli_query($this->conn, $query);
+
+        while ($row = mysqli_fetch_assoc($retrive)) {
+            $rows[] = $row;
         }
+
+        echo "<pre>";
+        print_r($rows); die;
+
 
         $json = json_encode($rows);
         echo $json;
@@ -51,23 +69,36 @@ class magasinsSetupmagasinSimilarsController extends waController
        if(!in_array($provider_id_2.'|'.$provider_id_1,$this->string)) {
            $this->string[] = $provider_id_1.'|'.$provider_id_2;
 
-           $model = new magasinsProductModel();
+           //$model = new magasinsProductModel();
 
-           $result = $model->query(
+//           $result = $model->query(
+//
+//               ' SELECT a.id as id1 , a.name as name1, a.product_id as product_id1,a.provider_id as provider_id1, b.id as id2, b.name as name2, b.product_id as product_d2, b.provider_id as provider_id2 '
+//               .' FROM magasins_products AS a, magasins_products AS b '
+//               .' WHERE  a.name = b.name '
+//               .' AND a.id != b.id AND a.provider_id != b.provider_id '
+//               .' AND a.provider_id = '.$provider_id_1.' AND b.provider_id = '.$provider_id_2.' '
+//
+//           );
 
-               ' SELECT a.id as id1 , a.name as name1, a.product_id as product_id1,a.provider_id as provider_id1, b.id as id2, b.name as name2, b.product_id as product_d2, b.provider_id as provider_id2 '
-               .' FROM magasins_products AS a, magasins_products AS b '
-               .' WHERE  a.name = b.name '
-               .' AND a.id != b.id AND a.provider_id != b.provider_id '
-               .' AND a.provider_id = '.$provider_id_1.' AND b.provider_id = '.$provider_id_2.' '
+           $this->sql = 'call find_similars('.$provider_id_1.','.$provider_id_2.',20)';
 
-           );
-           $rows = $result->fetchAll();
+           //echo $this->sql; die;
+           $this->insert_sql();
 
-           if(count($rows)) {
-               $this->update_similar_field($rows);
-           }
+
+//           if(count($rows)) {
+               //$this->update_similar_field($rows);
+//           }
        }
+    }
+
+    public function setup_db_connect() {
+
+        $config = wa()->getConfig()->getDatabase();
+        $this->conn=mysqli_connect($config['default']['host'],$config['default']['user'],$config['default']['password'],$config['default']['database']);
+        $this->conn->set_charset("utf8");
+
     }
 
     public function update_similar_field($rows) {
@@ -99,6 +130,35 @@ class magasinsSetupmagasinSimilarsController extends waController
 
                 $model->updateById($rows[$i]['id2'], array('sim' => $sql_string ));
             }
+        }
+    }
+
+    public function create_tmp_table() {
+          $this->sql = "CREATE TEMPORARY TABLE `magasins_similars_values_tmp` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `id1` int(11) NOT NULL,
+            `name1` varchar(255) NOT NULL,
+            `id2` int(11) NOT NULL,
+            `name2` varchar(255) NOT NULL,
+            `rel` float NOT NULL,
+            `sim` varchar(255) NOT NULL,
+            PRIMARY KEY (`id`) 
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+          $this->insert_sql();
+    }
+
+    public function insert_sql() {
+        if($this->sql) {
+            if (mysqli_multi_query($this->conn, $this->sql)) {
+                //echo "New records created successfully<hr />";
+            } else {
+                echo "<hr>Error: " . $this->sql . "<hr>" . mysqli_error($this->conn);
+            }
+            $this->sql = '';
+            $this->count_sql_strings = 0;
+            while ($this->conn->next_result()) {
+                ;
+            } // flush multi_queries
         }
     }
 
