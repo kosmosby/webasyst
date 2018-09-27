@@ -70,13 +70,17 @@
                 main_div.val();
 
                 jQuery.each(values, function(i, val) {
-                    var div = $("<div>").html(val.name + ' ('+val.provider_name+')');
-                    main_div.append(div);
+                    var div = $("<div>").html(val.name1 + ' ('+val.provider_id_1_name+')');
+                    var div2 = $("<div>").html('&nbsp;&nbsp;--'+val.name2 + ' ('+val.provider_id_2_name+') rel:'+val.rel+'<hr />');
 
-                    jQuery.each(val.similars, function(j, sim) {
-                        var div = $("<div>").html('&nbsp;&nbsp;--'+sim.name + ' ('+sim.provider_name+')<br /><br />');
-                        main_div.append(div);
-                    })
+
+                    main_div.append(div);
+                    main_div.append(div2);
+
+                    // jQuery.each(val.similars, function(j, sim) {
+                    //     var div = $("<div>").html('&nbsp;&nbsp;--'+sim.name + ' ('+sim.provider_name+')<br /><br />');
+                    //     main_div.append(div);
+                    // })
 
                 });
 

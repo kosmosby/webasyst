@@ -45,7 +45,11 @@ class magasinsSetupmagasinSimilarsController extends waController
 //        }
 
 
-        $query = "SELECT * FROM magasins_similars_values_tmp";
+        $query = "SELECT a.*,b.name as provider_id_1_name,c.name as provider_id_2_name 
+                  FROM magasins_similars_values_tmp as a
+                  LEFT JOIN `magasins_provider` as b ON a.provider1 = b.id
+                  LEFT JOIN `magasins_provider` as c ON a.provider2 = c.id
+                  ";
 
         $retrive = mysqli_query($this->conn, $query);
 
@@ -53,8 +57,8 @@ class magasinsSetupmagasinSimilarsController extends waController
             $rows[] = $row;
         }
 
-        echo "<pre>";
-        print_r($rows); die;
+//        echo "<pre>";
+//        print_r($rows); die;
 
 
         $json = json_encode($rows);
@@ -138,8 +142,10 @@ class magasinsSetupmagasinSimilarsController extends waController
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `id1` int(11) NOT NULL,
             `name1` varchar(255) NOT NULL,
+            `provider1` varchar(255) NOT NULL,
             `id2` int(11) NOT NULL,
             `name2` varchar(255) NOT NULL,
+            `provider2` varchar(255) NOT NULL,
             `rel` float NOT NULL,
             `sim` varchar(255) NOT NULL,
             PRIMARY KEY (`id`) 
