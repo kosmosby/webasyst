@@ -1933,3 +1933,52 @@ MySQL server has gone away
 #10 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #11 index.php(7): waSystem->dispatch()
 #12 {main}
+
+2018-10-08 16:24:46 127.0.0.1
+Access denied for user 'root'@'localhost' (using password: YES)
+## wa-system/database/waDbMysqliAdapter.class.php(33)
+#0 wa-system/database/waDbAdapter.class.php(30): waDbMysqliAdapter->connect(Array)
+#1 wa-system/database/waDbConnector.class.php(49): waDbAdapter->__construct(Array)
+#2 wa-system/database/waModel.class.php(75): waDbConnector::getConnection('default', false)
+#3 wa-system/contact/waContact.class.php(67): waModel->__construct()
+#4 wa-system/user/waUser.class.php(22): waContact->init()
+#5 wa-system/user/waAuthUser.class.php(30): waUser->init()
+#6 wa-system/user/waAuthUser.class.php(24): waAuthUser->init()
+#7 wa-system/waSystem.class.php(240): waAuthUser->__construct(NULL, Array)
+#8 wa-system/waSystem.class.php(281): waSystem::getCommonFactory('auth_user', 'waAuthUser', Array, NULL)
+#9 wa-system/waSystem.class.php(526): waSystem->getUser()
+#10 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#11 index.php(7): waSystem->dispatch()
+#12 {main}
+
+2018-10-08 16:24:47 127.0.0.1
+Access denied for user 'root'@'localhost' (using password: YES)
+## wa-system/database/waDbMysqliAdapter.class.php(33)
+#0 wa-system/database/waDbAdapter.class.php(30): waDbMysqliAdapter->connect(Array)
+#1 wa-system/database/waDbConnector.class.php(49): waDbAdapter->__construct(Array)
+#2 wa-system/database/waModel.class.php(75): waDbConnector::getConnection('default', false)
+#3 wa-system/auth/waAuth.class.php(43): waModel->__construct()
+#4 wa-system/waSystem.class.php(215): waAuth->__construct(Array)
+#5 wa-system/waSystem.class.php(382): waSystem->getFactory('auth', 'waAuth', Array)
+#6 wa-system/user/waAuthUser.class.php(43): waSystem->getAuth()
+#7 wa-system/user/waAuthUser.class.php(24): waAuthUser->init()
+#8 wa-system/waSystem.class.php(240): waAuthUser->__construct(NULL, Array)
+#9 wa-system/waSystem.class.php(281): waSystem::getCommonFactory('auth_user', 'waAuthUser', Array, NULL)
+#10 wa-system/waSystem.class.php(526): waSystem->getUser()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-10-08 16:24:48 127.0.0.1
+Access denied for user 'root'@'localhost' (using password: YES)
+## wa-system/database/waDbMysqliAdapter.class.php(33)
+#0 wa-system/database/waDbAdapter.class.php(30): waDbMysqliAdapter->connect(Array)
+#1 wa-system/database/waDbConnector.class.php(49): waDbAdapter->__construct(Array)
+#2 wa-system/database/waModel.class.php(75): waDbConnector::getConnection('default', false)
+#3 wa-system/contact/waContact.class.php(851): waModel->__construct()
+#4 wa-system/waSystem.class.php(983): waContact->getLocale()
+#5 wa-system/waSystem.class.php(1138): waSystem->getApps()
+#6 wa-system/waSystem.class.php(538): waSystem->appExists('magasins')
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}

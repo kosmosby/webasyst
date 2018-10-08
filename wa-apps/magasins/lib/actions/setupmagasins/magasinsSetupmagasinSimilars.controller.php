@@ -14,6 +14,8 @@ class magasinsSetupmagasinSimilarsController extends waController
         $this->setup_db_connect();
         $this->create_tmp_table();
 
+
+
         $model = new magasinsSetupmagasinModel();
 
         $providers = $model->getByField(array('magasin_id' => $magasin_id),true);
@@ -87,9 +89,9 @@ class magasinsSetupmagasinSimilarsController extends waController
 
            $this->sql = 'call find_similars('.$provider_id_1.','.$provider_id_2.',20)';
 
-           //echo $this->sql; die;
-           $this->insert_sql();
 
+           $this->insert_sql();
+           //echo $this->sql; die;
 
 //           if(count($rows)) {
                //$this->update_similar_field($rows);

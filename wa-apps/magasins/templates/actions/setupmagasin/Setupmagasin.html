@@ -4,6 +4,11 @@
 <link rel="stylesheet" href="{$wa_app_static_url}css/jqtree.css">
 <link rel="stylesheet" href="{$wa_app_static_url}css/magasin.css">
 
+
+<link rel="stylesheet" href="{$wa_app_static_url}css/jquery-ui.min.css">
+<script src="{$wa_app_static_url}js/jquery.blockUI.js" type="text/javascript"></script>
+<script src="{$wa_app_static_url}js/jquery-ui.min.js" type="text/javascript"></script>
+
 <script language="javascript">
     $( document ).ready(function() {
 
@@ -62,9 +67,27 @@
 
         $('#similars_check').on("click", function() {
 
-            $.post( "{$wa_app_url}?module=setupmagasin&action=similars&magasin_id={$magasin_id}", function( data ) {
-                var values = JSON.parse(data);
 
+            //block module
+            jQuery('body').block({
+                message: 'Выполняем поиск симиляров в базе данных',
+                css: { border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff',
+                    font_size: '10px'
+                },
+                onBlock: function() {}
+            });
+
+            $.post( "{$wa_app_url}?module=setupmagasin&action=similars&magasin_id={$magasin_id}", function( data ) {
+
+                jQuery('body').unblock();
+
+                var values = JSON.parse(data);
 
                 var main_div = $('#similarsModal').find('.modal-body');
                 main_div.val();
@@ -85,6 +108,9 @@
                 });
 
                 $('#similarsModal').modal('show');
+
+
+
             });
 
         });
