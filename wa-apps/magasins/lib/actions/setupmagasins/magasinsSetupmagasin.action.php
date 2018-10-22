@@ -66,11 +66,16 @@ class magasinsSetupmagasinAction extends waViewAction
 //        print_r(array_unique($select)); die;
 
 
+        $settings_model = new magasinsMagasinsettingsModel();
+        $settings = $settings_model->getByField('magasin_id', $magasin_id);
+
         $this->view->assign('select', $select);
         $this->view->assign('magasin', $magasin);
         $this->view->assign('magasin_id', $magasin_id);
         $this->view->assign('records', $records);
         $this->view->assign('search', $search);
+
+        $this->view->assign('settings', $settings);
 
     }
 }

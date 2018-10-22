@@ -65,6 +65,20 @@
             });
         });
 
+        $('#settings').on("click", function() {
+            $('#settingsModal').modal('show');
+        });
+
+        $('#settingsform').on("submit", function() {
+            alert('aa')
+            var post = $('#settingsForm').serialize();
+            $.post( "{$wa_app_url}?module=setupmagasin&action=savesettings&"+post+"&magasin_id={$magasin_id}", function( data ) {
+                $('#settingsModal').modal('hide');
+            });
+            return false;
+        });
+
+
         $('#similars_check').on("click", function() {
 
 
@@ -332,7 +346,9 @@
         <button type="button" class="btn btn-outline-danger btn-sm" onclick="return deletebutton('setupmagasin','delete');">Удалить</button>
         <button type="button" class="btn btn-outline-secondary btn-sm" onclick="return window.location.href = '{$wa_app_url}';">Вернуться</button>
 
-        <button type="button" class="btn btn-outline-warning btn-sm" id="similars_check">Симиляры</button>
+        <button type="button" class="btn btn-outline-warning btn-sm" id="similars_check" style="margin-left: 40px;">Симиляры</button>
+
+        <button type="button" class="btn btn-outline-info btn-sm" id="settings">Настройки</button>
     </div>
 
     <div style="float: right;" class="mr-3 mb-3">
@@ -516,6 +532,32 @@
                 </button>
             </div>
             <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Настройки</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form name="settingsform" id="settingsform">
+                    <div class="form-group">
+                        <label for="rel" class="col-form-label">Rel:</label>
+                        <input type="text" class="form-control" id="rel" name="rel" required>
+                        <input type="hidden" name="magasin_id" value="{$magasin_id}">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Сохранить</button>
+                </form>
 
             </div>
         </div>
