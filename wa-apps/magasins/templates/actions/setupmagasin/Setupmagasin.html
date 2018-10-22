@@ -70,8 +70,9 @@
         });
 
         $('#settingsform').on("submit", function() {
-            alert('aa')
-            var post = $('#settingsForm').serialize();
+
+            var post = $('#settingsform').serialize();
+
             $.post( "{$wa_app_url}?module=setupmagasin&action=savesettings&"+post+"&magasin_id={$magasin_id}", function( data ) {
                 $('#settingsModal').modal('hide');
             });
@@ -553,7 +554,7 @@
                 <form name="settingsform" id="settingsform">
                     <div class="form-group">
                         <label for="rel" class="col-form-label">Rel:</label>
-                        <input type="text" class="form-control" id="rel" name="rel" required>
+                        <input type="text" class="form-control" id="rel" name="rel" value="{$settings.rel}" required>
                         <input type="hidden" name="magasin_id" value="{$magasin_id}">
                     </div>
                     <button class="btn btn-primary" type="submit">Сохранить</button>
