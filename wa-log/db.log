@@ -1997,3 +1997,74 @@ Query: INSERT INTO magasins_magasin_settings VALUES magasin_id=2, rel=1
 #7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #8 index.php(7): waSystem->dispatch()
 #9 {main}
+
+2018-10-24 09:02:29 127.0.0.1
+Access denied for user 'root'@'localhost' (using password: NO)
+## wa-system/database/waDbMysqliAdapter.class.php(33)
+#0 wa-system/database/waDbAdapter.class.php(30): waDbMysqliAdapter->connect(Array)
+#1 wa-system/database/waDbConnector.class.php(49): waDbAdapter->__construct(Array)
+#2 wa-system/database/waModel.class.php(75): waDbConnector::getConnection('default', false)
+#3 wa-system/contact/waContact.class.php(67): waModel->__construct()
+#4 wa-system/user/waUser.class.php(22): waContact->init()
+#5 wa-system/user/waAuthUser.class.php(30): waUser->init()
+#6 wa-system/user/waAuthUser.class.php(24): waAuthUser->init()
+#7 wa-system/waSystem.class.php(240): waAuthUser->__construct(NULL, Array)
+#8 wa-system/waSystem.class.php(281): waSystem::getCommonFactory('auth_user', 'waAuthUser', Array, NULL)
+#9 wa-system/waSystem.class.php(526): waSystem->getUser()
+#10 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#11 index.php(7): waSystem->dispatch()
+#12 {main}
+
+2018-10-24 09:02:29 127.0.0.1
+Access denied for user 'root'@'localhost' (using password: NO)
+## wa-system/database/waDbMysqliAdapter.class.php(33)
+#0 wa-system/database/waDbAdapter.class.php(30): waDbMysqliAdapter->connect(Array)
+#1 wa-system/database/waDbConnector.class.php(49): waDbAdapter->__construct(Array)
+#2 wa-system/database/waModel.class.php(75): waDbConnector::getConnection('default', false)
+#3 wa-system/auth/waAuth.class.php(43): waModel->__construct()
+#4 wa-system/waSystem.class.php(215): waAuth->__construct(Array)
+#5 wa-system/waSystem.class.php(382): waSystem->getFactory('auth', 'waAuth', Array)
+#6 wa-system/user/waAuthUser.class.php(43): waSystem->getAuth()
+#7 wa-system/user/waAuthUser.class.php(24): waAuthUser->init()
+#8 wa-system/waSystem.class.php(240): waAuthUser->__construct(NULL, Array)
+#9 wa-system/waSystem.class.php(281): waSystem::getCommonFactory('auth_user', 'waAuthUser', Array, NULL)
+#10 wa-system/waSystem.class.php(526): waSystem->getUser()
+#11 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#12 index.php(7): waSystem->dispatch()
+#13 {main}
+
+2018-10-24 09:02:29 127.0.0.1
+Access denied for user 'root'@'localhost' (using password: NO)
+## wa-system/database/waDbMysqliAdapter.class.php(33)
+#0 wa-system/database/waDbAdapter.class.php(30): waDbMysqliAdapter->connect(Array)
+#1 wa-system/database/waDbConnector.class.php(49): waDbAdapter->__construct(Array)
+#2 wa-system/database/waModel.class.php(75): waDbConnector::getConnection('default', false)
+#3 wa-system/contact/waContact.class.php(851): waModel->__construct()
+#4 wa-system/waSystem.class.php(983): waContact->getLocale()
+#5 wa-system/waSystem.class.php(1138): waSystem->getApps()
+#6 wa-system/waSystem.class.php(538): waSystem->appExists('magasins')
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-10-24 09:02:39 127.0.0.1
+Table 'c23431_system.magasins_magasin_settings' doesn't exist
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('magasins_magasi...', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-apps/magasins/lib/actions/setupmagasins/magasinsSetupmagasin.action.php(69): waModel->__construct()
+#6 wa-system/controller/waViewAction.class.php(170): magasinsSetupmagasinAction->execute()
+#7 wa-system/controller/waViewController.class.php(86): waViewAction->display()
+#8 wa-system/controller/waDefaultViewController.class.php(48): waViewController->executeAction(Object(magasinsSetupmagasinAction))
+#9 wa-system/controller/waController.class.php(21): waDefaultViewController->execute()
+#10 wa-system/controller/waViewController.class.php(46): waController->run(NULL)
+#11 wa-system/controller/waFrontController.class.php(229): waViewController->run(NULL)
+#12 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(waDefaultViewController), NULL)
+#13 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'setupmagasin', NULL)
+#14 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#15 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#16 index.php(7): waSystem->dispatch()
+#17 {main}

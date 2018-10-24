@@ -11,9 +11,12 @@ class magasinsSetupmagasinSimilarsController extends waController
     {
         $magasin_id = waRequest::request('magasin_id');
 
+        $settngs_model= new magasinsMagasinsettingsModel();
+        $settings = $settngs_model->getByField('magasin_id', $magasin_id);
+
+
         $this->setup_db_connect();
         $this->create_tmp_table();
-
 
 
         $model = new magasinsSetupmagasinModel();
@@ -32,7 +35,7 @@ class magasinsSetupmagasinSimilarsController extends waController
                 if($provider_id_1 != $prov_ids[$j]) {
                     $provider_id_2 = $prov_ids[$j];
 
-                    $this->query_for_similars($provider_id_1, $provider_id_2);
+                    $this->query_for_similars($provider_id_1, $provider_id_2, $settings['rel']);
                 }
             }
         }
@@ -51,6 +54,7 @@ class magasinsSetupmagasinSimilarsController extends waController
                   FROM magasins_similars_values_tmp as a
                   LEFT JOIN `magasins_provider` as b ON a.provider1 = b.id
                   LEFT JOIN `magasins_provider` as c ON a.provider2 = c.id
+                  ORDER BY a.rel DESC
                   ";
 
         $retrive = mysqli_query($this->conn, $query);
@@ -70,7 +74,7 @@ class magasinsSetupmagasinSimilarsController extends waController
     }
 
 
-    public function query_for_similars($provider_id_1, $provider_id_2) {
+    public function query_for_similars($provider_id_1, $provider_id_2, $rel) {
 
        if(!in_array($provider_id_2.'|'.$provider_id_1,$this->string)) {
            $this->string[] = $provider_id_1.'|'.$provider_id_2;
@@ -87,7 +91,7 @@ class magasinsSetupmagasinSimilarsController extends waController
 //
 //           );
 
-           $this->sql = 'call find_similars('.$provider_id_1.','.$provider_id_2.',20)';
+           $this->sql = 'call find_similars('.$provider_id_1.','.$provider_id_2.','.$rel.')';
 
 
            $this->insert_sql();
