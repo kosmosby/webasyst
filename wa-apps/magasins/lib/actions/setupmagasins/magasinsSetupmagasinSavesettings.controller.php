@@ -10,6 +10,9 @@ class magasinsSetupmagasinSavesettingsController extends waController
         $byarticle = waRequest::request('byarticle');
         $byname = waRequest::request('byname');
 
+        $returnall = waRequest::request('returnall');
+        $returnbyprice = waRequest::request('returnbyprice');
+
         if(isset($byarticle) && $byarticle == 'on') {
             $byarticle = 1;
         }
@@ -24,8 +27,22 @@ class magasinsSetupmagasinSavesettingsController extends waController
             $byname = 0;
         }
 
+        if(isset($returnall) && $returnall == 'on') {
+            $returnall = 1;
+        }
+        else {
+            $returnall = 0;
+        }
+
+        if(isset($returnbyprice) && $returnbyprice == 'on') {
+            $returnbyprice = 1;
+        }
+        else {
+            $returnbyprice = 0;
+        }
+
         $model->query("DELETE FROM magasins_magasin_settings WHERE magasin_id=".$magasin_id);
-        $model->query("INSERT INTO magasins_magasin_settings (magasin_id,rel,byarticle,byname) VALUES (".$magasin_id.", ".$rel.", ".$byarticle.",".$byname.")");
+        $model->query("INSERT INTO magasins_magasin_settings (magasin_id,rel,byarticle,byname,returnall,returnbyprice ) VALUES (".$magasin_id.", ".$rel.", ".$byarticle.",".$byname.",".$returnall.",".$returnbyprice.")");
         exit();
     }
 }

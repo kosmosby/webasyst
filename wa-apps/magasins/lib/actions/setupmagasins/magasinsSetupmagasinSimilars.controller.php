@@ -39,6 +39,9 @@ class magasinsSetupmagasinSimilarsController extends waController
             }
         }
 
+        $this->sql = 'call update_products_table()';
+        $this->insert_sql();
+
 
 //        $result = $model->query("SELECT a.id, a.name, a.sim, b.name as provider_name FROM magasins_products as a, magasins_provider as b WHERE a.sim !='' AND a.provider_id = b.id");
 //        $rows = $result->fetchAll();

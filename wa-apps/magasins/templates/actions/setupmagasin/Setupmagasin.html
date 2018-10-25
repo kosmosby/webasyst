@@ -115,8 +115,8 @@
                 jQuery.each(values, function(i, val) {
 
 
-                    var div = $("<div>").html(val.name1 + ' ('+val.provider_id_1_name+')' + ' sku: '+val.sku1);
-                    var div2 = $("<div>").html('&nbsp;&nbsp;--'+val.name2 + ' ('+val.provider_id_2_name+') rel:'+val.rel+' sku: '+val.sku2+'<hr />');
+                    var div = $("<div>").html('#'+val.id1+' '+val.name1 + ' ('+val.provider_id_1_name+')' + ' sku: '+val.sku1);
+                    var div2 = $("<div>").html('&nbsp;&nbsp;--#'+val.id2+' '+val.name2 + ' ('+val.provider_id_2_name+') rel:'+val.rel+' sku: '+val.sku2+'<hr />');
 
                     if(val.mode == 'byname') {
                         var div3 = $("<div style='color: green;'>").html('по названию:');
@@ -581,6 +581,17 @@
                         <div class="form-group ">
                             <label for="rel" class="col-form-label">Коэффициент совпадения по названию:</label>
                             <input type="text" class="form-control col-1" id="rel" name="rel" value="{$settings.rel}" required>
+                        </div>
+
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="returnall" name="returnall" {if $settings.returnall} checked="checked"{/if}>
+                            <label class="form-check-label" for="returnall">отдается все без ограничения (симилярность не учитывается)</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="returnbyprice" name="returnbyprice" {if $settings.returnbyprice} checked="checked"{/if}>
+                            <label class="form-check-label" for="returnbyprice">приоритет цены (отдается то, что дешевле)</label>
                         </div>
 
                         <input type="hidden" name="magasin_id" value="{$magasin_id}">
