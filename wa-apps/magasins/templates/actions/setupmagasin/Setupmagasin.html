@@ -78,6 +78,7 @@
 
             $.post( "{$wa_app_url}?module=setupmagasin&action=savesettings&"+post+"&magasin_id={$magasin_id}", function( data ) {
                 $('#settingsModal').modal('hide');
+                location.reload();
             });
             return false;
         });
@@ -109,10 +110,21 @@
 
                 var main_div = $('#similarsModal').find('.modal-body');
                 main_div.val();
+                main_div.html('');
 
                 jQuery.each(values, function(i, val) {
-                    var div = $("<div>").html(val.name1 + ' ('+val.provider_id_1_name+')');
-                    var div2 = $("<div>").html('&nbsp;&nbsp;--'+val.name2 + ' ('+val.provider_id_2_name+') rel:'+val.rel+'<hr />');
+
+
+                    var div = $("<div>").html(val.name1 + ' ('+val.provider_id_1_name+')' + ' sku: '+val.sku1);
+                    var div2 = $("<div>").html('&nbsp;&nbsp;--'+val.name2 + ' ('+val.provider_id_2_name+') rel:'+val.rel+' sku: '+val.sku2+'<hr />');
+
+                    if(val.mode == 'byname') {
+                        var div3 = $("<div style='color: green;'>").html('по названию:');
+                    }
+                    else {
+                        var div3 = $("<div style='color: green;'>").html('по артикулу:');
+                    }
+                    main_div.append(div3);
 
 
                     main_div.append(div);
@@ -126,8 +138,6 @@
                 });
 
                 $('#similarsModal').modal('show');
-
-
 
             });
 

@@ -14,10 +14,9 @@ class magasinsSetupmagasinSimilarsController extends waController
         $settngs_model= new magasinsMagasinsettingsModel();
         $settings = $settngs_model->getByField('magasin_id', $magasin_id);
 
-
         $this->setup_db_connect();
-        $this->create_tmp_table();
 
+        $this->create_tmp_table();
 
         $model = new magasinsSetupmagasinModel();
 
@@ -35,7 +34,7 @@ class magasinsSetupmagasinSimilarsController extends waController
                 if($provider_id_1 != $prov_ids[$j]) {
                     $provider_id_2 = $prov_ids[$j];
 
-                    $this->query_for_similars($provider_id_1, $provider_id_2, $settings['rel']);
+                    $this->query_for_similars($provider_id_1, $provider_id_2, $settings);
                 }
             }
         }
@@ -74,7 +73,7 @@ class magasinsSetupmagasinSimilarsController extends waController
     }
 
 
-    public function query_for_similars($provider_id_1, $provider_id_2, $rel) {
+    public function query_for_similars($provider_id_1, $provider_id_2,$settings) {
 
        if(!in_array($provider_id_2.'|'.$provider_id_1,$this->string)) {
            $this->string[] = $provider_id_1.'|'.$provider_id_2;
@@ -91,10 +90,16 @@ class magasinsSetupmagasinSimilarsController extends waController
 //
 //           );
 
-           $this->sql = 'call find_similars('.$provider_id_1.','.$provider_id_2.','.$rel.')';
+           if($settings['byname']) {
+               $this->sql = 'call find_similars(' . $provider_id_1 . ',' . $provider_id_2 . ',' . $settings['rel'] . ')';
+               $this->insert_sql();
+           }
 
+           if($settings['byarticle']) {
+               $this->sql = 'call find_similars_article(' . $provider_id_1 . ',' . $provider_id_2 . ' )';
+               $this->insert_sql();
+           }
 
-           $this->insert_sql();
            //echo $this->sql; die;
 
 //           if(count($rows)) {
@@ -154,6 +159,9 @@ class magasinsSetupmagasinSimilarsController extends waController
             `provider2` varchar(255) NOT NULL,
             `rel` float NOT NULL,
             `sim` varchar(255) NOT NULL,
+            `mode` varchar(255) NOT NULL,
+            `sku1` varchar(255) NOT NULL,
+            `sku2` varchar(255) NOT NULL,
             PRIMARY KEY (`id`) 
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
           $this->insert_sql();
