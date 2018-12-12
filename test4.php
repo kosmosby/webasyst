@@ -1,20 +1,33 @@
 <?php
 
 
-$input_line = file_get_contents('/Users/kosmos/Downloads/list5.htm');
+$input_line = file_get_contents('/Users/kosmos/Downloads/list7.htm');
 //$input_line = file_get_contents('list4.htm');
-
+$input_line1 = file_get_contents('/Users/kosmos/Downloads/list8.htm');
 
 //preg_match_all("/href=\".*[0-9]\">(.*)<\/a><\/td>\s*<td class=\"website\">(.*)<\/td>/", $input_line, $output_array);
 //preg_match_all("/.*website\"><a href=\"(.*\/)\".*/", $input_line, $output_array);
 preg_match_all("/text=\"first_name\">(.*)<\/s.*ast_name\">(.*)<\/s.*title\">(.*)<\/d.*ion_name\">(.*)<\/d/Usm",$input_line,$output_array);
 
+preg_match_all("/text=\"first_name\">(.*)<\/s.*ast_name\">(.*)<\/s.*title\">(.*)<\/d.*ion_name\">(.*)<\/d/Usm",$input_line1,$output_array1);
+
 //preg_match_all("/object_link\"\s*href=\"(.*)\"\>/",$input_line,$output_array);
+
+$array = array();
+for($i=0;$i<count($output_array[1]);$i++) {
+    $array[] = $output_array[1][$i].' '.$output_array[2][$i];
+}
+
+
+$array1 = array();
+for($i=0;$i<count($output_array1[1]);$i++) {
+    $array1[] = $output_array1[1][$i].' '.$output_array1[2][$i];
+}
 
 
 
 //echo "<pre>";
-//print_r(count($output_array[1])); die;
+//print_r($array1); die;
 
 //$csv_array = array();
 //$i=0;
@@ -55,9 +68,15 @@ $data = '';
 //    }
 //}
 //
-for($i=0;$i<count($output_array[1]);$i++) {
-    $data .= str_replace("&amp;","",$output_array[1][$i]). " ".str_replace("&nbsp;","",$output_array[2][$i]).";".str_replace("&amp;","",$output_array[3][$i]).";".str_replace("&amp;","",$output_array[4][$i])."\n";
+for($i=0;$i<count($output_array1[1]);$i++) {
+
+    $elem = $output_array1[1][$i].' '.$output_array1[2][$i];
+
+    if(!in_array($elem,$array)) {
+        $data .= str_replace("&amp;", "", $output_array1[1][$i]) . " " . str_replace("&nbsp;", "", $output_array1[2][$i]) . ";" . str_replace("&amp;", "", $output_array1[3][$i]) . ";" . str_replace("&amp;", "", $output_array1[4][$i]) . "\n";
+    }
 }
+
 
 
 header('Content-Type: application/csv');

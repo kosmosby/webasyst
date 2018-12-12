@@ -83,6 +83,19 @@
             return false;
         });
 
+        $(document).on("click",".toggle-first", function() {
+
+            //alert('aa')
+            $(this).parent().find('.others').toggle();
+        });
+
+
+        $(document).on("click",".checkbox_similar", function() {
+
+                //alert($(this).attr('product_id'));
+                //alert($(this).is(':checked'))
+
+        });
 
         $('#similars_check').on("click", function() {
 
@@ -108,32 +121,69 @@
 
                 var values = JSON.parse(data);
 
+
+                // console.log(values.original);
+                // return false;
+
                 var main_div = $('#similarsModal').find('.modal-body');
                 main_div.val();
                 main_div.html('');
 
+
+                // console.log(values);
+                // return false;
+
                 jQuery.each(values, function(i, val) {
 
+                    var div_glob = $("<div class='div_glob'>");
 
-                    var div = $("<div>").html('#'+val.id1+' '+val.name1 + ' ('+val.provider_id_1_name+')' + ' sku: '+val.sku1);
-                    var div2 = $("<div>").html('&nbsp;&nbsp;--#'+val.id2+' '+val.name2 + ' ('+val.provider_id_2_name+') rel:'+val.rel+' sku: '+val.sku2+'<hr />');
+                    jQuery.each(val, function(j, val_inside) {
 
-                    if(val.mode == 'byname') {
-                        var div3 = $("<div style='color: green;'>").html('по названию:');
-                    }
-                    else {
-                        var div3 = $("<div style='color: green;'>").html('по артикулу:');
-                    }
-                    main_div.append(div3);
+                        if (j == 0) {
+                            var div_first = $("<div class='toggle-first float-left'>").html('#' + val_inside.id + ' ' + val_inside.name + ' (' + val_inside.provider_name + ')' + ' sku: ' + val_inside.sku);
+                            div_glob.append(div_first);
+
+                            var checkbox = $('<div class="form-check float-left"><input class="form-check-input position-static checkbox_similar" type="checkbox" product_id="' + val_inside.id + '" value="option1" ></div><div class="clear-both"></div>');
+                            div_glob.append(checkbox);
+                        }
+                        else {
+                            var div_others = $("<div class='others'>");
+                            var div_similars = $("<div class='float-left'>").html('#' + val_inside.id + ' ' + val_inside.name + ' (' + val_inside.provider_name + ') rel:' + val_inside.percents + ' sku: ' + val_inside.sku);
+
+                            div_others.append(div_similars);
+
+                            var checkbox = $('<div class="form-check float-left"><input class="form-check-input position-static checkbox_similar" type="checkbox" product_id="' + val_inside.id + '" value="option1" ></div><div class="clear-both"></div>');
+                            div_others.append(checkbox);
+
+                            div_glob.append(div_others);
+                        }
+
+                        //var div = $("<div>").html('#'+val.id1+' '+val.name1 + ' ('+val.provider_id_1_name+')' + ' sku: '+val.sku1);
+
+                        //jQuery.each(values.similars, function(j, val_sim) {
 
 
-                    main_div.append(div);
-                    main_div.append(div2);
+                        //});
+                        //var div2 = $("<div>").html('&nbsp;&nbsp;--#'+val.id2+' '+val.name2 + ' ('+val.provider_id_2_name+') rel:'+val.percents+' sku: '+val.sku2+'<hr />');
 
-                    // jQuery.each(val.similars, function(j, sim) {
-                    //     var div = $("<div>").html('&nbsp;&nbsp;--'+sim.name + ' ('+sim.provider_name+')<br /><br />');
-                    //     main_div.append(div);
-                    // })
+                        //if(val.mode == 'byname') {
+                        // var div3 = $("<div style='color: green;'>").html('по названию:');
+                        //}
+                        //else {
+                        //    var div3 = $("<div style='color: green;'>").html('по артикулу:');
+                        //}
+                        //main_div.append(div3);
+
+                        //main_div.append(div);
+                        //main_div.append(div2);
+
+                        // jQuery.each(val.similars, function(j, sim) {
+                        //     var div = $("<div>").html('&nbsp;&nbsp;--'+sim.name + ' ('+sim.provider_name+')<br /><br />');
+                        //     main_div.append(div);
+                        // })
+                    });
+
+                    main_div.append(div_glob);
 
                 });
 

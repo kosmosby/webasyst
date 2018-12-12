@@ -74,3 +74,22 @@
     background-repeat: no-repeat;
     cursor: pointer;
 }
+
+.others {
+    display: none;
+
+    color: green;
+    font-size: 12px;
+    font-style: italic;
+
+}
+
+.toggle-first {
+    cursor: pointer;
+    color: #dc3545;
+    z-index: 1;
+}
+
+.div_glob {
+    margin-bottom: 30px;
+}

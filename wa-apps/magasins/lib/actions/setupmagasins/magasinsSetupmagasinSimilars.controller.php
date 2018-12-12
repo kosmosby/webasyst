@@ -6,6 +6,9 @@ class magasinsSetupmagasinSimilarsController extends waController
     public $string = array();
     public $conn;
     public $sql = '';
+    public $similars = array();
+    public $temp_array = array();
+    public $sim_array = array();
 
     public function execute()
     {
@@ -39,6 +42,16 @@ class magasinsSetupmagasinSimilarsController extends waController
             }
         }
 
+
+//        $query = "SELECT * FROM magasins_similars_values_tmp";
+//        $retrive = mysqli_query($this->conn, $query);
+//
+//        while ($row = mysqli_fetch_assoc($retrive)) {
+//            $rows[] = $row;
+//        }
+//        echo "<pre>";
+//        print_r($rows); die;
+
         $this->sql = 'call update_products_table()';
         $this->insert_sql();
 
@@ -52,12 +65,23 @@ class magasinsSetupmagasinSimilarsController extends waController
 //        }
 
 
-        $query = "SELECT a.*,b.name as provider_id_1_name,c.name as provider_id_2_name 
-                  FROM magasins_similars_values_tmp as a
-                  LEFT JOIN `magasins_provider` as b ON a.provider1 = b.id
-                  LEFT JOIN `magasins_provider` as c ON a.provider2 = c.id
-                  ORDER BY a.rel DESC
-                  ";
+//        $query = "SELECT a.*,b.name as provider_id_1_name,c.name as provider_id_2_name
+//                  FROM magasins_similars_values_tmp as a
+//                  LEFT JOIN `magasins_provider` as b ON a.provider1 = b.id
+//                  LEFT JOIN `magasins_provider` as c ON a.provider2 = c.id
+//                  ORDER BY a.rel DESC LIMIT 10
+//                  ";
+
+
+        $query = "SELECT a.id, a.percents, a.id1, a.id2, b.name as name1, c.name as name2, d.name as provider_id_1_name, e.name as provider_id_2_name, b.sku as sku1, c.sku as sku2 "
+                ." FROM magasins_similars_ids as a"
+                ." LEFT JOIN magasins_products as b ON a.id1 = b.id"
+                ." LEFT JOIN magasins_provider as d ON b.provider_id = d.id"
+
+                ." LEFT JOIN magasins_products as c ON a.id2 = c.id"
+                ." LEFT JOIN magasins_provider as e ON c.provider_id = e.id"
+        ;
+
 
         $retrive = mysqli_query($this->conn, $query);
 
@@ -65,14 +89,119 @@ class magasinsSetupmagasinSimilarsController extends waController
             $rows[] = $row;
         }
 
+        $this->find_similars($rows);
+
+        $values = $this->prepare_for_json();
+
+
+//        $elements['original'] = $rows;
+//        $elements['similars'] = $this->similars;
+
+//        echo "<pre>";
+//        print_r($values); die;
+
+        $json = json_encode($values);
+        echo $json;
+        exit();
+
+    }
+
+
+    public function prepare_for_json() {
+
+        $result_array = array();
+        for($i=0;$i<count($this->sim_array);$i++) {
+            $query = "SELECT a.id, a.product_id, b.name as provider_name, a.name, a.sku, c.name as category_name, a.price, a.currencyId, d.percents  \n"
+                    ." FROM `magasins_products` as a LEFT JOIN `magasins_categories` as c ON c.id = a.categoryId, `magasins_provider` as b, `magasins_similars_ids` as d \n"
+                    ." WHERE a.id IN (".$this->sim_array[$i].") AND b.id = a.provider_id AND d.id1 IN (".$this->sim_array[$i].") GROUP BY a.id";
+
+            $rows = array();
+            $retrive = mysqli_query($this->conn, $query);
+            while ($row = mysqli_fetch_assoc($retrive)) {
+                $rows[] = $row;
+            }
+
+            $result_array[] = $rows;
+        }
+
+        return $result_array;
+
+    }
+
+    public function get_all_values() {
+
+    //    $query = "SELECT * FROM magasins_similars_ids"
+    }
+
+
+    public function find_ids($id1,$id2, $rows) {
+
+        $this->temp_array[] = $id1;
+        $this->temp_array[] = $id2;
+
+        for($i=0;$i<count($rows);$i++) {
+
+            if((in_array($rows[$i]['id1'],$this->temp_array) && !in_array($rows[$i]['id2'],$this->temp_array)) || (!in_array($rows[$i]['id1'],$this->temp_array) && in_array($rows[$i]['id2'],$this->temp_array))) {
+                $this->temp_array[] = $rows[$i]['id1'];
+                $this->temp_array[] = $rows[$i]['id2'];
+                $this->temp_array = array_merge($this->find_ids($rows[$i]['id1'],$rows[$i]['id2'],$rows),$this->temp_array);
+                $this->temp_array = array_unique($this->temp_array);
+            }
+        }
+
+        return $this->temp_array;
+    }
+
+    public function find_similars($rows) {
+
+
+       for($i=0;$i<count($rows);$i++) {
+          $array =  $this->find_ids($rows[$i]['id1'],$rows[$i]['id2'],$rows);
+
+          asort($array);
+
+          $this->sim_array[] = implode(',',$array);
+          $this->temp_array = array();
+
+       }
+
+       $this->sim_array = array_values(array_unique($this->sim_array));
+
+//        if(isset($rows) && count($rows)) {
+//
+//
+//
+//        //$array = array();
+//            foreach($rows as $k=>$v) {
+//
+//                //$array[] = $rows[$k];
+//
+//                foreach($rows as $n=>$m) {
+//
+////                    if(!isset($m['id'])) {
+//
+////                    }
+//
+//                    if( $v['id'] != $m['id']) {
+//
+//                        if($v['id1'] == $m['id1'] || $v['id1'] == $m['id2']) {
+//                           //$rows[$k]['similars'][] = $rows[$n];
+//
+//                           $this->similars[$v['id']][] = $rows[$n];
+//
+//                           //unset($rows[$n]);
+//                           //$rows = array_values($rows);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
 //        echo "<pre>";
 //        print_r($rows); die;
 
 
-        $json = json_encode($rows);
-        echo $json;
-        exit();
-
+        //return $rows;
     }
 
 
