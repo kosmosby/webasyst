@@ -111,8 +111,11 @@ class magasinsSetupmagasinSimilarsController extends waController
 
         $result_array = array();
         for($i=0;$i<count($this->sim_array);$i++) {
-            $query = "SELECT a.id, a.product_id, b.name as provider_name, a.name, a.sku, c.name as category_name, a.price, a.currencyId, d.percents  \n"
-                    ." FROM `magasins_products` as a LEFT JOIN `magasins_categories` as c ON c.id = a.categoryId, `magasins_provider` as b, `magasins_similars_ids` as d \n"
+            $query = "SELECT a.id, a.product_id, b.name as provider_name, a.name, a.sku, c.name as category_name, a.price, a.currencyId, d.percents,e.id as similars_checked_id  \n"
+                    ." FROM `magasins_products` as a \n"
+                    ." LEFT JOIN `magasins_categories` as c ON c.id = a.categoryId \n"
+                    ." LEFT JOIN `magasins_similars_checked` as e ON e.product_id = a.id, \n"
+                    ." `magasins_provider` as b, `magasins_similars_ids` as d \n"
                     ." WHERE a.id IN (".$this->sim_array[$i].") AND b.id = a.provider_id AND d.id1 IN (".$this->sim_array[$i].") GROUP BY a.id";
 
             $rows = array();

@@ -95,6 +95,14 @@
                 //alert($(this).attr('product_id'));
                 //alert($(this).is(':checked'))
 
+            var product_id = $(this).attr('product_id');
+            var checked = $(this).is(':checked');
+
+            $.post( "{$wa_app_url}?module=setupmagasin&action=checksimilar&product_id="+product_id+"&checked="+checked+"&magasin_id={$magasin_id}", function( data ) {
+
+                console.log(data)
+            });
+
         });
 
         $('#similars_check').on("click", function() {
@@ -139,11 +147,19 @@
 
                     jQuery.each(val, function(j, val_inside) {
 
+                        var is_checked = '';
+                        if(val_inside.similars_checked_id) {
+                            is_checked = 'checked="checked"';
+                        }
+                        else {
+                            is_checked = '';
+                        }
+
                         if (j == 0) {
                             var div_first = $("<div class='toggle-first float-left'>").html('#' + val_inside.id + ' ' + val_inside.name + ' (' + val_inside.provider_name + ')' + ' sku: ' + val_inside.sku);
                             div_glob.append(div_first);
 
-                            var checkbox = $('<div class="form-check float-left"><input class="form-check-input position-static checkbox_similar" type="checkbox" product_id="' + val_inside.id + '" value="option1" ></div><div class="clear-both"></div>');
+                            var checkbox = $('<div class="form-check float-left"><input class="form-check-input position-static checkbox_similar" type="checkbox" product_id="' + val_inside.id + '" value=""  '+is_checked+'></div><div class="clear-both"></div>');
                             div_glob.append(checkbox);
                         }
                         else {
@@ -152,7 +168,7 @@
 
                             div_others.append(div_similars);
 
-                            var checkbox = $('<div class="form-check float-left"><input class="form-check-input position-static checkbox_similar" type="checkbox" product_id="' + val_inside.id + '" value="option1" ></div><div class="clear-both"></div>');
+                            var checkbox = $('<div class="form-check float-left"><input class="form-check-input position-static checkbox_similar" type="checkbox" product_id="' + val_inside.id + '" value="" '+is_checked+'></div><div class="clear-both"></div>');
                             div_others.append(checkbox);
 
                             div_glob.append(div_others);
