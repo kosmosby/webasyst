@@ -133,7 +133,7 @@
                 // console.log(values.original);
                 // return false;
 
-                var main_div = $('#similarsModal').find('.modal-body');
+                var main_div = $('#similarsModal').find('#similarsform');
                 main_div.val();
                 main_div.html('');
 
@@ -159,8 +159,10 @@
                             var div_first = $("<div class='toggle-first float-left'>").html('#' + val_inside.id + ' ' + val_inside.name + ' (' + val_inside.provider_name + ')' + ' sku: ' + val_inside.sku);
                             div_glob.append(div_first);
 
-                            var checkbox = $('<div class="form-check float-left"><input class="form-check-input position-static checkbox_similar" type="checkbox" product_id="' + val_inside.id + '" value=""  '+is_checked+'></div><div class="clear-both"></div>');
+                            var checkbox = $('<div class="form-check float-left"><input class="form-check-input position-static checkbox_similar" name="similar_product_checkbox[]" type="checkbox" product_id="' + val_inside.id + '" value="' + val_inside.id + '"  '+is_checked+'></div><div class="clear-both"></div>');
+                            var hidden_div = $('<input type="hidden" name="similar_product_hidden[]" value="' + val_inside.id + '">');
                             div_glob.append(checkbox);
+                            div_glob.append(hidden_div);
                         }
                         else {
                             var div_others = $("<div class='others'>");
@@ -168,8 +170,10 @@
 
                             div_others.append(div_similars);
 
-                            var checkbox = $('<div class="form-check float-left"><input class="form-check-input position-static checkbox_similar" type="checkbox" product_id="' + val_inside.id + '" value="" '+is_checked+'></div><div class="clear-both"></div>');
+                            var checkbox = $('<div class="form-check float-left"><input class="form-check-input position-static checkbox_similar" name="similar_product_checkbox[]" type="checkbox" product_id="' + val_inside.id + '" value="' + val_inside.id + '" '+is_checked+'></div><div class="clear-both"></div>');
+                            var hidden_div = $('<input type="hidden" name="similar_product_hidden[]" value="' + val_inside.id + '">');
                             div_others.append(checkbox);
+                            div_others.append(hidden_div);
 
                             div_glob.append(div_others);
                         }
@@ -203,8 +207,24 @@
 
                 });
 
+                var submit_button = $('<button class="btn btn-primary" type="submit">Сохранить</button>');
+                main_div.append(submit_button);
+
                 $('#similarsModal').modal('show');
 
+            });
+
+            $('#similarsform').on("submit", function() {
+                var form_post = $('#similarsform').serialize();
+
+                //console.log(post)
+
+                 $.post( "{$wa_app_url}?module=setupmagasin&action=savesimilar&"+form_post+"&magasin_id={$magasin_id}", function( data ) {
+
+                    console.log(data)
+
+                 });
+                return false;
             });
 
         });
@@ -611,8 +631,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
 
+            <div class="modal-body">
+                <form name="similarsform" id="similarsform">
+
+
+                </form>
             </div>
         </div>
     </div>

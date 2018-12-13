@@ -2068,3 +2068,33 @@ Table 'c23431_system.magasins_magasin_settings' doesn't exist
 #15 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #16 index.php(7): waSystem->dispatch()
 #17 {main}
+
+2018-12-13 08:22:52 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query: INSERT INTO `magasins_similars_submitted` (`id`, `product_id`, `magasin_id`,`checked`) VALUES (NULL, '1', '2', 1
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('INSERT INTO `ma...')
+#1 wa-apps/magasins/lib/actions/setupmagasins/magasinsSetupmagasinSavesimilar.controller.php(28): waModel->query('INSERT INTO `ma...')
+#2 wa-system/controller/waController.class.php(21): magasinsSetupmagasinSavesimilarController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsSetupmagasinSavesimilarController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'setupmagasin', 'savesimilar')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2018-12-13 08:23:03 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Query: INSERT INTO `magasins_similars_submitted` (`id`, `product_id`, `magasin_id`,`checked`) VALUES (NULL, '1', '2', 1
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('INSERT INTO `ma...')
+#1 wa-apps/magasins/lib/actions/setupmagasins/magasinsSetupmagasinSavesimilar.controller.php(28): waModel->query('INSERT INTO `ma...')
+#2 wa-system/controller/waController.class.php(21): magasinsSetupmagasinSavesimilarController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsSetupmagasinSavesimilarController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'setupmagasin', 'savesimilar')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
