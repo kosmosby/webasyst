@@ -14,6 +14,18 @@ class magasinsSetupmagasinSimilarsController extends waController
     {
         $magasin_id = waRequest::request('magasin_id');
 
+        $this->get_similars($magasin_id);
+
+        $values = $this->prepare_for_json();
+
+        $json = json_encode($values);
+        echo $json;
+        exit();
+
+    }
+
+    public function get_similars($magasin_id) {
+
         $settngs_model= new magasinsMagasinsettingsModel();
         $settings = $settngs_model->getByField('magasin_id', $magasin_id);
 
@@ -28,7 +40,6 @@ class magasinsSetupmagasinSimilarsController extends waController
         $prov_ids = array();
         for($i=0;$i<count($providers);$i++) {
             $prov_ids[] = $providers[$i]['provider_id'];
-
         }
 
         for($i=0;$i<count($prov_ids);$i++) {
@@ -42,46 +53,17 @@ class magasinsSetupmagasinSimilarsController extends waController
             }
         }
 
-
-//        $query = "SELECT * FROM magasins_similars_values_tmp";
-//        $retrive = mysqli_query($this->conn, $query);
-//
-//        while ($row = mysqli_fetch_assoc($retrive)) {
-//            $rows[] = $row;
-//        }
-//        echo "<pre>";
-//        print_r($rows); die;
-
         $this->sql = 'call update_products_table()';
         $this->insert_sql();
 
-
-//        $result = $model->query("SELECT a.id, a.name, a.sim, b.name as provider_name FROM magasins_products as a, magasins_provider as b WHERE a.sim !='' AND a.provider_id = b.id");
-//        $rows = $result->fetchAll();
-//
-//        for($i=0;$i<count($rows); $i++) {
-//            $result = $model->query("SELECT a.id, a.name, b.name as provider_name FROM magasins_products as a, magasins_provider as b WHERE a.id IN (".$rows[$i]['sim'].") AND a.provider_id = b.id");
-//            $rows[$i]['similars'] = $result->fetchAll();
-//        }
-
-
-//        $query = "SELECT a.*,b.name as provider_id_1_name,c.name as provider_id_2_name
-//                  FROM magasins_similars_values_tmp as a
-//                  LEFT JOIN `magasins_provider` as b ON a.provider1 = b.id
-//                  LEFT JOIN `magasins_provider` as c ON a.provider2 = c.id
-//                  ORDER BY a.rel DESC LIMIT 10
-//                  ";
-
-
         $query = "SELECT a.id, a.percents, a.id1, a.id2, b.name as name1, c.name as name2, d.name as provider_id_1_name, e.name as provider_id_2_name, b.sku as sku1, c.sku as sku2 "
-                ." FROM magasins_similars_ids as a"
-                ." LEFT JOIN magasins_products as b ON a.id1 = b.id"
-                ." LEFT JOIN magasins_provider as d ON b.provider_id = d.id"
+            ." FROM magasins_similars_ids as a"
+            ." LEFT JOIN magasins_products as b ON a.id1 = b.id"
+            ." LEFT JOIN magasins_provider as d ON b.provider_id = d.id"
 
-                ." LEFT JOIN magasins_products as c ON a.id2 = c.id"
-                ." LEFT JOIN magasins_provider as e ON c.provider_id = e.id"
+            ." LEFT JOIN magasins_products as c ON a.id2 = c.id"
+            ." LEFT JOIN magasins_provider as e ON c.provider_id = e.id"
         ;
-
 
         $retrive = mysqli_query($this->conn, $query);
 
@@ -91,19 +73,6 @@ class magasinsSetupmagasinSimilarsController extends waController
 
         $this->find_similars($rows);
 
-        $values = $this->prepare_for_json();
-
-
-//        $elements['original'] = $rows;
-//        $elements['similars'] = $this->similars;
-
-//        echo "<pre>";
-//        print_r($values); die;
-
-        $json = json_encode($values);
-        echo $json;
-        exit();
-
     }
 
 
@@ -111,7 +80,7 @@ class magasinsSetupmagasinSimilarsController extends waController
 
         $result_array = array();
         for($i=0;$i<count($this->sim_array);$i++) {
-            $query = "SELECT a.id, a.product_id, b.name as provider_name, a.name, a.sku, c.name as category_name, a.price, a.currencyId, d.percents,e.id as similars_checked_id  \n"
+            $query = "SELECT a.id, a.product_id, b.name as provider_name, a.name, a.sku, c.name as category_name, a.price, a.currencyId, a.description,a.url, d.percents,e.id as similars_checked_id  \n"
                     ." FROM `magasins_products` as a \n"
                     ." LEFT JOIN `magasins_categories` as c ON c.id = a.categoryId \n"
                     ." LEFT JOIN `magasins_similars_checked` as e ON e.product_id = a.id, \n"
@@ -157,7 +126,6 @@ class magasinsSetupmagasinSimilarsController extends waController
 
     public function find_similars($rows) {
 
-
        for($i=0;$i<count($rows);$i++) {
           $array =  $this->find_ids($rows[$i]['id1'],$rows[$i]['id2'],$rows);
 
@@ -170,41 +138,6 @@ class magasinsSetupmagasinSimilarsController extends waController
 
        $this->sim_array = array_values(array_unique($this->sim_array));
 
-//        if(isset($rows) && count($rows)) {
-//
-//
-//
-//        //$array = array();
-//            foreach($rows as $k=>$v) {
-//
-//                //$array[] = $rows[$k];
-//
-//                foreach($rows as $n=>$m) {
-//
-////                    if(!isset($m['id'])) {
-//
-////                    }
-//
-//                    if( $v['id'] != $m['id']) {
-//
-//                        if($v['id1'] == $m['id1'] || $v['id1'] == $m['id2']) {
-//                           //$rows[$k]['similars'][] = $rows[$n];
-//
-//                           $this->similars[$v['id']][] = $rows[$n];
-//
-//                           //unset($rows[$n]);
-//                           //$rows = array_values($rows);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
-//        echo "<pre>";
-//        print_r($rows); die;
-
-
-        //return $rows;
     }
 
 
@@ -212,18 +145,6 @@ class magasinsSetupmagasinSimilarsController extends waController
 
        if(!in_array($provider_id_2.'|'.$provider_id_1,$this->string)) {
            $this->string[] = $provider_id_1.'|'.$provider_id_2;
-
-           //$model = new magasinsProductModel();
-
-//           $result = $model->query(
-//
-//               ' SELECT a.id as id1 , a.name as name1, a.product_id as product_id1,a.provider_id as provider_id1, b.id as id2, b.name as name2, b.product_id as product_d2, b.provider_id as provider_id2 '
-//               .' FROM magasins_products AS a, magasins_products AS b '
-//               .' WHERE  a.name = b.name '
-//               .' AND a.id != b.id AND a.provider_id != b.provider_id '
-//               .' AND a.provider_id = '.$provider_id_1.' AND b.provider_id = '.$provider_id_2.' '
-//
-//           );
 
            if($settings['byname']) {
                $this->sql = 'call find_similars(' . $provider_id_1 . ',' . $provider_id_2 . ',' . $settings['rel'] . ')';
@@ -235,11 +156,6 @@ class magasinsSetupmagasinSimilarsController extends waController
                $this->insert_sql();
            }
 
-           //echo $this->sql; die;
-
-//           if(count($rows)) {
-               //$this->update_similar_field($rows);
-//           }
        }
     }
 

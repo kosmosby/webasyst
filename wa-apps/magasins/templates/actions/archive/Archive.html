@@ -1,0 +1,108 @@
+<link rel="stylesheet" href="{$wa_app_static_url}css/magasin.css">
+
+<script language="javascript">
+    $( document ).ready(function() {
+
+        $(document).on("click",".toggle-first-tr", function() {
+            //var classes = $(this).attr('class');
+            var classes  = $(this).prop("classList");
+            //alert(classes)
+
+            var toggle_elements = classes[1];
+
+            var found_elements = $(this).parent().find('.'+toggle_elements);
+
+            jQuery.each(found_elements, function(i, val) {
+
+
+                //console.log(val)
+                 if($(val).hasClass("others-tr")) {
+                     $(val).toggle();
+                 }
+            });
+
+            //console.log(found_elements);
+        });
+
+
+    });
+</script>
+
+<form action="index.php?module=archive" method="post" id="adminForm" name="adminForm">
+
+    <div style="margin-top: 10px;"></div>
+    <div style="float: left;">
+        <button type="button" class="btn btn-outline-success btn-sm" onclick="return submitbutton('archive','edit');" >Добавить</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" onclick="return deletebutton('archive','delete');">Удалить</button>
+    </div>
+
+    <div style="float: right;" class="mr-3 mb-3">
+        <select class="custom-select selectpicker form-control-sm" name="filter_magasin" onchange="this.form.submit()">
+            <option value="">-выберите магазин-</option>
+            {foreach from=$magasins item=r}
+            <option value="{$r.id}" {if $filter_magasin eq $r.id}selected{/if}>{$r.name}</option>
+            {/foreach}
+        </select>
+    </div>
+    <div style="float: right;" class="mr-3 mb-3">
+        <input class="form-control form-control-sm" type="text" placeholder="поиск" name="search" value="{$search}">
+    </div>
+
+    <div style="margin-top: 10px;"></div>
+
+    <div>
+        <table class="table table-striped table-bordered table-hover">
+            <caption>Список продуктов</caption>
+            <thead class="thead-light">
+            <tr>
+                <th scope="col"><input type="checkbox" onclick="return checkAll();"></th>
+                <th scope="col">#</th>
+                <th scope="col">SKU</th>
+                <th scope="col">название</th>
+                <th scope="col">url</th>
+                <th scope="col">описание</th>
+                <th scope="col">цена</th>
+                <th scope="col">категория</th>
+                <th scope="col">поставщик</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {foreach from=$records key=n item=r}
+
+
+                    {foreach from=$r key=k item=m}
+                        <tr class="{if $k > 0}others-tr relation-{$n}{else}toggle-first-tr relation-{$n}{/if}">
+                            <td>
+                                <input type="checkbox" class="provider_checkbox" value="{$m.id}" name="cid[]">
+                            </td>
+                            <td scope="row">{$m.id}</td>
+                            <td scope="row">{$m.sku}</td>
+                            <td><a href="?module=provider&action=edit&id={$m.id}">{$m.name}</a></td>
+                            <td><a href="{$m.url}" target="_blank">{$m.url|truncate:20}</a></td>
+                            <td>{$m.description|truncate:50}</td>
+                            <td>{$m.price} {$m.currencyId}</td>
+                            <td>{$m.category_name}</td>
+                            <td>{$m.provider_name}</td>
+                        </tr>
+                    {/foreach}
+
+
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+
+    <input type="hidden" name="module" value="archive"/>
+
+</form>
+
+
+
+<div class="container-fluid mb-5">
+    <div class="row text-center">
+        <div class="col-md-12">
+                {wa_pagination total=$total page=$page prev="«" next="»" nb=3 attrs=['class' => 'menu-h']}
+        </div>
+    </div>
+</div>

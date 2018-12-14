@@ -32,6 +32,8 @@ class magasinsBackendSidebarAction extends waViewAction
         $view_groups = waRequest::get('module', null) == 'groups';
         $view_providergroups = waRequest::get('module', null) == 'providergroups';
 
+        $view_archives = waRequest::get('module', null) == 'archive';
+
 
 
         $magasins_model = new magasinsMagasinModel();
@@ -51,6 +53,7 @@ class magasinsBackendSidebarAction extends waViewAction
         $this->view->assign('view_settings', $view_settings);
 
         $this->view->assign('view_products', $view_products);
+        $this->view->assign('view_archives', $view_archives);
         $this->view->assign('view_categories', $view_categories);
         $this->view->assign('view_similars', $view_similars);
         $this->view->assign('view_groups', $view_groups);

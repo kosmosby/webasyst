@@ -100,7 +100,8 @@
 
             $.post( "{$wa_app_url}?module=setupmagasin&action=checksimilar&product_id="+product_id+"&checked="+checked+"&magasin_id={$magasin_id}", function( data ) {
 
-                console.log(data)
+                 console.log(data);
+
             });
 
         });
@@ -220,8 +221,8 @@
                 //console.log(post)
 
                  $.post( "{$wa_app_url}?module=setupmagasin&action=savesimilar&"+form_post+"&magasin_id={$magasin_id}", function( data ) {
-
-                    console.log(data)
+                    console.log(data);
+                    $('#similarsModal').modal('hide');
 
                  });
                 return false;

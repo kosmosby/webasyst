@@ -93,3 +93,15 @@
 .div_glob {
     margin-bottom: 30px;
 }
+
+.toggle-first-tr {
+    cursor: pointer;
+}
+
+.others-tr {
+    display: none;
+
+    font-size: 12px;
+    font-style: italic;
+    background-color: #78ed4a !important;
+}

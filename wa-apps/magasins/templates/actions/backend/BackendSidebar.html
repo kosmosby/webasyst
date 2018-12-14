@@ -60,6 +60,12 @@
                 </a>
                 </li>
 
+                <li {if isset($view_archives) && $view_archives == true}class="selected"{/if}>
+                <a href="?module=archive">
+                    <i class="icon16 widgets"></i>Архив симиляров
+                </a>
+                </li>
+
                 <li {if isset($view_groups) && $view_groups == true}class="selected"{/if}>
                 <a href="?module=groups">
                     <i class="icon16 apps"></i>Группы
