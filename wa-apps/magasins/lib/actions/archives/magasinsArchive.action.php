@@ -34,10 +34,19 @@ class magasinsArchiveAction extends waViewAction
         //get similars
         $object = new magasinsSetupmagasinSimilarsController();
 
-        $object->get_similars($filter_magasin);
+        $object->get_similars($filter_magasin,$search);
+
+        /*
+        $model_setMagasin = new magasinsSetupmagasinModel();
+        $providers = $model_setMagasin->getByField(array('magasin_id' => $filter_magasin),true);
+
+        $prov_ids = array();
+        for($i=0;$i<count($providers);$i++) {
+            $prov_ids[] = $providers[$i]['provider_id'];
+        }
+        */
 
         $records = $object->prepare_for_json();
-
 
         $row['total_records'] = count($records);
         $records = array_slice($records,$offset,10);

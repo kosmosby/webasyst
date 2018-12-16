@@ -24,7 +24,7 @@ class magasinsSetupmagasinSimilarsController extends waController
 
     }
 
-    public function get_similars($magasin_id) {
+    public function get_similars($magasin_id, $search = '') {
 
         $settngs_model= new magasinsMagasinsettingsModel();
         $settings = $settngs_model->getByField('magasin_id', $magasin_id);
@@ -41,6 +41,10 @@ class magasinsSetupmagasinSimilarsController extends waController
         for($i=0;$i<count($providers);$i++) {
             $prov_ids[] = $providers[$i]['provider_id'];
         }
+
+        $prov_string = implode(',',$prov_ids);
+
+
 
         for($i=0;$i<count($prov_ids);$i++) {
             $provider_id_1 = $prov_ids[$i];
@@ -63,10 +67,20 @@ class magasinsSetupmagasinSimilarsController extends waController
 
             ." LEFT JOIN magasins_products as c ON a.id2 = c.id"
             ." LEFT JOIN magasins_provider as e ON c.provider_id = e.id"
+
+            .", magasins_products as f, magasins_products as g  "
+            ."  WHERE a.id1 = f.id AND a.id2 = g.id "
+            ." AND f.provider_id IN (".$prov_string.") AND g.provider_id IN (".$prov_string.")"
         ;
+
+        if($search) {
+            $query .= " AND (f.name LIKE '%" . $search . "%' OR g.name LIKE '%" . $search . "%') ";
+        }
+
 
         $retrive = mysqli_query($this->conn, $query);
 
+        $rows = array();
         while ($row = mysqli_fetch_assoc($retrive)) {
             $rows[] = $row;
         }
@@ -78,6 +92,7 @@ class magasinsSetupmagasinSimilarsController extends waController
 
     public function prepare_for_json() {
 
+
         $result_array = array();
         for($i=0;$i<count($this->sim_array);$i++) {
             $query = "SELECT a.id, a.product_id, b.name as provider_name, a.name, a.sku, c.name as category_name, a.price, a.currencyId, a.description,a.url, d.percents,e.id as similars_checked_id, f.id as moderated  \n"
@@ -87,6 +102,7 @@ class magasinsSetupmagasinSimilarsController extends waController
                     ." LEFT JOIN `magasins_similars_submitted` as f ON f.product_id = a.id, \n"
                     ." `magasins_provider` as b, `magasins_similars_ids` as d \n"
                     ." WHERE a.id IN (".$this->sim_array[$i].") AND b.id = a.provider_id AND d.id1 IN (".$this->sim_array[$i].") GROUP BY a.id";
+
 
             $rows = array();
             $retrive = mysqli_query($this->conn, $query);

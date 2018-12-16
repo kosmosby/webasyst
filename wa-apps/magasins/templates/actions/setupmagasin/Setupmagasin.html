@@ -91,17 +91,11 @@
 
 
         $(document).on("click",".checkbox_similar", function() {
-
-                //alert($(this).attr('product_id'));
-                //alert($(this).is(':checked'))
-
             var product_id = $(this).attr('product_id');
             var checked = $(this).is(':checked');
 
             $.post( "{$wa_app_url}?module=setupmagasin&action=checksimilar&product_id="+product_id+"&checked="+checked+"&magasin_id={$magasin_id}", function( data ) {
-
                  console.log(data);
-
             });
 
         });
