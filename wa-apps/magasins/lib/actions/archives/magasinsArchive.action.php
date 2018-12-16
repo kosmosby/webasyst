@@ -38,6 +38,10 @@ class magasinsArchiveAction extends waViewAction
 
         $records = $object->prepare_for_json();
 
+
+        $row['total_records'] = count($records);
+        $records = array_slice($records,$offset,10);
+
 //        echo "<pre>";
 //        print_r($records); die;
 
@@ -75,7 +79,7 @@ class magasinsArchiveAction extends waViewAction
         $this->view->assign('records', $records);
         $this->view->assign('search', $search);
 
-       // $this->view->assign('total', ceil($row['total_records']/10));
+        $this->view->assign('total', ceil($row['total_records']/10));
         $this->view->assign('page', $page);
     }
 }

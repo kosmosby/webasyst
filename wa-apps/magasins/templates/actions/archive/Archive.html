@@ -64,6 +64,8 @@
                 <th scope="col">цена</th>
                 <th scope="col">категория</th>
                 <th scope="col">поставщик</th>
+                <th scope="col">не сим</th>
+                <th scope="col">мод</th>
             </tr>
             </thead>
 
@@ -84,6 +86,8 @@
                             <td>{$m.price} {$m.currencyId}</td>
                             <td>{$m.category_name}</td>
                             <td>{$m.provider_name}</td>
+                            <td>{if $m.similars_checked_id > 0}1{/if}</td>
+                            <td>{if $m.moderated > 0}1{/if}</td>
                         </tr>
                     {/foreach}
 
