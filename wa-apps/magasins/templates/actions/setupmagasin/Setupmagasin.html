@@ -444,8 +444,10 @@
         <button type="button" class="btn btn-outline-warning btn-sm" id="similars_check" style="margin-left: 40px;">Симиляры</button>
 
         <button type="button" class="btn btn-outline-info btn-sm" id="settings">Настройки</button>
-    </div>
 
+
+        <button type="button" class="btn btn-outline-primary btn-sm" id="xml_export" style="margin-left: 40px;" onclick="return window.location.href = '?module=magasin&action=xmlexport&magasin_id={$magasin.id}';">xml export</button>
+    </div>
     <div style="float: right;" class="mr-3 mb-3">
         <input class="form-control form-control-sm" type="text" placeholder="поиск" name="search" value="{$search}">
     </div>
