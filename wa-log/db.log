@@ -2098,3 +2098,85 @@ Query: INSERT INTO `magasins_similars_submitted` (`id`, `product_id`, `magasin_i
 #7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
 #8 index.php(7): waSystem->dispatch()
 #9 {main}
+
+2018-12-17 13:41:54 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '== 0)' at line 1
+Query: SELECT * FROM `magasins_products` WHERE provider_id IN (1,2,4,3) AND id NOT IN (SELECT product_id FROM magasins_similars_submitted WHERE checked == 0)
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT * FROM `...')
+#1 wa-apps/magasins/lib/actions/magasins/magasinsMagasinXmlexport.controller.php(23): waModel->query('SELECT * FROM `...')
+#2 wa-system/controller/waController.class.php(21): magasinsMagasinXmlexportController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsMagasinXmlexportController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'magasin', 'xmlexport')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2019-01-10 11:48:01 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.' at line 1
+Query: SELECT  FROM `magasins_products` LEFT JOIN `magasins_categories` ON `magasins_products`.`categoryId` = `magasins_categories`.`id` WHERE `magasins_products`.`provider_id` = 4 GROUP BY `magasins_products`.`id`
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('SELECT  FROM `m...')
+#1 wa-apps/magasins/lib/actions/products/magasinsProductCsv.controller.php(55): waModel->query('SELECT  FROM `m...')
+#2 wa-system/controller/waController.class.php(21): magasinsProductCsvController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsProductCsvController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'product', 'csv')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2019-01-14 07:03:03 127.0.0.1
+Server shutdown in progress
+## wa-system/database/waDbMysqliAdapter.class.php(292)
+#0 wa-system/database/waDbMysqliAdapter.class.php(168): waDbMysqliAdapter->exception()
+#1 wa-system/database/waModel.class.php(171): waDbMysqliAdapter->schema('wa_contact', false)
+#2 wa-system/database/waModel.class.php(127): waModel->describe()
+#3 wa-system/database/waModel.class.php(93): waModel->getFields()
+#4 wa-system/database/waModel.class.php(77): waModel->getMetadata()
+#5 wa-system/contact/waContactInfoStorage.class.php(24): waModel->__construct()
+#6 wa-system/contact/waContactInfoStorage.class.php(31): waContactInfoStorage->getModel()
+#7 wa-system/contact/waContactStorage.class.php(54): waContactInfoStorage->load(Object(waAuthUser), Array)
+#8 wa-system/contact/waContact.class.php(422): waContactStorage->get(Object(waAuthUser), 'is_user')
+#9 wa-system/contact/waContact.class.php(1228): waContact->get('is_user')
+#10 wa-system/user/waAuthUser.class.php(59): waContact->offsetGet('is_user')
+#11 wa-system/user/waAuthUser.class.php(24): waAuthUser->init()
+#12 wa-system/waSystem.class.php(240): waAuthUser->__construct(NULL, Array)
+#13 wa-system/waSystem.class.php(281): waSystem::getCommonFactory('auth_user', 'waAuthUser', Array, NULL)
+#14 wa-system/waSystem.class.php(526): waSystem->getUser()
+#15 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/')
+#16 index.php(7): waSystem->dispatch()
+#17 {main}
+
+2019-01-16 11:08:24 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0,1,0,0)' at line 1
+Query: INSERT INTO magasins_magasin_settings (magasin_id,rel,percent,byarticle,byname,returnall,returnbyprice ) VALUES (2, 50, ,0,1,0,0)
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('INSERT INTO mag...')
+#1 wa-apps/magasins/lib/actions/setupmagasins/magasinsSetupmagasinSavesettings.controller.php(46): waModel->query('INSERT INTO mag...')
+#2 wa-system/controller/waController.class.php(21): magasinsSetupmagasinSavesettingsController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsSetupmagasinSavesettingsController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'setupmagasin', 'savesettings')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}
+
+2019-01-16 11:10:00 127.0.0.1
+Query Error 1064: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0,1,0,0)' at line 1
+Query: INSERT INTO magasins_magasin_settings (magasin_id,rel,percent,byarticle,byname,returnall,returnbyprice ) VALUES (2, 50, ,0,1,0,0)
+## wa-system/database/waModel.class.php(243)
+#0 wa-system/database/waModel.class.php(343): waModel->run('INSERT INTO mag...')
+#1 wa-apps/magasins/lib/actions/setupmagasins/magasinsSetupmagasinSavesettings.controller.php(46): waModel->query('INSERT INTO mag...')
+#2 wa-system/controller/waController.class.php(21): magasinsSetupmagasinSavesettingsController->execute()
+#3 wa-system/controller/waFrontController.class.php(229): waController->run(NULL)
+#4 wa-system/controller/waFrontController.class.php(164): waFrontController->runController(Object(magasinsSetupmagasinSavesettingsController), NULL)
+#5 wa-system/controller/waFrontController.class.php(58): waFrontController->execute(NULL, 'setupmagasin', 'savesettings')
+#6 wa-system/waSystem.class.php(562): waFrontController->dispatch()
+#7 wa-system/waSystem.class.php(485): waSystem->dispatchBackend('webasyst/magasi...')
+#8 index.php(7): waSystem->dispatch()
+#9 {main}

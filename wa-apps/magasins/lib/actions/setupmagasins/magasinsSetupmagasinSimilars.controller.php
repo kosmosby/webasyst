@@ -14,11 +14,11 @@ class magasinsSetupmagasinSimilarsController extends waController
     {
         $magasin_id = waRequest::request('magasin_id');
 
-        $this->get_similars($magasin_id);
+        $rows = $this->get_similars($magasin_id);
 
-        $values = $this->prepare_for_json();
+        //$values = $this->prepare_for_json();
 
-        $json = json_encode($values);
+        $json = json_encode($rows);
         echo $json;
         exit();
 
@@ -37,13 +37,13 @@ class magasinsSetupmagasinSimilarsController extends waController
 
         $providers = $model->getByField(array('magasin_id' => $magasin_id),true);
 
+
         $prov_ids = array();
         for($i=0;$i<count($providers);$i++) {
             $prov_ids[] = $providers[$i]['provider_id'];
         }
 
         $prov_string = implode(',',$prov_ids);
-
 
 
         for($i=0;$i<count($prov_ids);$i++) {
@@ -57,9 +57,62 @@ class magasinsSetupmagasinSimilarsController extends waController
             }
         }
 
-        $this->sql = 'call update_products_table()';
+ //       die;
+
+        //echo $prov_string; die;
+
+
+        //$this->sql = 'call update_products_table()';
+
         $this->insert_sql();
 
+        $rows= array();
+        $query = "SELECT a.*, b.name as provider_name2, c.name as provider_name1 FROM magasins_similars_values_tmp as a "
+
+            ."  LEFT JOIN magasins_provider as b ON a.provider2 = b.id  "
+            ."  LEFT JOIN magasins_provider as c ON a.provider1 = c.id  ";
+
+            if($settings['percent']) {
+                $query .= " WHERE a.percents > ".$settings['percent'];
+            }
+
+            $query .= " ORDER BY a.id2,a.percents DESC"
+            //." LIMIT 0,100"
+            ;
+
+
+        $retrive = mysqli_query($this->conn, $query);
+
+        $rows = array();
+        while ($row = mysqli_fetch_assoc($retrive)) {
+            $rows[] = $row;
+        }
+
+
+        $id2= $rows[0]['id2'];
+        $key = 0;
+        foreach($rows as $k=>$v) {
+        //for($i=1;$i<count($rows);$i++) {
+            if($k>0) {
+                if ($rows[$k]['id2'] == $id2) {
+                    $rows[$key]['similars'][] = $rows[$k];
+                    unset($rows[$k]);
+                } else {
+                    $id2 = $rows[$k]['id2'];
+                    $key = $k;
+                }
+            }
+        }
+
+        $rows = array_values($rows);
+
+//
+//        echo "<pre>";
+//        print_r($rows);
+//        echo "</pre>";
+//        die;
+
+        /*
         $query = "SELECT a.id, a.percents, a.id1, a.id2, b.name as name1, c.name as name2, d.name as provider_id_1_name, e.name as provider_id_2_name, b.sku as sku1, c.sku as sku2 "
             ." FROM magasins_similars_ids as a"
             ." LEFT JOIN magasins_products as b ON a.id1 = b.id"
@@ -77,7 +130,6 @@ class magasinsSetupmagasinSimilarsController extends waController
             $query .= " AND (f.name LIKE '%" . $search . "%' OR g.name LIKE '%" . $search . "%') ";
         }
 
-
         $retrive = mysqli_query($this->conn, $query);
 
         $rows = array();
@@ -86,6 +138,9 @@ class magasinsSetupmagasinSimilarsController extends waController
         }
 
         $this->find_similars($rows);
+        */
+
+        return $rows;
 
     }
 
@@ -154,7 +209,6 @@ class magasinsSetupmagasinSimilarsController extends waController
 
           $this->sim_array[] = implode(',',$array);
           $this->temp_array = array();
-
        }
 
        $this->sim_array = array_values(array_unique($this->sim_array));
@@ -225,12 +279,14 @@ class magasinsSetupmagasinSimilarsController extends waController
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `id1` int(11) NOT NULL,
             `name1` varchar(255) NOT NULL,
-            `provider1` varchar(255) NOT NULL,
             `id2` int(11) NOT NULL,
             `name2` varchar(255) NOT NULL,
-            `provider2` varchar(255) NOT NULL,
             `rel` float NOT NULL,
+            `orig_rel` float NOT NULL,
+            `percents` float NOT NULL,
             `sim` varchar(255) NOT NULL,
+            `provider1` varchar(255) NOT NULL,
+            `provider2` varchar(255) NOT NULL,
             `mode` varchar(255) NOT NULL,
             `sku1` varchar(255) NOT NULL,
             `sku2` varchar(255) NOT NULL,

@@ -19,7 +19,7 @@ class magasinsMagasinXmlexportController extends waController
         $prov_string = implode(',',$prov_ids);
 
 
-        $query = "SELECT * FROM `magasins_products` WHERE provider_id IN (".$prov_string.")";
+        $query = "SELECT * FROM `magasins_products` WHERE provider_id IN (".$prov_string.") AND id NOT IN (SELECT product_id FROM magasins_similars_submitted WHERE checked = 0)";
         $sql = $model->query($query);
         $products = $sql->fetchAll();
 

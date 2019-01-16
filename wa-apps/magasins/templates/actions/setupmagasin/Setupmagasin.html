@@ -125,8 +125,8 @@
                 var values = JSON.parse(data);
 
 
-                // console.log(values.original);
-                // return false;
+                //console.log(values);
+                 // return false;
 
                 var main_div = $('#similarsModal').find('#similarsform');
                 main_div.val();
@@ -140,26 +140,42 @@
 
                     var div_glob = $("<div class='div_glob'>");
 
-                    jQuery.each(val, function(j, val_inside) {
+                    //jQuery.each(val, function(j, val_inside) {
 
                         var is_checked = '';
+                        /*
                         if(val_inside.similars_checked_id) {
                             is_checked = 'checked="checked"';
                         }
                         else {
                             is_checked = '';
                         }
+                        */
 
-                        if (j == 0) {
-                            var div_first = $("<div class='toggle-first float-left'>").html('#' + val_inside.id + ' ' + val_inside.name + ' (' + val_inside.provider_name + ')' + ' sku: ' + val_inside.sku);
+                        //if (j == 0) {
+                            var div_first = $("<div class='toggle-first float-left'>").html('#' + val.id2 + ' ' + val.name2 + ' (' + val.provider_name2 + ')' + ' sku: ' + val.sku2);
                             div_glob.append(div_first);
 
-                            var checkbox = $('<div class="form-check float-left"><input class="form-check-input position-static checkbox_similar" name="similar_product_checkbox[]" type="checkbox" product_id="' + val_inside.id + '" value="' + val_inside.id + '"  '+is_checked+'></div><div class="clear-both"></div>');
-                            var hidden_div = $('<input type="hidden" name="similar_product_hidden[]" value="' + val_inside.id + '">');
-                            div_glob.append(checkbox);
-                            div_glob.append(hidden_div);
-                        }
-                        else {
+                            var div_others = $("<div class='others'>");
+                            var div_similars = $("<div class='float-left'>").html('#' + val.id1 + ' ' + val.name1 + ' (' + val.provider_name1 + ') совп:' + val.percents + '% sku: ' + val.sku1);
+                            div_others.append(div_similars);
+                            div_glob.append(div_others);
+
+                            if (typeof val.similars !== 'undefined') {
+                                jQuery.each(val.similars, function(j, val_inside) {
+                                    var div_others = $("<div class='others'>");
+                                    var div_similars = $("<div class='float-left'>").html('#' + val_inside.id1 + ' ' + val_inside.name1 + ' (' + val_inside.provider_name1 + ') совп:' + Math.round(val_inside.percents) + '% sku: ' + val_inside.sku1);
+                                    div_others.append(div_similars);
+                                    div_glob.append(div_others);
+                                });
+                            }
+
+                         //   var checkbox = $('<div class="form-check float-left"><input class="form-check-input position-static checkbox_similar" name="similar_product_checkbox[]" type="checkbox" product_id="' + val.id + '" value="' + val.id + '"  '+is_checked+'></div><div class="clear-both"></div>');
+                         //   var hidden_div = $('<input type="hidden" name="similar_product_hidden[]" value="' + val.id + '">');
+                         //   div_glob.append(checkbox);
+                         //   div_glob.append(hidden_div);
+                        //}
+                      /*  else {
                             var div_others = $("<div class='others'>");
                             var div_similars = $("<div class='float-left'>").html('#' + val_inside.id + ' ' + val_inside.name + ' (' + val_inside.provider_name + ') rel:' + val_inside.percents + ' sku: ' + val_inside.sku);
 
@@ -172,6 +188,8 @@
 
                             div_glob.append(div_others);
                         }
+                        */
+                            //div_glob.append(div_others);
 
                         //var div = $("<div>").html('#'+val.id1+' '+val.name1 + ' ('+val.provider_id_1_name+')' + ' sku: '+val.sku1);
 
@@ -196,7 +214,7 @@
                         //     var div = $("<div>").html('&nbsp;&nbsp;--'+sim.name + ' ('+sim.provider_name+')<br /><br />');
                         //     main_div.append(div);
                         // })
-                    });
+                    //});
 
                     main_div.append(div_glob);
 
@@ -668,6 +686,11 @@
                         <div class="form-group ">
                             <label for="rel" class="col-form-label">Коэффициент совпадения по названию:</label>
                             <input type="text" class="form-control col-1" id="rel" name="rel" value="{$settings.rel}" required>
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="rel" class="col-form-label">Ограничение по процентам:</label>
+                            <input type="text" class="form-control col-1" id="percent" name="percent" value="{$settings.percent}" required>
                         </div>
 
 

@@ -81,6 +81,7 @@
     color: green;
     font-size: 12px;
     font-style: italic;
+    clear: both;
 
 }
 
@@ -88,6 +89,7 @@
     cursor: pointer;
     color: #dc3545;
     z-index: 1;
+    clear: both;
 }
 
 .div_glob {
@@ -104,4 +106,10 @@
     font-size: 12px;
     font-style: italic;
     background-color: #78ed4a !important;
+}
+
+#similarsform .btn-primary {
+    clear: both;
+    display: block;
+
 }

@@ -7,6 +7,7 @@ class magasinsSetupmagasinSavesettingsController extends waController
         $model = new magasinsSettingsModel();
         $magasin_id = waRequest::request('magasin_id');
         $rel = waRequest::request('rel');
+        $percent = waRequest::request('percent');
         $byarticle = waRequest::request('byarticle');
         $byname = waRequest::request('byname');
 
@@ -42,7 +43,7 @@ class magasinsSetupmagasinSavesettingsController extends waController
         }
 
         $model->query("DELETE FROM magasins_magasin_settings WHERE magasin_id=".$magasin_id);
-        $model->query("INSERT INTO magasins_magasin_settings (magasin_id,rel,byarticle,byname,returnall,returnbyprice ) VALUES (".$magasin_id.", ".$rel.", ".$byarticle.",".$byname.",".$returnall.",".$returnbyprice.")");
+        $model->query("INSERT INTO magasins_magasin_settings (magasin_id,rel,percent,byarticle,byname,returnall,returnbyprice ) VALUES (".$magasin_id.", ".$rel.", ".$percent.",".$byarticle.",".$byname.",".$returnall.",".$returnbyprice.")");
         exit();
     }
 }
