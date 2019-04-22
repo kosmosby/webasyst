@@ -1,17 +1,32 @@
 <?php
 
 
-$input_line = file_get_contents('/Users/kosmos/Downloads/list7.htm');
+
+//$input_line = file_get_contents('/Users/kosmos/Downloads/list7.htm');
 //$input_line = file_get_contents('list4.htm');
-$input_line1 = file_get_contents('/Users/kosmos/Downloads/list8.htm');
+//$input_line1 = file_get_contents('/Users/kosmos/Downloads/list8.htm');
+
+$url = 'http://www.avvo.com/search/lawyer_search?count=100&loc=New+York&q=Immigration';
+$file = "/Users/kosmos/Downloads/list11.htm";
+$src = fopen($url, 'r');
+$dest = fopen($file, 'w');
+echo stream_copy_to_stream($src, $dest) . " bytes copied.\n";
+
+$input_line = file_get_contents('/Users/kosmos/Downloads/list11.htm');
+
+
+
+
+
 
 //preg_match_all("/href=\".*[0-9]\">(.*)<\/a><\/td>\s*<td class=\"website\">(.*)<\/td>/", $input_line, $output_array);
 //preg_match_all("/.*website\"><a href=\"(.*\/)\".*/", $input_line, $output_array);
-preg_match_all("/text=\"first_name\">(.*)<\/s.*ast_name\">(.*)<\/s.*title\">(.*)<\/d.*ion_name\">(.*)<\/d/Usm",$input_line,$output_array);
-
-preg_match_all("/text=\"first_name\">(.*)<\/s.*ast_name\">(.*)<\/s.*title\">(.*)<\/d.*ion_name\">(.*)<\/d/Usm",$input_line1,$output_array1);
-
+//preg_match_all("/text=\"first_name\">(.*)<\/s.*ast_name\">(.*)<\/s.*title\">(.*)<\/d.*ion_name\">(.*)<\/d/Usm",$input_line,$output_array);
+//preg_match_all("/text=\"first_name\">(.*)<\/s.*ast_name\">(.*)<\/s.*title\">(.*)<\/d.*ion_name\">(.*)<\/d/Usm",$input_line1,$output_array1);
 //preg_match_all("/object_link\"\s*href=\"(.*)\"\>/",$input_line,$output_array);
+
+preg_match_all("/phone-copy\"\>(.*)<\/d/Usm",$input_line,$output_array);
+
 
 $array = array();
 for($i=0;$i<count($output_array[1]);$i++) {
